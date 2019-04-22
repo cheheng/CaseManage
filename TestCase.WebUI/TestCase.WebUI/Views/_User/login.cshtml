@@ -1,0 +1,64 @@
+﻿<head>
+    <style>
+        #cover {
+            position:fixed;
+            z-index:9999;
+            top:0;
+            left:0;
+            display:none;
+            width:100%;
+            height:100%;
+            opacity:0.5;
+            background:#000 none repeat scroll 0% 0%;
+        }
+    </style>
+</head>
+<div style="display: none;" id="cover"></div>
+@*<div id="ForgetPswPop" class="ForgetPswPop">
+    <div class="row">
+        <div class="form-control">
+            <label>
+                原密码
+                <input class="form-control" />
+            </label>
+        </div>
+    </div>
+</div>*@
+<div class="container-fluid">
+    <div class="row">
+        <div class="clearfix"></div>
+        <div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 ">
+            <div class="clearfix"></div>
+            <div class="box">
+                    <div class="box-content">
+                        <div class="text-center">
+                            <h3 class="page-header">登录</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">id</label>
+                            <input type="text" class="form-control" name="username" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">密码</label>
+                            <input type="password" class="form-control" name="password" />
+                        </div>
+                        <div class="text-center">
+                            <a href="" class="btn btn-primary">登录</a>
+                        </div>
+                        <div>
+                            <a class=" fr" href="@Url.Action("Register","_User")">立即注册</a>
+                            <span class="link-border fr">|</span>
+                            <a class="fr" href="#">忘记密码</a>
+                        </div>
+                    </div>
+            </div>
+         </div>
+   </div>
+</div>
+<script type="text/javascript">
+    
+    //function shhow() {
+    //    $(".ForgetPswPop").show();
+    //    $("#cover").attr("display","");
+    //}
+</script>

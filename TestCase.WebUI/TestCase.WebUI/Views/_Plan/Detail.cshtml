@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "";
+}
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">计划</a></li>
+            <li><a href="#">详情</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box ui-draggable ">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-linux"></i>
+                    <span>计划详情</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content">
+                <form class="col-xs-10 ">
+                    <label class="control-label">标题</label>
+                    <input type="text" class="form-control" name="title" />
+                    <label class="control-label">所属项目</label>
+                    <input type="text" class="form-control" name="" />
+                    <label class="control-label">计划内容</label>
+                    <textarea class="form-control" style="height:300px;"></textarea>
+                </form>
+                <div class="clearfix"></div>
+                <form class="col-xs-2 text-left">
+                    <label class="control-label">预期用时</label>
+                    <input type="text" class="form-control" name="" />
+                    <label class="control-label">实际用时</label>
+                    <input type="text" class="form-control" name="" />
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3">
+            <br />
+            <div class="btn-group-justified">
+                <a href="#" class="btn btn-default "><span><i class="fa fa-floppy-o"></i></span> 取消</a>
+                <a href="#" class="btn  btn-default"><span><i class="fa fa-credit-card"></i></span> 提交</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+﻿<div class="container-fluid">
+    <div class="clearfix"></div>
+    <div class="row">
+        <div>
+            <div class="box">
+                <div class="box-content">
+                    <div class="text-center">
+                        <h3 class="page-header">注册</h3>
+                    </div>
+                    <div>
+                        <form id="defaultForm" method="post" action="validators.html" class="form-horizontal">
+                            <fieldset>
+                                <legend>基本信息</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Username</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="username" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Country</label>
+                                    <div class="col-sm-5">
+                                        <select class="populate placeholder" name="country" id="s2_country">
+                                            <option value="">-- Select a country --</option>
+                                            <option value="fr">France</option>
+                                            <option value="de">Germany</option>
+                                            <option value="it">Italy</option>
+                                            <option value="jp">Japan</option>
+                                            <option value="ru">Russia</option>
+                                            <option value="gb">United Kingdom</option>
+                                            <option value="us">United State</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="acceptTerms" />
+                                                <i class="fa fa-square-o small"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>联系方式</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Email address</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="email" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Website</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="website" placeholder="http://" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Phone number</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="phoneNumber" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Hex color</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="color" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">US zip code</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="zipCode" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>修改密码</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Password</label>
+                                    <div class="col-sm-5">
+                                        <input type="password" class="form-control" name="password" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Retype password</label>
+                                    <div class="col-sm-5">
+                                        <input type="password" class="form-control" name="confirmPassword" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>其他信息</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Ages</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="ages" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-9 col-sm-offset-3">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

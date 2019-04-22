@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Title"] = "";
+}
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">用例</a></li>
+            <li><a href="#">详情</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box ui-draggable ">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-linux"></i>
+                    <span>用例详情</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content">
+                <form class="col-xs-10 ">
+                    <label class="control-label">标题</label>
+                    <input type="text" class="form-control" name="title" />
+                    <label class="control-label">前置条件</label>
+                    <textarea class="form-control" style="height:180px;"></textarea>
+                </form>
+                <form class="col-xs-2 text-left">
+                    <label class="control-label">所属项目</label
+
+                    <input type="text" class="form-control" name="" />
+                    <label class="control-label">所属计划</label>
+                    <input type="text" class="form-control" name="" />
+                    <label class="control-label">所属集合</label>
+                    <input type="text" class="form-control" name="" />
+                    <label class="control-label">指派给</label>
+                    <input type="text" class="form-control" name="" />
+                    <label class="control-label">优先级</label>
+                    <input type="text" class="form-control" name="" />
+                </form>
+                <div class="clearfix"></div>
+                <div class="col-xs-12">
+                    <br />
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-sm">步骤</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> 
+                                    <input class="col-sm-10" />
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    
+                                    <input class="col-sm-10" />
+                                <td>
+                                    <i class="fa  fa-plus"></i>
+                                    <i class="fa   fa-minus-circle "></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <small></small>
+                </div>
+                <div class="clearfix"></div>
+                <div>
+                    <br />
+                    <label class="control-label">预期结果</label>
+                    <textarea class="form-control" style="height:100px;"></textarea>
+                    <label class="control-label">实际结果</label>
+                    <textarea class="form-control" style="height:100px;"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3">
+            <br />
+            <div class="btn-group-justified">
+                <a href="#" class="btn btn-default "><span><i class="fa fa-floppy-o"></i></span> 取消</a>
+                <a href="#" class="btn  btn-default"><span><i class="fa fa-credit-card"></i></span> 提交</a>
+            </div>
+        </div>
+    </div>
+</div>
