@@ -1,1 +1,154 @@
-﻿
+﻿@using TestCase.Infrastructure.Data;
+@{
+    var plans = ViewData["plans"] as List<Plan>;
+}
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">计划</a></li>
+        </ol>
+    </div>
+</div>
+<div class="box">
+    <div class="box-header">
+        <div class="box-name">
+            <i class="fa  fa-building-o"></i>
+            <span>计划列表</span>
+        </div>
+        <div class="box-icons">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="expand-link">
+                <i class="fa fa-expand"></i>
+            </a>
+        </div>
+        <div class="no-move"></div>
+    </div>
+    <div class="box-content no-padding table-responsive">
+        <div>
+            <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-case">
+                <thead>
+                    <!---->
+                    <tr role="row">
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="datatable-case"
+                            rowspan="1" colspan="1" aria-label=": activate to sort column ascending">
+                            <label>
+                                <input type="text" name="search_Id" placeholder="编号" class="search_init" />
+                            </label>
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="datatable-case"
+                            rowspan="1" colspan="1" aria-label=": activate to sort column ascending">
+                            <label>
+                                <input type="text" name="search_Id" placeholder="标题" class="search_init" />
+                            </label>
+                        </th>
+                        @*<th class="sorting" role="columnheader" tabindex="0" aria-controls="datatable-case"
+                            rowspan="1" colspan="1" aria-label=": activate to sort column ascending">
+                            <label>
+                                <input type="text" name="search_Project" placeholder="创建者" class="search_init" />
+                            </label>
+                        </th>*@
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="datatable-case"
+                            rowspan="1" colspan="1" aria-label=": activate to sort column ascending">
+                            <label>
+                                <input type="text" name="search_creator" placeholder="分配给" class="search_init" />
+                            </label>
+                        </th>
+                        <th> </th>
+                        <th>
+                            <a onclick="ab()">
+                                <i class="fa fa-plus-square-o"> 新建</i>
+                            </a>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>计划编号</th>
+                        <th>标题</th>
+                        @*<th>创建者</th>*@
+                        <th>所属项目</th>
+                        <th>操作</th>
+                        <th>
+                            <label>
+                                <input type="checkbox" name="acceptTerms" />全选
+                            </label>
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <div class="btn-group">
+                                <a class="btn btn-default" href="#"><i class="fa fa-th-large fa-fw"></i> 批量</a>
+                                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <span class="fa fa-caret-down"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><i class="fa fa-trash-o fa-fw"></i> 删除</a></li>
+                                    <li><a href="#"><i class="fa fa-ban fa-fw"></i> 禁用</a></li>
+                                    @*<li class="divider"></li>*@
+                                    <li><a href="#"><i class="fa  fa-youtube-play"></i> 执行</a></li>
+                                </ul>
+                            </div>
+
+                        </th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @for (int i = 0; i < plans.Count; i++)
+                    {
+                        <tr>
+                            <th>@plans[i].Pid</th>
+                            <th>@plans[i].Pname</th>
+                            <th>@plans[i].Proid </th>
+                            <th>
+                                <label>
+                                    <input type="checkbox" />
+                                </label>
+                            </th>
+                            <th>
+                                <button>
+                                    <i class="fa fa-plus-square-o"></i>
+                                </button>
+                                <button>
+                                    <i class="fa   fa-times-circle-o">删除</i>
+                                </button>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix"></div>
+        <div class="box-content">
+            <div class="col-sm-6">
+                <div class="dataTables_info" id="datatable-2_info"></div>
+            </div>
+            <div class="col-sm-6 text-center">
+                <div class="dataTables_paginate paging_bootstrap">
+                    <ul class="pagination"><li class="prev disabled"><a href="#">← 上一页</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li class="next"><a href="#">下一页 → </a></li></ul>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<script src="~/popWindow.js"></script>
+<script type="text/javascript">
+    $(".fa-times").click((e) => {
+        $.ajax(URLtag, {
+            data: {
+            },
+            type: 'get',
+            dataType: 'json',
+            success: function (data) { },
+            error: function () { }
+        })
+    })
+</script>

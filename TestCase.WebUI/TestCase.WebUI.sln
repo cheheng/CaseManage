@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCase.WebUI", "TestCase.WebUI\TestCase.WebUI.csproj", "{EC0E0071-949C-4261-BECF-4DDA9B7DFD08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCase.DomainModel", "TestCase.DomainModel\TestCase.DomainModel.csproj", "{0C8EF47D-CA37-48F7-9FE2-B40103416558}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCase.DomainModel", "TestCase.DomainModel\TestCase.DomainModel.csproj", "{0C8EF47D-CA37-48F7-9FE2-B40103416558}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCase.Infrastructure", "TestCase.Infrastructure\TestCase.Infrastructure.csproj", "{C6D45300-67A3-4271-9085-ED9DD709FA1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCase.Infrastructure", "TestCase.Infrastructure\TestCase.Infrastructure.csproj", "{C6D45300-67A3-4271-9085-ED9DD709FA1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

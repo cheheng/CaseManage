@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using TestCase.Infrastructure.Data;
+@{
+   var cases=ViewData["cases"] as List<Thecase>;
 }
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
@@ -59,7 +60,7 @@
                         <th> </th>
                     </tr>
                     <tr>
-                        <th>编号</th>
+                        <th>用例编号</th>
                         <th>标题</th>
                         <th>创建者</th>
                         <th>分配给</th>
@@ -79,7 +80,6 @@
                         <th></th>
                         <th></th>
                         <th>
-
                             <div class="btn-group">
                                 <a class="btn btn-default" href="#"><i class="fa fa-th-large fa-fw"></i> 批量</a>
                                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
@@ -98,17 +98,28 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr>
-                        @*<th></th>*@
-                        <th>
-                            <button>
-                                <i class="fa fa-plus-square-o"></i>
-                            </button>
-                            <button>
-                                <i class="fa   fa-times-circle-o">删除</i>
-                            </button>
-                        </th>
-                    </tr>
+                    @for (int i = 0; i < cases.Count; i++)
+                    {
+                        <tr>
+                            <th>@cases[i].Cid</th>
+                            <th>@cases[i].Ctitle</th>
+                            <th>  @cases[i].Name </th>
+                            <th>@cases[i].Toname</th>
+                            <th>
+                                <label>
+                                    <input type="checkbox" />
+                                </label>
+                            </th>
+                            <th>
+                                <button>
+                                    <i class="fa fa-plus-square-o"></i>
+                                </button>
+                                <button>
+                                    <i class="fa   fa-times-circle-o">删除</i>
+                                </button>
+                            </th>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

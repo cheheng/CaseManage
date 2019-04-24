@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TestCase.WebUI\TestCase.WebUI.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TestCase.Infrastructure\TestCase.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
