@@ -62,11 +62,14 @@ namespace TestCase.DomainModel.Service
             }
             return count;
         }
-
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="pid"></param>
+        /// <returns></returns>
         public int Del(int pid)
         {
             int count = 0;
-            
             using (var dbContext = new casemanaContext())
             {
                 var plan = new Plan() { Pid = pid };
@@ -81,6 +84,16 @@ namespace TestCase.DomainModel.Service
                 count = dbContext.SaveChanges();
             }
             return count;
+        }
+
+        public void Show(int pid) {
+            var plan = new Plan {Pid=pid };
+            using (var dbContext = new casemanaContext())
+            {
+               plan = dbContext.Plan.Find(pid);
+                //var s = context.Users.Where(u => u.Name == "Kim").Select(u => u)
+            }
+          
         }
         #endregion
 

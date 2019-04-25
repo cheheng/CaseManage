@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "";
+﻿@using TestCase.Infrastructure.Data;
+@{
+    var plan = ViewData["plan"] as Plan;
 }
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
@@ -30,11 +31,13 @@
             </div>
             <div class="box-content">
                 <form class="col-xs-10 ">
+                    <label class="control-label">编号</label>
+                    <input type="text" class="form-control" name="" disabled />@plan.Pid
                     <label class="control-label">标题</label>
-                    <input type="text" class="form-control" name="title" />
+                    <input type="text" class="form-control" name="title" />@plan.Pname
                     <label class="control-label">所属项目</label>
                     <input type="text" class="form-control" name="" />
-                    <label class="control-label">计划内容</label>
+                    <label class="control-label">计划内容</label>@plan.PStorage
                     <textarea class="form-control" style="height:300px;"></textarea>
                 </form>
                 <div class="clearfix"></div>

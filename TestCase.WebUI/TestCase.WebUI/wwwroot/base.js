@@ -18,3 +18,15 @@ function confDel(id)
         window.location.href = '/_Plan/Del?pid=' + id;
     }
 }
+
+function toshow(pid) {
+    $.ajax({
+        type: "post",
+        url: "/_Plan/Detail",
+        data: { "pid": pid, },
+        dataType: 'JSON',
+        success: function () {
+        }
+    });
+
+}

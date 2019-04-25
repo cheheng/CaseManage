@@ -20,8 +20,11 @@ namespace TestCase.WebUI.Controllers
             return View();
         }
 
-        public IActionResult Detail()
+        public IActionResult Detail(Plan plan)
         {
+            var planSerVice = new PlanService();
+            planSerVice.Show(plan.Pid);
+            ViewData["plan"] = plan;
             return View();
         }
 
@@ -38,6 +41,8 @@ namespace TestCase.WebUI.Controllers
             var count = planSerVice.Del(plan.Pid);
             return Redirect(Url.Action("Index", "_Plan"));
         }
+
+       
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
