@@ -10,56 +10,45 @@
         </ol>
     </div>
 </div>
-<div class="box">
-    <div class="box-header">
+<div class="page-feed">
+    <div class="page-header">
         <div class="box-name">
             <i class="fa  fa-building-o"></i>
             <span>计划列表</span>
         </div>
-        <div class="box-icons">
-            <a class="collapse-link">
-                <i class="fa fa-chevron-up"></i>
-            </a>
-            <a class="expand-link">
-                <i class="fa fa-expand"></i>
-            </a>
-        </div>
+   
         <div class="no-move"></div>
     </div>
-    <div class="box-content no-padding table-responsive">
+    <div class="page-feed-content no-padding table-responsive ">
         <div>
-            <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-case">
-                <thead>
+            <table class="table table-bordered  table-hover table-heading table-datatable" id="datatable-case">
+                <thead >
                     <!---->
                     <tr role="row">
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="datatable-case"
-                            rowspan="1" colspan="1" aria-label=": activate to sort column ascending">
-                            <label>
+                            aria-label=": activate to sort column ascending">
                                 <input type="text" name="search_Id" placeholder="编号" class="search_init" />
-                            </label>
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="datatable-case"
-                            rowspan="1" colspan="1" aria-label=": activate to sort column ascending">
-                            <label>
+                           aria-label=": activate to sort column ascending">
                                 <input type="text" name="search_Id" placeholder="标题" class="search_init" />
-                            </label>
                         </th>
                         @*<th class="sorting" role="columnheader" tabindex="0" aria-controls="datatable-case"
-                            rowspan="1" colspan="1" aria-label=": activate to sort column ascending">
-                            <label>
-                                <input type="text" name="search_Project" placeholder="创建者" class="search_init" />
-                            </label>
-                        </th>*@
+                                rowspan="1" colspan="1" aria-label=": activate to sort column ascending">
+                                <label>
+                                    <input type="text" name="search_Project" placeholder="创建者" class="search_init" />
+                                </label>
+                            </th>*@
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="datatable-case"
-                            rowspan="1" colspan="1" aria-label=": activate to sort column ascending">
-                            <label>
+                          aria-label=": activate to sort column ascending">
+                            
                                 <input type="text" name="search_creator" placeholder="分配给" class="search_init" />
-                            </label>
+                           
                         </th>
                         <th> </th>
                         <th>
-                            <a onclick="ab()">
-                                <i class="fa fa-plus-square-o"> 新建</i>
+                            <a class="btn-link" onclick="ab()" role="columnheader">
+                                <i class="fa fa-plus-square-o"></i> 新建
                             </a>
                         </th>
                     </tr>
@@ -71,7 +60,7 @@
                         <th>操作</th>
                         <th>
                             <label>
-                                <input type="checkbox" name="acceptTerms" />全选
+                                <input type="checkbox" name="acceptTerms" onclick="All(this)"/>全选
                             </label>
                         </th>
                     </tr>
@@ -89,10 +78,10 @@
                                     <span class="fa fa-caret-down"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#"><i class="fa fa-trash-o fa-fw"></i> 删除</a></li>
+                                    <li><a href="#" class=""><i class="fa fa-trash-o fa-fw"></i> 删除</a></li>
                                     <li><a href="#"><i class="fa fa-ban fa-fw"></i> 禁用</a></li>
                                     @*<li class="divider"></li>*@
-                                    <li><a href="#"><i class="fa  fa-youtube-play"></i> 执行</a></li>
+                                    <li><a href="#"><i class="fa fa-youtube-play"></i>&nbsp; 执行</a></li>
                                 </ul>
                             </div>
 
@@ -102,30 +91,32 @@
                 <tbody>
                     @for (int i = 0; i < plans.Count; i++)
                     {
-                        <tr>
-                            <th>@plans[i].Pid</th>
-                            <th>@plans[i].Pname</th>
-                            <th>@plans[i].Proid </th>
-                            <th>
-                                <label>
-                                    <input type="checkbox" />
-                                </label>
-                            </th>
-                            <th>
-                                <button>
-                                    <i class="fa fa-plus-square-o"></i>
-                                </button>
-                                <button>
-                                    <i class="fa   fa-times-circle-o">删除</i>
-                                </button>
-                            </th>
-                        </tr>
+                    <tr>
+                        <th>@plans[i].Pid</th>
+                        <th>@plans[i].Pname</th>
+                        <th>@plans[i].Proid </th>
+
+                        <th>
+                            &nbsp;
+                            <a class=" btn-dark btn-link">
+                                <i class="fa fa-barcode" style="color:#0094ff">详情</i>
+                            </a>&nbsp;
+                            <a class=" btn-dark btn-link del"  id="@plans[i].Pid"   for="pid" onclick="confDel(@plans[i].Pid)">
+                                <i class="fa   fa-times-circle-o" onclick="" style="color:rgba(255, 69, 0, 0.90)">删除</i>
+                            </a>
+                        </th>
+                        <th>
+                            <label>
+                                <input type="checkbox" name="checkbox-1"/>
+                            </label>
+                        </th>
+                    </tr>
                     }
                 </tbody>
             </table>
         </div>
         <div class="clearfix"></div>
-        <div class="box-content">
+        <div class="">
             <div class="col-sm-6">
                 <div class="dataTables_info" id="datatable-2_info"></div>
             </div>
@@ -138,17 +129,43 @@
         </div>
     </div>
 </div>
+<div >
+    <div class="mask" id="mask" style="width: 100%;height: 100%; position: fixed;top: 0; left: 0;display: none;background-color: rgba(0, 0, 0, 0.6);">
+        <div class="add" id="add" style=" width: 45%;  background-color: #fff;  margin: 150px auto;">
+            <div class="panel">
+                <div class="text-center" style="color:black;">
+                    <h4 > 添加</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form">
+                        <form class="form-horizontal" id="feedback_form" method="get" action="@Url.Action("AddPlan","_Plan")" novalidate="novalidate">
+                            <div class="form-group ">
+                                <label for="pname" class="control-label col-lg-2">计划名称 <span class="required">*</span></label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" id="pname" name="pname" minlength="5" type="text" required="">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="pstorage" class="control-label col-lg-2">计划内容 <span class="required">*</span></label>
+                                <div class="col-lg-10">
+                                    <input class="form-control " id="pstorage" name="pstorage" required="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    @*<button class="btn btn-default btn-link" id="cancel"><span><i class="fa fa-times-circle-o"></i></span> 取消</button>*@
+                                    <button  class="btn btn-success btn-link" style="color:dimgray;" type="submit"><span><i class="fa fa-check-circle"></i></span> 提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
 
 <script src="~/popWindow.js"></script>
-<script type="text/javascript">
-    $(".fa-times").click((e) => {
-        $.ajax(URLtag, {
-            data: {
-            },
-            type: 'get',
-            dataType: 'json',
-            success: function (data) { },
-            error: function () { }
-        })
-    })
-</script>
+<script src="~/base.js"></script>
+

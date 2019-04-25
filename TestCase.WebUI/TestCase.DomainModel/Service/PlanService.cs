@@ -6,9 +6,9 @@ using TestCase.Infrastructure.Data;
 
 namespace TestCase.DomainModel.Service
 {
-   public class PlanService
-    { 
-    
+    public class PlanService
+    {
+
         #region Action
         /// <summary>
         /// 获取用例列表
@@ -23,15 +23,65 @@ namespace TestCase.DomainModel.Service
             }
             return plans;
         }
+        /// <summary>
+        /// 添加计划
+        /// </summary>
+        /// <param name="pname"></param>
+        /// <param name="pstorage"></param>
+        /// <returns></returns>
+        public int Add(string pname, string pstorage)
+        {
+            int count = 0;
+            var plan = new Plan()
+            {
+                //Proid = proid,
+                Pname = pname,
+                PStorage = pstorage,
+            };
+            using (var dbContext = new casemanaContext())
+            {
+                dbContext.Plan.Add(plan);
+                count = dbContext.SaveChanges();
+            }
+            return count;
+        }
 
-        //public int AddCase()
-        //{
-        //    int count = 0;
-        //    var tcase=new Tcase()
-        //    {
+        public int Create(string pname, string pstorage)
+        {
+            int count = 0;
+            var plan = new Plan()
+            {
+                //Proid = proid,
+                Pname = pname,
+                PStorage = pstorage,
+            };
+            using (var dbContext = new casemanaContext())
+            {
+                dbContext.Plan.Add(plan);
+                count = dbContext.SaveChanges();
+            }
+            return count;
+        }
 
-        //    }
-        //}
+        public int Del(int pid)
+        {
+            int count = 0;
+            
+            using (var dbContext = new casemanaContext())
+            {
+                var plan = new Plan() { Pid = pid };
+                dbContext.Plan.Attach(plan);
+                dbContext.Plan.Remove(plan);
+                //将要删除的对象附加到EF容器中
+                //context.Users.Attach(user);
+                ////Remove()起到了标记当前对象为删除状态，可以删除
+                //context.Users.Remove(user);
+                //context.SaveChanges();
+                //Console.WriteLine("删除成功");
+                count = dbContext.SaveChanges();
+            }
+            return count;
+        }
         #endregion
 
 
