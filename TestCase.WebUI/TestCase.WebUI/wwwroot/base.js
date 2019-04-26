@@ -12,8 +12,7 @@ function All(ch) {
 
 function confDel(id)
 {
-    var mymessage = confirm("确认删除？");
-    if (mymessage == true) {
+    if (confirm("确认删除？")) {
         window.location.href = '/_Plan/Del?pid=' + id;
     }
 }
