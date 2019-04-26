@@ -15,19 +15,30 @@ namespace TestCase.WebUI.Controllers
         public IActionResult Index(String pname,String pstorage)
         {
             var planService = new PlanService();
-            var plans = planService.GetAll();
+            List<Plan> plans = null;
+            if (pname == null)
+            {
+                plans = planService.GetAll();
+            }
+            else {
+                plans = planService.GetThePlans(pname);
+            }
             ViewData["plans"] = plans;
             return View();
         }
 
-        public IActionResult Detail(Plan plan)
+        public IActionResult Detail(int pid)
         {
             var planSerVice = new PlanService();
-            planSerVice.Show(plan.Pid);
+            var plan = planSerVice.Show(pid);
             ViewData["plan"] = plan;
             return View();
         }
 
+        public IActionResult ToShow(int pid)
+        {
+            return Redirect(Url.Action("Detail","_Plan")+ $"?id={pid}");
+        }
         public IActionResult AddPlan(Plan plan)
         {
             var planSerVice = new PlanService();

@@ -12,21 +12,22 @@ function All(ch) {
 
 function confDel(id)
 {
-    var a = document.getElementsByClassName(".del");
     var mymessage = confirm("确认删除？");
     if (mymessage == true) {
         window.location.href = '/_Plan/Del?pid=' + id;
     }
 }
-
-function toshow(pid) {
-    $.ajax({
-        type: "post",
-        url: "/_Plan/Detail",
-        data: { "pid": pid, },
-        dataType: 'JSON',
-        success: function () {
-        }
-    });
-
+function toUpdate() {
+    var mymessage = confirm("确认修改？");
+    if (mymessage == true) {
+        var form = document.getElementsByTagName("form");
+        form.submit();
+    }
 }
+
+function enterSearch() {
+    var keycode = document.all ? event.keyCode : e.which;
+    if (keycode == 13) {
+        var form = document.getElementById("search");
+        form.submit();
+    };}

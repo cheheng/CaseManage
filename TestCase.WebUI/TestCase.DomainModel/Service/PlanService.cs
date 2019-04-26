@@ -85,15 +85,30 @@ namespace TestCase.DomainModel.Service
             }
             return count;
         }
-
-        public void Show(int pid) {
-            var plan = new Plan {Pid=pid };
+        /// <summary>
+        /// 展示详情
+        /// </summary>
+        /// <param name="pid"></param>
+        /// <returns></returns>
+        public List<Plan> Show(int pid)
+        {
+            List<Plan> plan = null;
             using (var dbContext = new casemanaContext())
             {
-               plan = dbContext.Plan.Find(pid);
+                plan = dbContext.Plan.Where(x => x.Pid == pid).ToList();
                 //var s = context.Users.Where(u => u.Name == "Kim").Select(u => u)
             }
-          
+            return plan;
+        }
+
+        public List<Plan> GetThePlans(String pname)
+        {
+            List<Plan> plans = null;
+            using (var daContext = new casemanaContext())
+            {
+                plans = daContext.Plan.Where(x => x.Pname == pname).ToList();
+            }
+            return plans;
         }
         #endregion
 
