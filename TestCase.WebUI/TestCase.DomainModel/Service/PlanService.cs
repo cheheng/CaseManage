@@ -90,17 +90,21 @@ namespace TestCase.DomainModel.Service
         /// </summary>
         /// <param name="pid"></param>
         /// <returns></returns>
-        public List<Plan> Show(int pid)
+        public Plan Show(int pid)
         {
-            List<Plan> plan = null;
+            Plan plan = null;
             using (var dbContext = new casemanaContext())
             {
-                plan = dbContext.Plan.Where(x => x.Pid == pid).ToList();
+                plan = dbContext.Plan.FirstOrDefault(x => x.Pid == pid);
                 //var s = context.Users.Where(u => u.Name == "Kim").Select(u => u)
             }
             return plan;
         }
-
+        /// <summary>
+        /// 按标题查询
+        /// </summary>
+        /// <param name="pname"></param>
+        /// <returns></returns>
         public List<Plan> GetThePlans(String pname)
         {
             List<Plan> plans = null;
@@ -109,6 +113,22 @@ namespace TestCase.DomainModel.Service
                 plans = daContext.Plan.Where(x => x.Pname == pname).ToList();
             }
             return plans;
+        }
+
+        public int Update(Plan plan)
+        {
+            int count = 0;
+            using (var dbContext = new casemanaContext())
+            {
+              var x= dbContext.Plan.FirstOrDefault(u => u.Pid == plan.Pid);
+              x.Pname = plan.Pname;
+              x.Proid = plan.Proid;
+              x.PStorage = plan.PStorage;
+              dbContext.Plan.Update(x);
+              count= dbContext.SaveChanges();
+            }
+            if (count > 0) { return plan.Pid; }
+            else return count;
         }
         #endregion
 

@@ -31,13 +31,14 @@ namespace TestCase.WebUI.Controllers
         {
             var planSerVice = new PlanService();
             var plan = planSerVice.Show(pid);
-            ViewData["plan"] = plan;
-            return View();
+            return View(plan);
         }
 
-        public IActionResult ToShow(int pid)
+        public IActionResult Update(Plan plan)
         {
-            return Redirect(Url.Action("Detail","_Plan")+ $"?id={pid}");
+            var planSerVice = new PlanService();
+            var id = planSerVice.Update(plan);
+            return Redirect(Url.Action("Detail","_Plan")+ $"?pid={id}");
         }
         public IActionResult AddPlan(Plan plan)
         {

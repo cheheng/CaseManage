@@ -20,7 +20,7 @@ function confDel(id)
 function toUpdate() {
     var mymessage = confirm("确认修改？");
     if (mymessage == true) {
-        var form = document.getElementsByTagName("form");
+        var form = document.getElementById("update");
         form.submit();
     }
 }

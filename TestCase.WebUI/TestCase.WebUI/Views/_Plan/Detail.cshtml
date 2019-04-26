@@ -1,6 +1,7 @@
-﻿@using TestCase.Infrastructure.Data;
+﻿@using TestCase.Infrastructure.Data
+@model Plan
 @{
-    var plan = ViewData["plan"] as List<Plan>;
+    var plan = Model;
 }
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
@@ -31,15 +32,16 @@
                 <div class="no-move"></div>
             </div>
             <div class="box-content">
-                <form class="col-xs-10 " action="@Url.Action("Update","_Plan")">
+                <form class="col-xs-10 " action="@Url.Action("Update","_Plan")" method="post" id="update">
                     <label class="control-label">编号</label>
-                    <input type="text" class="form-control" value="@plan[0].Pid" name="pid" disabled />
-                    <label class="control-label"name="">标题</label>
-                    <input type="text" class="form-control" name="pname" value="@plan[0].Pname" />
+                    <input type="hidden" class="form-control" value="@plan.Pid" name="pid" />
+                    <input type="text" class="form-control" value="@plan.Pid" disabled />
+                    <label class="control-label" name="">标题</label>
+                    <input type="text" class="form-control" name="pname" value="@plan.Pname" />
                     <label class="control-label">所属项目</label>
                     <input type="text" class="form-control" name="" />
-                    <label class="control-label" >计划内容</label>
-                    <textarea class="form-control"name="pstorage" style="height:300px;">@plan[0].PStorage</textarea>
+                    <label class="control-label">计划内容</label>
+                    <textarea class="form-control" name="pstorage" style="height:300px;">@plan.PStorage</textarea>
                 </form>
                 <form class="col-xs-2 text-left">
                     <label class="control-label">预期用时</label>
@@ -51,8 +53,6 @@
                 <div class="col-sm-6 col-sm-offset-3">
                     <br />
                     <div class="btn-group-justified">
-                        @*<a href="#" class="btn btn-default"><span><i class="fa fa-floppy-o"></i></span> 取消</a>
-        <a href="#" class="btn  btn-success"><span><i class="fa fa-credit-card"></i></span> 提交</a>*@
                         <a class="btn btn-default btn-link" id="cancel"><span><i class="fa fa-times-circle-o"></i></span> 取消</a>
                         <a class="btn btn-success btn-link" style="color:dimgray;" onclick="toUpdate()"><span><i class="fa fa-check-circle"></i></span> 提交</a>
                     </div>
@@ -61,3 +61,4 @@
         </div>
     </div>
 </div>
+<script src="~/base.js"></script>
