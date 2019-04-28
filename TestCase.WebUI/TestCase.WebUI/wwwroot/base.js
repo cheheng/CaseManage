@@ -16,9 +16,9 @@ function confDel(id)
         window.location.href = '/_Plan/Del?pid=' + id;
     }
 }
+
 function toUpdate() {
-    var mymessage = confirm("确认修改？");
-    if (mymessage == true) {
+    if (confirm("确认修改？")) {
         var form = document.getElementById("update");
         form.submit();
     }

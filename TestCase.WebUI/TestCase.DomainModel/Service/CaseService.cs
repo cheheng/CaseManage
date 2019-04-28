@@ -6,9 +6,9 @@ using TestCase.Infrastructure.Data;
 
 namespace TestCase.DomainModel.Service
 {
-   public class CaseService
-    { 
-    
+    public class CaseService
+    {
+
         #region Action
         /// <summary>
         /// 获取用例列表

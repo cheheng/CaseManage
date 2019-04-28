@@ -68,17 +68,20 @@
                     {
                         <tr>
                             <th>@plans[i].Pid</th>
-                            <th>@plans[i].Pname</th>
+                            <th>
+                                <a class="btn-link" href="/_Plan/Detail?pid=@plans[i].Pid">
+                                    @plans[i].Pname
+                                 </a>
+                            </th>
                             <th>@plans[i].Proid </th>
 
                             <th>
-                                &nbsp;
-                                <a class=" btn-dark btn-link" id="@plans[i].Pid" href="/_Plan/Detail?pid=@plans[i].Pid">
-                                    <i class="fa fa-barcode" style="color:#0094ff">详情</i>
+                                <a class=" btn-dark btn-link" id="@plans[i].Pid" >
+                                    <i class="fa fa-barcode" style="color:#0094ff">查看用例</i>
                                 </a>&nbsp;
-                                <span class=" btn-dark btn-link del" id="@plans[i].Pid" name="pid" onclick="confDel(@plans[i].Pid)">
+                                <a class=" btn-dark btn-link del" id="@plans[i].Pid" name="pid" onclick="confDel(@plans[i].Pid)">
                                     <i class="fa   fa-times-circle-o  " onclick="" style="color:rgba(255, 69, 0, 0.90)">删除</i>
-                                </span>
+                                </a>
                             </th>
                             <th>
                                 <label>

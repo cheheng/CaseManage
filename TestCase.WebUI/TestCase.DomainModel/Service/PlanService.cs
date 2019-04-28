@@ -8,7 +8,6 @@ namespace TestCase.DomainModel.Service
 {
     public class PlanService
     {
-
         #region Action
         /// <summary>
         /// 获取用例列表
@@ -108,9 +107,9 @@ namespace TestCase.DomainModel.Service
         public List<Plan> GetThePlans(String pname)
         {
             List<Plan> plans = null;
-            using (var daContext = new casemanaContext())
+            using (var dbContext = new casemanaContext())
             {
-                plans = daContext.Plan.Where(x => x.Pname == pname).ToList();
+                plans = dbContext.Plan.Where(x => x.Pname == pname).ToList();
             }
             return plans;
         }

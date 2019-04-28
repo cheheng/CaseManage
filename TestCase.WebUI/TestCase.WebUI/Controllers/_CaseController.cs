@@ -10,7 +10,7 @@ using TestCase.DomainModel.Service;
 
 namespace TestCase.WebUI.Controllers
 {
-    public class _CaseController : Controller
+    public class _CaseDetailController : Controller
     {
         /// <summary>
         /// 加载用户列表和页面布局
