@@ -8,7 +8,6 @@ namespace TestCase.DomainModel.Service
 {
     public class CaseService
     {
-
         #region Action
         /// <summary>
         /// 获取用例列表
@@ -16,22 +15,75 @@ namespace TestCase.DomainModel.Service
         /// <returns></returns>
         public List<Thecase> GetAll()
         {
-            List<Thecase> cases = null;
-            using (var dbContet = new casemanaContext())
+            List<Thecase> thecases = null;
+            using (var dbContext = new casemanaContext())
             {
-                cases = dbContet.Thecase.ToList();
+                thecases = dbContext.Thecase.ToList();
             }
-            return cases;
+            return thecases;
         }
 
-        //public int AddCase()
-        //{
-        //    int count = 0;
-        //    var tcase=new Tcase()
-        //    {
+        public List<Thecase> Query(Thecase thecase)
+        {
+            List<Thecase> thecases = null;
+            using (var dbContext = new casemanaContext())
+            {
+                thecases = dbContext.Thecase.Where(x => x.Cid == thecase.Cid).ToList();
+            }
+            return thecases;
+        }
 
-        //    }
-        //}
+        public Thecase ShowDetail(Thecase thecase)
+        {
+            using (var dbContext = new casemanaContext())
+            {
+                thecase = dbContext.Thecase.FirstOrDefault(x => x.Cid == thecase.Cid);
+            }
+            return thecase;
+        }
+
+        public int Create(Thecase thecase)
+        {
+            int count = 0;
+            var newthecase = new Thecase()
+            {
+                //Proid = thecase.Proid,
+                Ctitle=thecase.Ctitle,
+                Name=thecase.Name,
+                State=thecase.State,
+                Toname=thecase.Toname,
+                Uid=thecase.Uid
+            };
+            using (var dbContext = new casemanaContext())
+            {
+                dbContext.Thecase.Add(newthecase);
+                count = dbContext.SaveChanges();
+            }
+            return count;
+        }
+
+        public int Del(int cid)
+        {
+            int count = 0;
+            using (var dbContext = new casemanaContext())
+            {
+                var thecase = new Thecase() { Cid = cid };
+                dbContext.Thecase.Attach(thecase);
+                dbContext.Thecase.Remove(thecase);
+                //将要删除的对象附加到EF容器中
+                //context.Users.Attach(user);
+                ////Remove()起到了标记当前对象为删除状态，可以删除
+                //context.Users.Remove(user);
+                //context.SaveChanges();
+                //Console.WriteLine("删除成功");
+                count = dbContext.SaveChanges();
+            }
+            return count;
+        }
+
+        //更新
+
+      
         #endregion
 
 

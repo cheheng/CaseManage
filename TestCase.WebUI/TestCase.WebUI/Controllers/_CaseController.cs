@@ -6,29 +6,44 @@ using Microsoft.AspNetCore.Mvc;
 using TestCase.Infrastructure.Data;
 using TestCase.DomainModel.Service;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace TestCase.WebUI.Controllers
 {
-    public class _CaseDetailController : Controller
+    public class _CaseController : Controller
     {
         /// <summary>
         /// 加载用户列表和页面布局
         /// </summary>
         /// <returns></returns>
         // GET: /<controller>/
+        CaseService caseService = new CaseService();
         public IActionResult Index()
         {
-            var caseService = new CaseService();
             var cases = caseService.GetAll();
             ViewData["cases"] = cases;
             return View();
         }
 
-        public IActionResult Detail()
+        public IActionResult Detail(Thecase thecase)
         {
-            return View();
+            thecase = caseService.ShowDetail(thecase);
+            return View(thecase);
         }
 
+        public IActionResult Create(Thecase thecase)
+        {
+            int count = 0;
+            count = caseService.Create(thecase);
+            //if(count>0)
+            return Redirect(Url.Action("Index", "_Thecase"));
+            //else 
+        }
+
+        public IActionResult Del(Thecase thecase)
+        {
+            var count = caseService.Del(thecase.Cid);
+            return Redirect(Url.Action("Index", "_Thecase"));
+        }
+
+        //更新
     }
 }

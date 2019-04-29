@@ -76,7 +76,7 @@ namespace TestCase.DomainModel.Service
                 dbContext.Plan.Remove(plan);
                 //将要删除的对象附加到EF容器中
                 //context.Users.Attach(user);
-                ////Remove()起到了标记当前对象为删除状态，可以删除
+                //Remove()起到了标记当前对象为删除状态，可以删除
                 //context.Users.Remove(user);
                 //context.SaveChanges();
                 //Console.WriteLine("删除成功");
@@ -130,7 +130,5 @@ namespace TestCase.DomainModel.Service
             else return count;
         }
         #endregion
-
-
     }
 }

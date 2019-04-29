@@ -36,7 +36,8 @@ namespace TestCase.DomainModel.Service
         public int Create(Project project) {
             int count = 0;
             var newproject = new Project() {
-                Proid = project.Proid, Proname = project.Proname,
+                //Proid = project.Proid,
+                Proname = project.Proname,
             };
             using (var dbContext=new casemanaContext()) {
                dbContext.Project.Add(newproject);

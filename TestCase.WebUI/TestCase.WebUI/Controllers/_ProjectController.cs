@@ -6,14 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using TestCase.DomainModel.Service;
 using TestCase.Infrastructure.Data;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TestCase.WebUI.Controllers
 {
     public class _ProjectController : Controller
     {
-        ProjectService projectService = new ProjectService();
         // GET: /<controller>/
+        ProjectService projectService = new ProjectService();
         public IActionResult Index(Project project)
         {
             List<Project> projects = null;
@@ -48,8 +47,9 @@ namespace TestCase.WebUI.Controllers
             var count = projectService.Del(project.Proid);
             return Redirect(Url.Action("Index", "_Project"));
         }
+
+        //更新
+
+
     }
-
-    //更新
-
 }

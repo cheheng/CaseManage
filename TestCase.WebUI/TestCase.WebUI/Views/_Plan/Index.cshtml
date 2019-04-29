@@ -1,7 +1,6 @@
 ﻿@using TestCase.Infrastructure.Data;
 @{
     var plans = ViewData["plans"] as List<Plan>;
-   
 }
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
@@ -74,9 +73,8 @@
                                  </a>
                             </th>
                             <th>@plans[i].Proid </th>
-
                             <th>
-                                <a class=" btn-dark btn-link" id="@plans[i].Pid" >
+                                <a class=" btn-dark btn-link" id="@plans[i].Pid" href="#">
                                     <i class="fa fa-barcode" style="color:#0094ff">查看用例</i>
                                 </a>&nbsp;
                                 <a class=" btn-dark btn-link del" id="@plans[i].Pid" name="pid" onclick="confDel(@plans[i].Pid)">

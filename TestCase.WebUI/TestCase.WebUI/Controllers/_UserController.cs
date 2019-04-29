@@ -3,30 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TestCase.DomainModel.Service;
+using TestCase.Infrastructure.Data;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TestCase.WebUI.Controllers
 {
     public class _UserController : Controller
     {
+        UserService userService = new UserService();
         // GET: /<controller>/
         public IActionResult Login()
         {
             return View();
         }
+        public IActionResult Index(Userdetail user)
+        {
 
-        public IActionResult Detail()
-        {
+            List<Userdetail> users = null;
+            if (user.Uname == null)
+            {
+                users = userService.GetAll();
+            }
+            else
+            {
+                users = userService.Query(user);
+            }
             return View();
         }
-        public IActionResult Register()
+        public IActionResult Detail(Userdetail user)
         {
-            return View();
+            user = userService.ShowDetail(user);
+            return View(user);
         }
+        
         public IActionResult ForgetPsw()
         {
             return View();
         }
+        //更新
     }
 }
