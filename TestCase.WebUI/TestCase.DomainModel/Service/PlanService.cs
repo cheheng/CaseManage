@@ -28,23 +28,6 @@ namespace TestCase.DomainModel.Service
         /// <param name="pname"></param>
         /// <param name="pstorage"></param>
         /// <returns></returns>
-        public int Add(string pname, string pstorage)
-        {
-            int count = 0;
-            var plan = new Plan()
-            {
-                //Proid = proid,
-                Pname = pname,
-                PStorage = pstorage,
-            };
-            using (var dbContext = new casemanaContext())
-            {
-                dbContext.Plan.Add(plan);
-                count = dbContext.SaveChanges();
-            }
-            return count;
-        }
-
         public int Create(string pname, string pstorage)
         {
             int count = 0;
@@ -104,7 +87,7 @@ namespace TestCase.DomainModel.Service
         /// </summary>
         /// <param name="pname"></param>
         /// <returns></returns>
-        public List<Plan> GetThePlans(String pname)
+        public List<Plan> GetPlans(String pname)
         {
             List<Plan> plans = null;
             using (var dbContext = new casemanaContext())

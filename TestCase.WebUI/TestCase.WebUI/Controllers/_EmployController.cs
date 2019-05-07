@@ -8,7 +8,7 @@ using TestCase.DomainModel.Service;
 
 namespace TestCase.WebUI.Controllers
 {
-    public class _CaseController : Controller
+    public class _EmployController : Controller
     {
         /// <summary>
         /// 加载用户列表和页面布局
@@ -16,17 +16,9 @@ namespace TestCase.WebUI.Controllers
         /// <returns></returns>
         // GET: /<controller>/
         CaseService caseService = new CaseService();
-        public IActionResult Index(Thecase caselist)
+        public IActionResult Index()
         {
-            List<Thecase> cases = null;
-            if (caselist != null)
-            {
-                cases = caseService.Query(caselist);
-            }
-            else
-            {
-                cases = caseService.GetAll();
-            }
+            var cases = caseService.GetAll();
             ViewData["cases"] = cases;
             return View();
         }

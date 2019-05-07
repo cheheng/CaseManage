@@ -28,7 +28,22 @@ namespace TestCase.DomainModel.Service
             List<Thecase> thecases = null;
             using (var dbContext = new casemanaContext())
             {
-                thecases = dbContext.Thecase.Where(x => x.Cid == thecase.Cid).ToList();
+                if (thecase.Proid != null)
+                {
+                    thecases = dbContext.Thecase.Where(x => x.Proid == thecase.Proid).ToList();
+                }
+                else if (thecase.Pid != null)
+                {
+                    thecases = dbContext.Thecase.Where(x => x.Pid == thecase.Pid).ToList();
+                }
+                else if (thecase.Unid != null)
+                {
+                    thecases = dbContext.Thecase.Where(x => x.Unid == thecase.Unid).ToList();
+                }
+                else if (thecase.Ctitle != null)
+                {
+                    thecases = dbContext.Thecase.Where(x => x.Ctitle == thecase.Ctitle).ToList();
+                }
             }
             return thecases;
         }

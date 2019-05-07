@@ -12,16 +12,16 @@ namespace TestCase.WebUI.Controllers
 {
     public class _PlanController : Controller
     {
-        public IActionResult Index(String pname,String pstorage)
+        public IActionResult Index(Plan plan)
         {
             var planService = new PlanService();
             List<Plan> plans = null;
-            if (pname == null)
+            if (plan.Pname == null)
             {
                 plans = planService.GetAll();
             }
             else {
-                plans = planService.GetThePlans(pname);
+                plans = planService.GetPlans(plan.Pname);
             }
             ViewData["plans"] = plans;
             return View();

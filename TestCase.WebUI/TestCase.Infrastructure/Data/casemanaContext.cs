@@ -99,7 +99,7 @@ namespace TestCase.Infrastructure.Data
                     .HasColumnName("proid")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.Pstate)
+                entity.Property(e => e.State)
                     .HasColumnName("pstate")
                     .HasColumnType("int(11)")
                     .HasDefaultValueSql("'0'");

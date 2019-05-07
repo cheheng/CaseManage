@@ -12,15 +12,7 @@ namespace TestCase.WebUI.Controllers
         CasedetailService detailService = new CasedetailService();
         public IActionResult Index(Casedetail casedetail)
         {
-            List<Casedetail> details = null;
-            if (casedetail.Cid == null)
-            {
-                details = detailService.GetAll();
-            }
-            else
-            {
-                details = detailService.Query(casedetail);
-            }
+            var   details = detailService.Query(casedetail);
             ViewData["details"] = details;
             return View();
         }

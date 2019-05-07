@@ -21,7 +21,7 @@ namespace TestCase.DomainModel.Service
             List<Project> projects = null;
             using (var dbContext = new casemanaContext())
             {
-                projects = dbContext.Project.Where(x => x.Proid == project.Proid).ToList();
+                projects = dbContext.Project.Where(x => x.Proname == project.Proname).ToList();
             }
             return projects;
         }

@@ -9,6 +9,6 @@ namespace TestCase.Infrastructure.Data
         public int? Proid { get; set; }
         public string Pname { get; set; }
         public string PStorage { get; set; }
-        public int? Pstate { get; set; }
+        public int? State { get; set; }
     }
 }
