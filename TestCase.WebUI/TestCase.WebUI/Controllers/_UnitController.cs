@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using TestCase.DomainModel.Service;
 using TestCase.Infrastructure.Data;
 
-// For more information on enabling MVC for empty units, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace TestCase.WebUI.Controllers
 {
     public class _UnitController : Controller
@@ -25,6 +23,7 @@ namespace TestCase.WebUI.Controllers
             {
                 units = unitService.Query(unit);
             }
+            ViewData["units"] = units;
             return View();
         }
 

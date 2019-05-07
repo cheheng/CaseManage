@@ -10,13 +10,6 @@ function All(ch) {
     }
 }
 
-function confDel(id)
-{
-    if (confirm("确认删除？")) {
-        window.location.href = '/_Plan/Del?pid=' + id;
-    }
-}
-
 function toUpdate() {
     if (confirm("确认修改？")) {
         var form = document.getElementById("update");

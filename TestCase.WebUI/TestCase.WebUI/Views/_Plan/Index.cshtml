@@ -119,21 +119,21 @@
         <div class="add" id="add" style=" width: 45%;  background-color: #fff;  margin: 150px auto;">
             <div class="panel">
                 <div class="text-center" style="color:black;">
-                    <h4 > 添加</h4>
+                    <h4 >添加</h4>
                 </div>
                 <div class="panel-body">
                     <div class="form">
                         <form class="form-horizontal" id="feedback_form" method="get" action="@Url.Action("AddPlan","_Plan")" novalidate="novalidate">
                             <div class="form-group ">
-                                <label for="pname" class="control-label col-lg-2">计划名称 <span class="required">*</span></label>
+                                <label  class="control-label col-lg-2">计划标题 <span class="required">*</span></label>
                                 <div class="col-lg-10">
-                                    <input class="form-control" id="pname" name="pname" minlength="5" type="text" required="">
+                                    <input class="form-control " name="pname" minlength="5" type="text" required="">
                                 </div>
                             </div>
                             <div class="form-group ">
-                                <label for="pstorage" class="control-label col-lg-2">计划内容 <span class="required">*</span></label>
+                                <label class="control-label col-lg-2">计划内容 <span class="required">*</span></label>
                                 <div class="col-lg-10">
-                                    <input class="form-control " id="pstorage" name="pstorage" required="">
+                                    <input class="form-control " name="pstorage" required="">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -156,4 +156,10 @@
 </div>
 <script src="~/popWindow.js"></script>
 <script src="~/base.js"></script>
-
+<script type="text/javascript">
+    function confDel(id) {
+        if (confirm("确认删除？")) {
+            window.location.href = '/_Plan/Del?pid=' + id;
+        }
+    }
+</script>

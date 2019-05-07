@@ -24,6 +24,7 @@ namespace TestCase.WebUI.Controllers
             {
                 relations = relatonService.Query(relation);
             }
+            ViewData["relations"] = relations;
             return View();
         }
 

@@ -7,10 +7,9 @@ namespace TestCase.Infrastructure.Data
     {
         public int Unid { get; set; }
         public string UnName { get; set; }
-        public int? Proid { get; set; }
-        public int? ProProid { get; set; }
         public int? Pid { get; set; }
         public int? Uid { get; set; }
         public string UnStorage { get; set; }
+        public int? State { get; set; }
     }
 }

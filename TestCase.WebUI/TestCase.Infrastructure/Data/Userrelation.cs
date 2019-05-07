@@ -7,7 +7,6 @@ namespace TestCase.Infrastructure.Data
     {
         public int Urid { get; set; }
         public int? Pid { get; set; }
-        public int? Unid { get; set; }
         public int? Proid { get; set; }
         public int? Uid { get; set; }
         public int? Eid { get; set; }

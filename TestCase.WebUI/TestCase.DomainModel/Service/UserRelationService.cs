@@ -44,7 +44,6 @@ namespace TestCase.DomainModel.Service
                 Eid = relation.Eid,
                 Pid = relation.Pid,
                 Proid = relation.Proid,
-                Unid = relation.Unid,
                 Uid = relation.Uid,
             };
             using (var dbContext = new casemanaContext())

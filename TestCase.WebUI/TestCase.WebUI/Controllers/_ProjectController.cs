@@ -24,6 +24,7 @@ namespace TestCase.WebUI.Controllers
             {
                 projects = projectService.Query(project);
             }
+            ViewData["projects"] = projects;
             return View();
         }
 

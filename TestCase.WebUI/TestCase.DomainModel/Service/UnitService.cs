@@ -45,7 +45,6 @@ namespace TestCase.DomainModel.Service
                 UnName = unit.UnName,
                 Uid = unit.Uid,
                 Pid = unit.Pid,
-                Proid = unit.Proid,
                 UnStorage = unit.UnStorage,
             };
             using (var dbContext = new casemanaContext())
@@ -56,12 +55,12 @@ namespace TestCase.DomainModel.Service
             return count;
         }
 
-        public int Del(int proid)
+        public int Del(int unid)
         {
             int count = 0;
             using (var dbContext = new casemanaContext())
             {
-                var Unit = new Unit() { Unid = proid };
+                var Unit = new Unit() { Unid = unid };
                 dbContext.Unit.Attach(Unit);
                 dbContext.Unit.Remove(Unit);
                 //将要删除的对象附加到EF容器中

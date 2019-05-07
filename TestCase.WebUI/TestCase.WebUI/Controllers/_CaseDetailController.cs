@@ -21,6 +21,7 @@ namespace TestCase.WebUI.Controllers
             {
                 details = detailService.Query(casedetail);
             }
+            ViewData["details"] = details;
             return View();
         }
 
