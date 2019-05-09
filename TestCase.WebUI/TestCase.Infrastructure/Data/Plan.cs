@@ -10,5 +10,7 @@ namespace TestCase.Infrastructure.Data
         public string Pname { get; set; }
         public string PStorage { get; set; }
         public int? State { get; set; }
+        public int? Pretime { get; set; }
+        public int? Realtime { get; set; }
     }
 }

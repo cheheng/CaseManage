@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace TestCase.Infrastructure.Data
 {
-    public partial class casemanaContext : DbContext
+    public partial class CasemanaContext : DbContext
     {
-        public casemanaContext()
+        public CasemanaContext()
         {
         }
 
-        public casemanaContext(DbContextOptions<casemanaContext> options)
+        public CasemanaContext(DbContextOptions<CasemanaContext> options)
             : base(options)
         {
         }
@@ -47,9 +47,13 @@ namespace TestCase.Infrastructure.Data
 
                 entity.Property(e => e.Detail)
                     .HasColumnName("detail")
-                    .HasColumnType("varchar(200)");
+                    .HasColumnType("varchar(500)");
 
                 entity.Property(e => e.ModifyDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Previous)
+                    .HasColumnName("previous")
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.Prior)
                     .HasColumnName("prior")
@@ -95,14 +99,21 @@ namespace TestCase.Infrastructure.Data
                     .HasColumnName("pname")
                     .HasColumnType("varchar(50)");
 
+                entity.Property(e => e.Pretime)
+                    .HasColumnName("pretime")
+                    .HasColumnType("int(11)");
+
                 entity.Property(e => e.Proid)
                     .HasColumnName("proid")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.Realtime)
+                    .HasColumnName("realtime")
+                    .HasColumnType("int(11)");
+
                 entity.Property(e => e.State)
-                    .HasColumnName("pstate")
-                    .HasColumnType("int(11)")
-                    .HasDefaultValueSql("'0'");
+                    .HasColumnName("state")
+                    .HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Project>(entity =>
@@ -116,9 +127,17 @@ namespace TestCase.Infrastructure.Data
                     .HasColumnName("proid")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.Pretime)
+                    .HasColumnName("pretime")
+                    .HasColumnType("int(11)");
+
                 entity.Property(e => e.Proname)
                     .HasColumnName("proname")
                     .HasColumnType("varchar(80)");
+
+                entity.Property(e => e.Realtime)
+                    .HasColumnName("realtime")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.State)
                     .HasColumnName("state")
@@ -131,6 +150,10 @@ namespace TestCase.Infrastructure.Data
                     .HasName("PRIMARY");
 
                 entity.ToTable("thecase");
+
+                entity.HasIndex(e => e.Ctitle)
+                    .HasName("ctitle_UNIQUE")
+                    .IsUnique();
 
                 entity.Property(e => e.Cid)
                     .HasColumnName("cid")
@@ -182,6 +205,14 @@ namespace TestCase.Infrastructure.Data
 
                 entity.Property(e => e.Pid)
                     .HasColumnName("pid")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Pretime)
+                    .HasColumnName("pretime")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Realtime)
+                    .HasColumnName("realtime")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.State)

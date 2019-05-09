@@ -25,3 +25,4 @@ document.onclick = function (event) {
         mask.style.display = "none";
     }
 }
+

@@ -11,7 +11,7 @@ namespace TestCase.DomainModel.Service
         public List<Unit> GetAll()
         {
             List<Unit> units = null;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 units = dbContext.Unit.ToList();
             }
@@ -20,7 +20,7 @@ namespace TestCase.DomainModel.Service
         public List<Unit> Query(Unit unit)
         {
             List<Unit> units = null;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 units = dbContext.Unit.Where(x => x.Unid == unit.Unid).ToList();
             }
@@ -29,7 +29,7 @@ namespace TestCase.DomainModel.Service
 
         public Unit ShowDetail(Unit unit)
         {
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 unit = dbContext.Unit.FirstOrDefault(x => x.Unid == unit.Unid);
             }
@@ -47,7 +47,7 @@ namespace TestCase.DomainModel.Service
                 Pid = unit.Pid,
                 UnStorage = unit.UnStorage,
             };
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 dbContext.Unit.Add(newunit);
                 count = dbContext.SaveChanges();
@@ -58,7 +58,7 @@ namespace TestCase.DomainModel.Service
         public int Del(int unid)
         {
             int count = 0;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 var Unit = new Unit() { Unid = unid };
                 dbContext.Unit.Attach(Unit);

@@ -11,5 +11,6 @@ namespace TestCase.Infrastructure.Data
         public DateTime? ModifyDate { get; set; }
         public int? Prior { get; set; }
         public string Detail { get; set; }
+        public string Previous { get; set; }
     }
 }

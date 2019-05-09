@@ -33,7 +33,7 @@ namespace TestCase.WebUI.Controllers
         }
         public IActionResult Detail(Userdetail user)
         {
-            user = userService.ShowDetail(user);
+            user = userService.ShowDetail(user.Uid);
             return View(user);
         }
         

@@ -11,7 +11,7 @@ namespace TestCase.DomainModel.Service
         public List<Userdetail> GetAll()
         {
             List<Userdetail> users = null;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 users = dbContext.Userdetail.ToList();
             }
@@ -20,18 +20,19 @@ namespace TestCase.DomainModel.Service
         public List<Userdetail> Query(Userdetail user)
         {
             List<Userdetail> users = null;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 users = dbContext.Userdetail.Where(x => x.Uid == user.Uid).ToList();
             }
             return users;
         }
 
-        public Userdetail ShowDetail(Userdetail user)
+        public Userdetail ShowDetail(int? uid)
         {
-            using (var dbContext = new casemanaContext())
+            Userdetail user = null;
+            using (var dbContext = new CasemanaContext())
             {
-                user = dbContext.Userdetail.FirstOrDefault(x => x.Uid == user.Uid);
+                user = dbContext.Userdetail.FirstOrDefault(x => x.Uid == uid);
             }
             return user;
         }
@@ -41,7 +42,7 @@ namespace TestCase.DomainModel.Service
         public int Del(int uid)
         {
             int count = 0;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 var user = new Userdetail() { Uid = uid };
                 dbContext.Userdetail.Attach(user);

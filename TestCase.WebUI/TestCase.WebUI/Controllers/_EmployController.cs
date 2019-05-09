@@ -23,11 +23,11 @@ namespace TestCase.WebUI.Controllers
             return View();
         }
 
-        public IActionResult Detail(Thecase thecase)
-        {
-            thecase = caseService.ShowDetail(thecase);
-            return View(thecase);
-        }
+        //public IActionResult Detail(Thecase thecase)
+        //{
+        //    thecase = caseService.ShowDetail(thecase.Cid);
+        //    return View(thecase);
+        //}
 
         public IActionResult Create(Thecase thecase)
         {

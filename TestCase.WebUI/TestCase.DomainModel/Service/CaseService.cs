@@ -16,7 +16,7 @@ namespace TestCase.DomainModel.Service
         public List<Thecase> GetAll()
         {
             List<Thecase> thecases = null;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 thecases = dbContext.Thecase.ToList();
             }
@@ -26,7 +26,7 @@ namespace TestCase.DomainModel.Service
         public List<Thecase> Query(Thecase thecase)
         {
             List<Thecase> thecases = null;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 if (thecase.Proid != null)
                 {
@@ -47,12 +47,12 @@ namespace TestCase.DomainModel.Service
             }
             return thecases;
         }
-
-        public Thecase ShowDetail(Thecase thecase)
+        public Thecase ShowDetail(int cid)
         {
-            using (var dbContext = new casemanaContext())
+            Thecase thecase = null;
+            using (var dbContext = new CasemanaContext())
             {
-                thecase = dbContext.Thecase.FirstOrDefault(x => x.Cid == thecase.Cid);
+                thecase = dbContext.Thecase.FirstOrDefault(x => x.Cid == cid);
             }
             return thecase;
         }
@@ -60,27 +60,19 @@ namespace TestCase.DomainModel.Service
         public int Create(Thecase thecase)
         {
             int count = 0;
-            var newthecase = new Thecase()
+            using (var dbContext = new CasemanaContext())
             {
-                //Proid = thecase.Proid,
-                Ctitle=thecase.Ctitle,
-                Name=thecase.Name,
-                State=thecase.State,
-                Toname=thecase.Toname,
-                Uid=thecase.Uid
-            };
-            using (var dbContext = new casemanaContext())
-            {
-                dbContext.Thecase.Add(newthecase);
+                dbContext.Thecase.Add(thecase);
                 count = dbContext.SaveChanges();
             }
-            return count;
+            if (count == 0) { }
+            return thecase.Cid;
         }
 
         public int Del(int cid)
         {
             int count = 0;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 var thecase = new Thecase() { Cid = cid };
                 dbContext.Thecase.Attach(thecase);

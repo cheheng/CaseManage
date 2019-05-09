@@ -1,6 +1,6 @@
 ﻿@using TestCase.Infrastructure.Data;
 @{
-   var cases=ViewData["cases"] as List<Thecase>;
+    var cases = ViewData["cases"] as List<Thecase>;
 }
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
@@ -11,13 +11,13 @@
     </div>
 </div>
 <div class="box">
-    <div class="box-header">
+    <div class="">
         <div class="box-name">
             <i class="fa  fa-building-o"></i>
             <span>用例列表</span>
         </div>
         <div class="row">
-            <div class="col-8 col-sm-4 col-xs-offset-1">
+            <div class="col-8 col-sm-4 ">
                 <form id="search" action="@Url.Action("Index","_Case")" method="post">
                     <input type="text" name="pname" placeholder="按标题查找" onclick="enterSearch()" />
                     <i class="fa fa-search"></i>
@@ -45,7 +45,7 @@
     </div>
     <div class="box-content no-padding table-responsive">
         <div>
-            <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-case">
+            <table class="table table-bordered table-striped table-hover  table-datatable" id="datatable-case">
                 <thead>
                     <tr>
                         <th>用例编号</th>
@@ -55,7 +55,7 @@
                         <th>操作</th>
                         <th>
                             <label>
-                                <input type="checkbox" name="acceptTerms" />全选
+                                <input type="checkbox" name="acceptTerms" onclick="All(this)"/>全选
                             </label>
                         </th>
                     </tr>
@@ -65,21 +65,25 @@
                     {
                         <tr>
                             <th>@cases[i].Cid</th>
-                            <th>@cases[i].Ctitle</th>
+                            <th>
+                                <a class="btn-link" href="/_Case/Detail?cid=@cases[i].Cid">
+                                    @cases[i].Ctitle
+                                </a>
+                            </th>
                             <th>@cases[i].Name </th>
                             <th>@cases[i].Toname</th>
-                            <th>
-                                <label>
-                                    <input type="checkbox" />
-                                </label>
-                            </th>
                             <th>
                                 <button>
                                     <i class="fa fa-plus-square-o"></i>
                                 </button>
                                 <a class=" btn-dark btn-link del" id="@cases[i].Cid" name="cid" onclick="confDel(cases[i].Cid)">
-                                    <i class="fa   fa-times-circle-o  " onclick="" style="color:rgba(255, 69, 0, 0.90)">删除</i>
+                                    <i class="fa   fa-times-circle-o  " style="color:rgba(255, 69, 0, 0.90)">删除</i>
                                 </a>
+                            </th>
+                            <th>
+                                <label>
+                                    <input type="checkbox" name="checkbox-1"/>
+                                </label>
                             </th>
                         </tr>
                     }
@@ -101,16 +105,64 @@
     </div>
 </div>
 
-<script src="~/jquery-3.3.1.min.js"></script>
+<!--遮罩-->
+<div>
+    <div class="mask" id="mask" style=" z-index:99999;width: 100%;height: 100%; position: fixed;top: 0; left: 0;display: none;background-color: rgba(0, 0, 0, 0.6);">
+        <!-- 添加 的弹窗-->
+        <div class="add box" id="add" style=" width: 65%;  background-color: #fff;height:600px;  margin: 100px auto; overflow-y:auto;">
+            <div class="panel" style="">
+                <div class="box-header text-center" style="color:black;">
+                    <h4>添加</h4>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <form class="form-horizontal col-xs-12" id="create" method="post" action="@Url.Action("Create","_Case")" novalidate="novalidate">
+                            <div class="form-group col-xs-9">
+                                <label class="control-label">标题</label>
+                                <input type="text" class="form-control" name="ctitle" />
+                                <label class="control-label">前置条件</label>
+                                <textarea class="form-control" style="height:100px;" name="previous"></textarea>
+                                <label class="control-label">执行步骤</label>
+                                <textarea class="form-control" style="height:100px;" name="detail"></textarea>
+                                <label class="control-label">实际结果</label>
+                                <textarea class="form-control" style="height:100px;"></textarea>
+                            </div>
+                            <div class="col-xs-3 text-left form-group">
+                                <label class="control-label">所属项目</label>
+                                <input type="text" class="form-control" name="proid" />
+                                <label class="control-label">所属计划</label>
+                                <input type="text" class="form-control" name="pid" />
+                                <label class="control-label">所属集合</label>
+                                <input type="text" class="form-control" name="unid" />
+                                <label class="control-label">指派给</label>
+                                <input type="text" class="form-control" name="uid2" />
+                                <label class="control-label">优先级</label>
+                                <input type="text" class="form-control" name="prior" />
+                                <label class="control-label">状态</label>
+                                <input type="text" class="form-control" name="state" />
+                            </div>
+                        </form>
+                        <div >
+                            <div class="col-xs-offset-4 ">
+                                <button class="btn btn-default btn-link col-xs-3 " id="cancel"><span><i class="fa fa-times-circle-o"></i></span> 取消</button>
+                                <button class="btn btn-success btn-link col-xs-3" style="color:dimgray;" type="submit" onclick="toCreate()"><span><i class="fa fa-check-circle"></i></span> 提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/popWindow.js"></script>
+<script src="~/base.js"></script>
 <script type="text/javascript">
-    $(".fa-times").click((e) => {
-        $.ajax(URLtag, {
-            data: {
-            },
-            type: 'get',
-            dataType:'json',
-            success: function (data) { },
-            error: function () { }
-        })
-    })
+    function confDel(id) {
+        if (confirm("确认删除？")) {
+            window.location.href = '/_Case/Del?cid=' + id;
+        }
+    }
+
 </script>

@@ -10,7 +10,7 @@ namespace TestCase.DomainModel.Service
     {
         public List<Project> GetAll() {
             List<Project> projects = null;
-                using (var dbContext = new casemanaContext())
+                using (var dbContext = new CasemanaContext())
                 {
                     projects = dbContext.Project.ToList();
             }
@@ -19,7 +19,7 @@ namespace TestCase.DomainModel.Service
         public List<Project> Query(Project project)
         {
             List<Project> projects = null;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 projects = dbContext.Project.Where(x => x.Proname == project.Proname).ToList();
             }
@@ -27,7 +27,7 @@ namespace TestCase.DomainModel.Service
         }
 
         public Project ShowDetail(Project project) {
-            using (var dbContext=new casemanaContext()) {
+            using (var dbContext=new CasemanaContext()) {
                 project = dbContext.Project.FirstOrDefault(x => x.Proid == project.Proid);
             }
             return project;
@@ -39,7 +39,7 @@ namespace TestCase.DomainModel.Service
                 //Proid = project.Proid,
                 Proname = project.Proname,
             };
-            using (var dbContext=new casemanaContext()) {
+            using (var dbContext=new CasemanaContext()) {
                dbContext.Project.Add(newproject);
                 count = dbContext.SaveChanges();
             }
@@ -49,7 +49,7 @@ namespace TestCase.DomainModel.Service
         public int Del(int proid)
         {
             int count = 0;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 var project = new Project() { Proid = proid };
                 dbContext.Project.Attach(project);

@@ -11,7 +11,7 @@ namespace TestCase.DomainModel.Service
         public List<Userrelation> GetAll()
         {
             List<Userrelation> relations = null;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 relations = dbContext.Userrelation.ToList();
             }
@@ -20,7 +20,7 @@ namespace TestCase.DomainModel.Service
         public List<Userrelation> Query(Userrelation relation)
         {
             List<Userrelation> relations = null;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 relations = dbContext.Userrelation.Where(x => x.Urid == relation.Urid).ToList();
             }
@@ -29,7 +29,7 @@ namespace TestCase.DomainModel.Service
 
         public Userrelation ShowDetail(Userrelation relation)
         {
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 relation = dbContext.Userrelation.FirstOrDefault(x => x.Urid == relation.Urid);
             }
@@ -46,7 +46,7 @@ namespace TestCase.DomainModel.Service
                 Proid = relation.Proid,
                 Uid = relation.Uid,
             };
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 dbContext.Userrelation.Add(newrelation);
                 count = dbContext.SaveChanges();
@@ -57,7 +57,7 @@ namespace TestCase.DomainModel.Service
         public int Del(int proid)
         {
             int count = 0;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 var relation = new Userrelation() { Proid = proid };
                 dbContext.Userrelation.Attach(relation);

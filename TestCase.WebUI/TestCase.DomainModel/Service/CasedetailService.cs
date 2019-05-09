@@ -9,35 +9,12 @@ namespace TestCase.DomainModel.Service
     public class CasedetailService
     {
         #region Action
-        /// <summary>
-        /// 获取用例列表
-        /// </summary>
-        /// <returns></returns>
-        public List<Casedetail> GetAll()
+        public Casedetail ShowDetail(int cid)
         {
-            List<Casedetail> casedetails = null;
-            using (var dbContext = new casemanaContext())
+            Casedetail casedetail = null;
+            using (var dbContext = new CasemanaContext())
             {
-                casedetails = dbContext.Casedetail.ToList();
-            }
-            return casedetails;
-        }
-
-        public List<Casedetail> Query(Casedetail casedetail)
-        {
-            List<Casedetail> casedetails = null;
-            using (var dbContext = new casemanaContext())
-            {
-                casedetails = dbContext.Casedetail.Where(x => x.Cid == casedetail.Cid).ToList();
-            }
-            return casedetails;
-        }
-
-        public Casedetail ShowDetail(Casedetail casedetail)
-        {
-            using (var dbContext = new casemanaContext())
-            {
-                casedetail = dbContext.Casedetail.FirstOrDefault(x => x.Cid == casedetail.Cid);
+                casedetail = dbContext.Casedetail.FirstOrDefault(x => x.Cid == cid);
             }
             return casedetail;
         }
@@ -45,14 +22,9 @@ namespace TestCase.DomainModel.Service
         public int Create(Casedetail casedetail)
         {
             int count = 0;
-            var newcasedetail = new Casedetail()
+            using (var dbContext = new CasemanaContext())
             {
-                //Proid = casedetail.Proid,
-                Uid = casedetail.Uid
-            };
-            using (var dbContext = new casemanaContext())
-            {
-                dbContext.Casedetail.Add(newcasedetail);
+                dbContext.Casedetail.Add(casedetail);
                 count = dbContext.SaveChanges();
             }
             return count;
@@ -61,7 +33,7 @@ namespace TestCase.DomainModel.Service
         public int Del(int cid)
         {
             int count = 0;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 var casedetail = new Casedetail() { Cid = cid };
                 dbContext.Casedetail.Attach(casedetail);

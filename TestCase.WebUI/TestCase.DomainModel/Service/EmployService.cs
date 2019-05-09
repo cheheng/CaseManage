@@ -10,7 +10,7 @@ namespace TestCase.DomainModel.Service
     {
         public Employ ShowDetail(Employ employ)
         {
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 employ = dbContext.Employ.FirstOrDefault(x => x.Eid == employ.Eid);
             }

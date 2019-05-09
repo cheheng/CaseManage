@@ -16,7 +16,7 @@ namespace TestCase.DomainModel.Service
         public List<Plan> GetAll()
         {
             List<Plan> plans = null;
-            using (var dbContet = new casemanaContext())
+            using (var dbContet = new CasemanaContext())
             {
                 plans = dbContet.Plan.ToList();
             }
@@ -37,7 +37,7 @@ namespace TestCase.DomainModel.Service
                 Pname = pname,
                 PStorage = pstorage,
             };
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 dbContext.Plan.Add(plan);
                 count = dbContext.SaveChanges();
@@ -52,7 +52,7 @@ namespace TestCase.DomainModel.Service
         public int Del(int pid)
         {
             int count = 0;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 var plan = new Plan() { Pid = pid };
                 dbContext.Plan.Attach(plan);
@@ -75,7 +75,7 @@ namespace TestCase.DomainModel.Service
         public Plan Show(int pid)
         {
             Plan plan = null;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 plan = dbContext.Plan.FirstOrDefault(x => x.Pid == pid);
                 //var s = context.Users.Where(u => u.Name == "Kim").Select(u => u)
@@ -90,7 +90,7 @@ namespace TestCase.DomainModel.Service
         public List<Plan> GetPlans(String pname)
         {
             List<Plan> plans = null;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
                 plans = dbContext.Plan.Where(x => x.Pname == pname).ToList();
             }
@@ -100,7 +100,7 @@ namespace TestCase.DomainModel.Service
         public int Update(Plan plan)
         {
             int count = 0;
-            using (var dbContext = new casemanaContext())
+            using (var dbContext = new CasemanaContext())
             {
               var x= dbContext.Plan.FirstOrDefault(u => u.Pid == plan.Pid);
               x.Pname = plan.Pname;
