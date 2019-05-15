@@ -6,8 +6,8 @@ namespace TestCase.Infrastructure.Data
 {
     public class ForCase
     {
-        //Thecase thecase = new Thecase();
-        //Casedetail detail = new Casedetail();
+        //Thecase thecase;
+        //Casedetail detail;
         public int Cid { get; set; }
         public int? Uid { get; set; }
         public int? Pid { get; set; }

@@ -27,11 +27,12 @@ namespace TestCase.DomainModel.Service
             return relations;
         }
 
-        public Userrelation ShowDetail(Userrelation relation)
+        public Userrelation ShowDetail(int? uid)
         {
+            Userrelation relation = new Userrelation();
             using (var dbContext = new CasemanaContext())
             {
-                relation = dbContext.Userrelation.FirstOrDefault(x => x.Urid == relation.Urid);
+                relation = dbContext.Userrelation.FirstOrDefault(x => x.Uid ==uid);
             }
             return relation;
         }

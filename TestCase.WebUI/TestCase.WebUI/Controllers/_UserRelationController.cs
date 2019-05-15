@@ -13,6 +13,8 @@ namespace TestCase.WebUI.Controllers
     {
         // GET: /<controller>/
         UserrelationService relatonService = new UserrelationService();
+        UserService userService = new UserService();
+        EmployService employService = new EmployService();
         public IActionResult Index(Userrelation relation)
         {
             List<Userrelation> relations = null;
@@ -30,22 +32,37 @@ namespace TestCase.WebUI.Controllers
 
         public IActionResult Detail(Userrelation relation)
         {
-            relation = relatonService.ShowDetail(relation);
-            return View(relation);
+            User user = new User
+            {
+                relation = relatonService.ShowDetail(relation.Uid),
+                detail = userService.ShowDetail(relation.Uid)
+            };
+            user.employ=employService.ShowDetail(user.relation.Eid);
+            return View(user);
         }
 
-        public IActionResult Create(Userrelation relation)
+        public IActionResult Create(Userdetail detail,Userrelation relation,Employ employ )
         {
             int count = 0;
-            count = relatonService.Create(relation);
-            //if(count>0)
+            count = userService.Create(detail);
+            if (count > 0) {
+                relation.Uid = count;
+                relatonService.Create(relation);
+            }
             return Redirect(Url.Action("Index", "_Userrelation"));
             //else 
         }
 
         public IActionResult Del(Userrelation relation)
         {
-            var count = relatonService.Del(relation.Urid);
+            var count = userService.Del((int)relation.Uid);
+            if (count > 0) {
+                count= relatonService.Del(relation.Urid);
+            }
+            if (count > 0) {
+                string errormsg = "删除失败";
+                return View(errormsg);
+            }
             return Redirect(Url.Action("Index", "_Userrelation"));
         }
     //更新

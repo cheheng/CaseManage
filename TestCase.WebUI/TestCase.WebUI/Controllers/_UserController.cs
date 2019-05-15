@@ -19,23 +19,10 @@ namespace TestCase.WebUI.Controllers
         }
         public IActionResult Index(Userdetail user)
         {
-
-            List<Userdetail> users = null;
-            if (user.Uname == null)
-            {
-                users = userService.GetAll();
-            }
-            else
-            {
-                users = userService.Query(user);
-            }
-            return View();
-        }
-        public IActionResult Detail(Userdetail user)
-        {
             user = userService.ShowDetail(user.Uid);
             return View(user);
         }
+       
         
         public IActionResult ForgetPsw()
         {

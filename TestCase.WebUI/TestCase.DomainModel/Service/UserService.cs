@@ -8,25 +8,16 @@ namespace TestCase.DomainModel.Service
 {
     public class UserService
     {
-        public List<Userdetail> GetAll()
+        public int Create(Userdetail detail)
         {
-            List<Userdetail> users = null;
+            
             using (var dbContext = new CasemanaContext())
             {
-                users = dbContext.Userdetail.ToList();
+                dbContext.Userdetail.Add(detail);
+                dbContext.SaveChanges();
             }
-            return users;
+            return detail.Uid;
         }
-        public List<Userdetail> Query(Userdetail user)
-        {
-            List<Userdetail> users = null;
-            using (var dbContext = new CasemanaContext())
-            {
-                users = dbContext.Userdetail.Where(x => x.Uid == user.Uid).ToList();
-            }
-            return users;
-        }
-
         public Userdetail ShowDetail(int? uid)
         {
             Userdetail user = null;
@@ -36,9 +27,7 @@ namespace TestCase.DomainModel.Service
             }
             return user;
         }
-
-       
-
+        
         public int Del(int uid)
         {
             int count = 0;

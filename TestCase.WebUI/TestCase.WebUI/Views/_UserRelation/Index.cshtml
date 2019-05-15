@@ -1,1 +1,231 @@
-﻿
+﻿@using TestCase.Infrastructure.Data;
+@{
+    var relations = ViewData["relations"] as List<Userrelation>;
+}
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">职员</a></li>
+        </ol>
+    </div>
+</div>
+<div class="box">
+    <div class="">
+        <div class="box-name">
+            <i class="fa  fa-building-o"></i>
+            <span>职员列表</span>
+        </div>
+        <div class="row">
+            <div class="col-8 col-sm-4 ">
+                <form id="search" action="@Url.Action("Index","_Userrelation")" method="post">
+                    <input type="text" name="pname" placeholder="按姓名查找" onclick="enterSearch()" />
+                    <i class="fa fa-search"></i>
+                </form>
+            </div>
+            <div class="col-xs-2 pull-right">
+                <a class="btn btn-info btn-link" style="color:black;" onclick="ab()">
+                    <i class="fa fa-plus-square-o"></i> 新建&nbsp;
+                </a>
+                &nbsp;
+                <div class="btn-group">
+                    <a class="btn btn-default" href="#"><i class="fa fa-th-large fa-fw"></i> 批量</a>
+                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="fa fa-caret-down"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class=""><i class="fa fa-trash-o fa-fw"></i> 删除</a></li>
+                        <li><a href="#"><i class="fa fa-ban fa-fw"></i> 禁用</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="no-move"></div>
+    </div>
+    <div class="box-content no-padding table-responsive">
+        <div>
+            <table class="table table-bordered table-striped table-hover  table-datatable" id="datatable-case">
+                <thead>
+                    <tr>
+                        <th>工号</th>
+                        <th>姓名</th>
+                        <th>所属项目</th>
+                        <th>所属计划</th>
+                        <th>职称权限</th>
+                        <th>操作</th>
+                        <th>
+                            <label>
+                                <input type="checkbox" name="acceptTerms" onclick="All(this)" />全选
+                            </label>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < relations.Count; i++)
+                    {
+                        <tr>
+                            <th>@relations[i].Uid</th>
+                            <th>
+                                <a class="btn-link" href="/_UserRelation/Detail?user.detail.uid=@relations[i].Uid">
+                                    @relations[i].Name
+                                </a>
+                            </th>
+                            <th>@relations[i].Proid</th>
+                            <th>@relations[i].Proid</th>
+                            <th>
+                                @relations[i].Name
+                            </th>
+                            <th>
+                                <a class=" btn-dark btn-link"  href="/_UserRelation/Detail?uid=@relations[i].Uid">
+                                    <i class="fa fa-barcode" style="color:#0094ff">查看</i>
+                                </a>&nbsp;
+                                <a class=" btn-dark btn-link del" id="@relations[i].Uid" name="cid" onclick="confDel(@relations[i].Uid)">
+                                    <i class="fa   fa-times-circle-o  " style="color:rgba(255, 69, 0, 0.90)">解雇</i>
+                                </a>
+                            </th>
+                            <th>
+                                <label>
+                                    <input type="checkbox" name="checkbox-1" />
+                                </label>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix"></div>
+        <div class="box-content">
+            <div class="col-sm-6">
+                <div class="dataTables_info" id="datatable-2_info"></div>
+            </div>
+            <div class="col-sm-6 text-center">
+                <div class="dataTables_paginate paging_bootstrap">
+                    <ul class="pagination"><li class="prev disabled"><a href="#">← 上一页</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li class="next"><a href="#">下一页 → </a></li></ul>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<!--遮罩-->
+<div>
+    <div class="mask" id="mask" style=" z-index:99999;width: 100%;height: 100%; position: fixed;top: 0; left: 0;display: none;background-color: rgba(0, 0, 0, 0.6);">
+        <!-- 添加 的弹窗-->
+        <div class="add box" id="add" style=" width: 65%;  background-color: #fff;height:600px;  margin: 100px auto; overflow-y:auto;">
+            <div class="panel" style="">
+                <div class="box-header text-center" style="color:black;">
+                    <h4>添加</h4>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <form id="create" method="post" action="@Url.Action("Create","_UserRelation")" class="form-horizontal">
+                            <fieldset>
+                                <legend>基本信息</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">姓名</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="detail.uname" />
+                                    </div>
+                                    <label class="col-sm-3 control-label">性别</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="detail.sex" />
+                                    </div>
+                                    <label class="col-sm-3 control-label">生日</label>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" name="detail.birth" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">籍贯</label>
+                                    <div class="col-sm-5">
+                                        <select class="populate placeholder" name="detail.address" id="s2_country">
+                                            <option value="">-- Select a country --</option>
+                                            <option value="fr">France</option>
+                                            <option value="de">Germany</option>
+                                            <option value="it">Italy</option>
+                                            <option value="jp">Japan</option>
+                                            <option value="ru">Russia</option>
+                                            <option value="gb">United Kingdom</option>
+                                            <option value="us">United State</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>联系方式</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">邮箱</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="email" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">手机号码</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="tel" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">座机号码</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="phone" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>设置初始密码</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">密码</label>
+                                    <div class="col-sm-5">
+                                        <input type="password" class="form-control" name="detail.password" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">确认密码</label>
+                                    <div class="col-sm-5">
+                                        <input type="password" class="form-control" name="confirmPassword" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>在职信息</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">职位</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="relation.eid" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">所属项目</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="relation.proid" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <div>
+                            <div class="col-xs-offset-4 ">
+                                <button class="btn btn-default btn-link col-xs-3 " id="cancel"><span><i class="fa fa-times-circle-o"></i></span> 取消</button>
+                                <button class="btn btn-success btn-link col-xs-3" style="color:dimgray;" type="submit" onclick="toCreate()"><span><i class="fa fa-check-circle"></i></span> 提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/popWindow.js"></script>
+<script src="~/base.js"></script>
+<script type="text/javascript">
+    function confDel(id) {
+        if (confirm("确认删除？")) {
+            //window.location.href = '/_Case / Del ? cid = ' + id;
+        }
+    }
+
+</script>

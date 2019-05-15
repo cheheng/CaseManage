@@ -1,4 +1,9 @@
-﻿<div class="row">
+﻿@using TestCase.Infrastructure.Data;
+@{ 
+    var user = ViewData["user"] as User;
+}
+
+<div class="row">
     <div id="breadcrumb" class="col-md-12">
         <ol class="breadcrumb">
             <li><a href="#">首页</a></li>
@@ -29,19 +34,27 @@
                 <div class="no-move"></div>
             </div>
             <div class="box-content">
-                <form id="defaultForm" method="post" action="validators.html" class="form-horizontal">
+                <form id="detailform" method="post" action="" class="form-horizontal">
                     <fieldset>
                         <legend>基本信息</legend>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Username</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" name="username" />
+                            <label class="col-sm-3 control-label">姓名</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="name" />
+                            </div>
+                            <label class="col-sm-3 control-label">性别</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="sex" />
+                            </div>
+                            <label class="col-sm-3 control-label">生日</label>
+                            <div class="col-sm-3">
+                                <input type="date" class="form-control" name="birth" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Country</label>
+                            <label class="col-sm-3 control-label">籍贯</label>
                             <div class="col-sm-5">
-                                <select class="populate placeholder" name="country" id="s2_country">
+                                <select class="populate placeholder" name="Address" id="s2_country">
                                     <option value="">-- Select a country --</option>
                                     <option value="fr">France</option>
                                     <option value="de">Germany</option>
@@ -53,79 +66,56 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-9 col-sm-offset-3">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="acceptTerms" /> 
-                                        <i class="fa fa-square-o small"></i>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </fieldset>
                     <fieldset>
                         <legend>联系方式</legend>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Email address</label>
+                            <label class="col-sm-3 control-label">邮箱</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" name="email" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Website</label>
+                            <label class="col-sm-3 control-label">手机号码</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="website" placeholder="http://" />
+                                <input type="text" class="form-control" name="tel" placeholder="http://" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Phone number</label>
+                            <label class="col-sm-3 control-label">座机号码</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="phoneNumber" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Hex color</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" name="color" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">US zip code</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" name="zipCode" />
+                                <input type="text" class="form-control" name="phone" />
                             </div>
                         </div>
                     </fieldset>
                     <fieldset>
-                        <legend>修改密码</legend>
+                        <legend>设置初始密码</legend>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Password</label>
+                            <label class="col-sm-3 control-label">密码</label>
                             <div class="col-sm-5">
                                 <input type="password" class="form-control" name="password" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Retype password</label>
+                            <label class="col-sm-3 control-label">确认密码</label>
                             <div class="col-sm-5">
                                 <input type="password" class="form-control" name="confirmPassword" />
                             </div>
                         </div>
                     </fieldset>
                     <fieldset>
-                        <legend>其他信息</legend>
+                        <legend>在职信息</legend>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Ages</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" name="ages" />
+                            <label class="col-sm-3 control-label">职位</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="eid" />
+                            </div>
+                            <label class="col-sm-3 control-label">所属项目</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="proid" />
                             </div>
                         </div>
                     </fieldset>
-                    <div class="form-group">
-                        <div class="col-sm-9 col-sm-offset-3">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>
