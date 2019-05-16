@@ -40,28 +40,21 @@ namespace TestCase.DomainModel.Service
         public int Create(Userrelation relation)
         {
             int count = 0;
-            var newrelation = new Userrelation()
-            {
-                Eid = relation.Eid,
-                Pid = relation.Pid,
-                Proid = relation.Proid,
-                Uid = relation.Uid,
-            };
             using (var dbContext = new CasemanaContext())
             {
-                dbContext.Userrelation.Add(newrelation);
+                dbContext.Userrelation.Add(relation);
                 count = dbContext.SaveChanges();
             }
             return count;
         }
 
-        public int Del(int proid)
+        public int Del(int uid)
         {
             int count = 0;
             using (var dbContext = new CasemanaContext())
             {
-                var relation = new Userrelation() { Proid = proid };
-                dbContext.Userrelation.Attach(relation);
+                var relation = new Userrelation() { Uid = uid };
+                relation=dbContext.Userrelation.FirstOrDefault(x => x.Uid == uid);
                 dbContext.Userrelation.Remove(relation);
                 //将要删除的对象附加到EF容器中
                 //context.Users.Attach(user);

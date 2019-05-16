@@ -14,7 +14,7 @@ namespace TestCase.Infrastructure.Data
         public int? Unid { get; set; }
         public int? Proid { get; set; }
         public string Ctitle { get; set; }
-        public int? State { get; set; }
+        public String State { get; set; }
         public string Name { get; set; }
         public string Toname { get; set; }
         public int Id { get; set; }

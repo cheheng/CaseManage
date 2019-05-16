@@ -59,6 +59,10 @@ namespace TestCase.Infrastructure.Data
                     .HasColumnName("prior")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.Result)
+                    .HasColumnName("result")
+                    .HasColumnType("varchar(200)");
+
                 entity.Property(e => e.Uid)
                     .HasColumnName("uid")
                     .HasColumnType("int(11)");
@@ -87,6 +91,10 @@ namespace TestCase.Infrastructure.Data
 
                 entity.ToTable("plan");
 
+                entity.HasIndex(e => e.Pname)
+                    .HasName("pname_UNIQUE")
+                    .IsUnique();
+
                 entity.Property(e => e.Pid)
                     .HasColumnName("pid")
                     .HasColumnType("int(11)");
@@ -113,7 +121,7 @@ namespace TestCase.Infrastructure.Data
 
                 entity.Property(e => e.State)
                     .HasColumnName("state")
-                    .HasColumnType("int(11)");
+                    .HasColumnType("varchar(15)");
             });
 
             modelBuilder.Entity<Project>(entity =>
@@ -122,6 +130,10 @@ namespace TestCase.Infrastructure.Data
                     .HasName("PRIMARY");
 
                 entity.ToTable("project");
+
+                entity.HasIndex(e => e.Proname)
+                    .HasName("proname_UNIQUE")
+                    .IsUnique();
 
                 entity.Property(e => e.Proid)
                     .HasColumnName("proid")
@@ -141,7 +153,7 @@ namespace TestCase.Infrastructure.Data
 
                 entity.Property(e => e.State)
                     .HasColumnName("state")
-                    .HasColumnType("int(11)");
+                    .HasColumnType("varchar(15)");
             });
 
             modelBuilder.Entity<Thecase>(entity =>
@@ -177,7 +189,7 @@ namespace TestCase.Infrastructure.Data
 
                 entity.Property(e => e.State)
                     .HasColumnName("state")
-                    .HasColumnType("int(11)");
+                    .HasColumnType("varchar(15)");
 
                 entity.Property(e => e.Toname)
                     .HasColumnName("toname")
@@ -199,6 +211,10 @@ namespace TestCase.Infrastructure.Data
 
                 entity.ToTable("unit");
 
+                entity.HasIndex(e => e.UnName)
+                    .HasName("un_name_UNIQUE")
+                    .IsUnique();
+
                 entity.Property(e => e.Unid)
                     .HasColumnName("unid")
                     .HasColumnType("int(11)");
@@ -217,7 +233,7 @@ namespace TestCase.Infrastructure.Data
 
                 entity.Property(e => e.State)
                     .HasColumnName("state")
-                    .HasColumnType("int(11)");
+                    .HasColumnType("varchar(15)");
 
                 entity.Property(e => e.Uid)
                     .HasColumnName("uid")
@@ -251,13 +267,21 @@ namespace TestCase.Infrastructure.Data
                     .HasColumnName("birth")
                     .HasColumnType("date");
 
+                entity.Property(e => e.Email)
+                    .HasColumnName("email")
+                    .HasColumnType("varchar(45)");
+
                 entity.Property(e => e.Passwod)
                     .HasColumnName("passwod")
                     .HasColumnType("varchar(20)");
 
                 entity.Property(e => e.Sex)
                     .HasColumnName("sex")
-                    .HasColumnType("char(1)");
+                    .HasColumnType("varchar(6)");
+
+                entity.Property(e => e.Tel)
+                    .HasColumnName("tel")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Uname)
                     .HasColumnName("uname")
@@ -279,17 +303,21 @@ namespace TestCase.Infrastructure.Data
                     .HasColumnName("eid")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.Ename)
+                    .HasColumnName("ename")
+                    .HasColumnType("varchar(15)");
+
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
                     .HasColumnType("varchar(30)");
 
-                entity.Property(e => e.Pid)
-                    .HasColumnName("pid")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.Proid)
                     .HasColumnName("proid")
                     .HasColumnType("int(11)");
+
+                entity.Property(e => e.Proname)
+                    .HasColumnName("proname")
+                    .HasColumnType("varchar(45)");
 
                 entity.Property(e => e.Uid)
                     .HasColumnName("uid")

@@ -51,8 +51,7 @@
                         <th>工号</th>
                         <th>姓名</th>
                         <th>所属项目</th>
-                        <th>所属计划</th>
-                        <th>职称权限</th>
+                        <th>职位</th>
                         <th>操作</th>
                         <th>
                             <label>
@@ -67,19 +66,18 @@
                         <tr>
                             <th>@relations[i].Uid</th>
                             <th>
-                                <a class="btn-link" href="/_UserRelation/Detail?user.detail.uid=@relations[i].Uid">
+                                <a class="btn-link" href="/_UserRelation/Detail?uid=@relations[i].Uid">
                                     @relations[i].Name
                                 </a>
                             </th>
                             <th>@relations[i].Proid</th>
-                            <th>@relations[i].Proid</th>
                             <th>
-                                @relations[i].Name
+                                @relations[i].Ename
                             </th>
                             <th>
-                                <a class=" btn-dark btn-link"  href="/_UserRelation/Detail?uid=@relations[i].Uid">
+                                @*<a class=" btn-dark btn-link"  href="/_UserRelation/Detail?uid=@relations[i].Uid">
                                     <i class="fa fa-barcode" style="color:#0094ff">查看</i>
-                                </a>&nbsp;
+                                </a>&nbsp;*@
                                 <a class=" btn-dark btn-link del" id="@relations[i].Uid" name="cid" onclick="confDel(@relations[i].Uid)">
                                     <i class="fa   fa-times-circle-o  " style="color:rgba(255, 69, 0, 0.90)">解雇</i>
                                 </a>
@@ -113,7 +111,7 @@
 <div>
     <div class="mask" id="mask" style=" z-index:99999;width: 100%;height: 100%; position: fixed;top: 0; left: 0;display: none;background-color: rgba(0, 0, 0, 0.6);">
         <!-- 添加 的弹窗-->
-        <div class="add box" id="add" style=" width: 65%;  background-color: #fff;height:600px;  margin: 100px auto; overflow-y:auto;">
+        <div class="add box" id="add" style=" width: 65%;  background-color: #fff;  margin: 100px auto; ">
             <div class="panel" style="">
                 <div class="box-header text-center" style="color:black;">
                     <h4>添加</h4>
@@ -136,11 +134,26 @@
                                     <div class="col-sm-3">
                                         <input type="date" class="form-control" name="detail.birth" />
                                     </div>
+                                    <div class="clearfix"></div>
+                                    <label class="col-sm-3 control-label">邮箱</label>
+                                    <div class="col-sm-5">
+                                        <input type="email" class="form-control" name="detail.email" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <label class="col-sm-3 control-label">手机号码</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="detail.tel" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <label class="col-sm-3 control-label">设置初始密码</label>
+                                    <div class="col-sm-5">
+                                        <input type="email" class="form-control" name="detail.passwod" />
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">籍贯</label>
+                                    <label class="col-sm-3 control-label">所在地</label>
                                     <div class="col-sm-5">
-                                        <select class="populate placeholder" name="detail.address" id="s2_country">
+                                        <select class="populate placeholder" name="detail.address" id="">
                                             <option value="">-- Select a country --</option>
                                             <option value="fr">France</option>
                                             <option value="de">Germany</option>
@@ -150,42 +163,6 @@
                                             <option value="gb">United Kingdom</option>
                                             <option value="us">United State</option>
                                         </select>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend>联系方式</legend>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">邮箱</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="email" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">手机号码</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="tel" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">座机号码</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="phone" />
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend>设置初始密码</legend>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">密码</label>
-                                    <div class="col-sm-5">
-                                        <input type="password" class="form-control" name="detail.password" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">确认密码</label>
-                                    <div class="col-sm-5">
-                                        <input type="password" class="form-control" name="confirmPassword" />
                                     </div>
                                 </div>
                             </fieldset>
@@ -224,8 +201,8 @@
 <script type="text/javascript">
     function confDel(id) {
         if (confirm("确认删除？")) {
-            //window.location.href = '/_Case / Del ? cid = ' + id;
+            window.location.href = '/_UserRelation/Del?uid=' + id;
         }
     }
-
+ 
 </script>

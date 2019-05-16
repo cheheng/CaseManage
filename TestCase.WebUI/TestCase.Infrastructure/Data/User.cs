@@ -8,6 +8,5 @@ namespace TestCase.Infrastructure.Data
     {
         public Userdetail detail = new Userdetail();
        public Userrelation relation = new Userrelation();
-        public Employ employ = new Employ();
     }
 }

@@ -39,17 +39,9 @@ namespace TestCase.DomainModel.Service
         public int Create(Unit unit)
         {
             int count = 0;
-            var newunit = new Unit()
-            {
-                Unid = unit.Unid,
-                UnName = unit.UnName,
-                Uid = unit.Uid,
-                Pid = unit.Pid,
-                UnStorage = unit.UnStorage,
-            };
             using (var dbContext = new CasemanaContext())
             {
-                dbContext.Unit.Add(newunit);
+                dbContext.Unit.Add(unit);
                 count = dbContext.SaveChanges();
             }
             return count;

@@ -30,7 +30,7 @@ namespace TestCase.WebUI.Controllers
 
         public IActionResult Detail(Project project)
         {
-            project = projectService.ShowDetail(project);
+            project = projectService.ShowDetail(project.Proid);
             return View(project);
         }
 

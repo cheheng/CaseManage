@@ -12,5 +12,6 @@ namespace TestCase.Infrastructure.Data
         public int? Prior { get; set; }
         public string Detail { get; set; }
         public string Previous { get; set; }
+        public string Result { get; set; }
     }
 }

@@ -60,7 +60,19 @@
                         <label class="control-label">优先级</label>
                         <input type="text" class="form-control"value="@detail.Prior" name="prior" />
                         <label class="control-label">状态</label>
-                        <input type="text" class="form-control" value="@detail.State" name="state" />
+                        <select class="populate placeholder" name="state" id="">
+                            @if (detail.State == "enable")
+                            {
+                                <option value="enable">启用</option>
+                                <option value="unable">禁用</option>
+                            }
+                            else
+                            {
+                                <option value="unable">禁用</option>
+                                <option value="enable">启用</option>
+
+                            }
+                        </select>
                     </div>
                 </form>
                 <div class="clearfix"></div>

@@ -28,15 +28,10 @@ namespace TestCase.DomainModel.Service
         /// <param name="pname"></param>
         /// <param name="pstorage"></param>
         /// <returns></returns>
-        public int Create(string pname, string pstorage)
+        public int Create(Plan plan)
         {
             int count = 0;
-            var plan = new Plan()
-            {
-                //Proid = proid,
-                Pname = pname,
-                PStorage = pstorage,
-            };
+            
             using (var dbContext = new CasemanaContext())
             {
                 dbContext.Plan.Add(plan);

@@ -7,7 +7,7 @@ namespace TestCase.Infrastructure.Data
     {
         public int Proid { get; set; }
         public string Proname { get; set; }
-        public int? State { get; set; }
+        public string State { get; set; }
         public int? Pretime { get; set; }
         public int? Realtime { get; set; }
     }

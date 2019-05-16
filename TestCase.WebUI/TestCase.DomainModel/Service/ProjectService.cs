@@ -26,21 +26,18 @@ namespace TestCase.DomainModel.Service
             return projects;
         }
 
-        public Project ShowDetail(Project project) {
+        public Project ShowDetail(int proid) {
+            Project project = new Project();
             using (var dbContext=new CasemanaContext()) {
-                project = dbContext.Project.FirstOrDefault(x => x.Proid == project.Proid);
+                project = dbContext.Project.FirstOrDefault(x => x.Proid == proid);
             }
             return project;
         }
 
         public int Create(Project project) {
             int count = 0;
-            var newproject = new Project() {
-                //Proid = project.Proid,
-                Proname = project.Proname,
-            };
             using (var dbContext=new CasemanaContext()) {
-               dbContext.Project.Add(newproject);
+               dbContext.Project.Add(project);
                 count = dbContext.SaveChanges();
             }
             return count; 

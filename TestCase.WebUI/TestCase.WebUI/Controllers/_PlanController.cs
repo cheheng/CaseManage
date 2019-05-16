@@ -43,7 +43,7 @@ namespace TestCase.WebUI.Controllers
         public IActionResult AddPlan(Plan plan)
         {
             var planSerVice = new PlanService();
-            var count = planSerVice.Create( plan.Pname, plan.PStorage);
+            var count = planSerVice.Create( plan);
             return Redirect(Url.Action("Index", "_Plan"));
         }
 
