@@ -41,7 +41,7 @@ namespace TestCase.WebUI.Controllers
             return View(user);
         }
 
-        public IActionResult Create(Userdetail detail,Userrelation relation,Employ employ )
+        public IActionResult Create(Userdetail detail,Userrelation relation)
         {
             int count = 0;
             count = userService.Create(detail);
@@ -69,7 +69,11 @@ namespace TestCase.WebUI.Controllers
             }
             return Redirect(Url.Action("Index", "_Userrelation"));
         }
-    //更新
-
-}
+        //更新
+        public IActionResult Update(Userrelation relation)
+        {
+            var id = relatonService.Update(relation);
+            return Redirect(Url.Action("Detail", "_Userrelation") + $"?uid={id}");
+        }
+    }
 }

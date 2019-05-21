@@ -50,7 +50,11 @@ namespace TestCase.WebUI.Controllers
         }
 
         //更新
-
+        public IActionResult Update(Project project)
+        {
+            var id = projectService.Update(project);
+            return Redirect(Url.Action("Detail", "_Project") + $"?proid={id}");
+        }
 
     }
 }

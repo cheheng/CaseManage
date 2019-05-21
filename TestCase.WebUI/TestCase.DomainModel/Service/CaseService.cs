@@ -89,8 +89,20 @@ namespace TestCase.DomainModel.Service
         }
 
         //更新
+        public int Update(Thecase thecase)
+        {
+            int count = 0;
+            using (var dbContext = new CasemanaContext())
+            {
+                var x = dbContext.Thecase.FirstOrDefault(u => u.Cid == thecase.Cid);
+                x = thecase;
+                dbContext.Thecase.Update(x);
+                count = dbContext.SaveChanges();
+            }
+            if (count > 0) { return thecase.Cid; }
+            else return count;
+        }
 
-      
         #endregion
 
 

@@ -48,5 +48,18 @@ namespace TestCase.DomainModel.Service
         }
 
         //更新
+        public int Update(Userdetail detail)
+        {
+            int count = 0;
+            using (var dbContext = new CasemanaContext())
+            {
+                var x = dbContext.Userdetail.FirstOrDefault(u => u.Uid == detail.Uid);
+                x = detail;
+                dbContext.Userdetail.Update(x);
+                count = dbContext.SaveChanges();
+            }
+            if (count > 0) { return (int)detail.Uid; }
+            else return count;
+        }
     }
 }

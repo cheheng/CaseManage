@@ -99,6 +99,12 @@ namespace TestCase.WebUI.Controllers
         }
 
         //更新
+        //public IActionResult Update(Plan plan)
+        //{
+        //    var planSerVice = new PlanService();
+        //    var id = planSerVice.Update(plan);
+        //    return Redirect(Url.Action("Detail", "_Plan") + $"?pid={id}");
+        //}
         //public IActionResult Update(ForCase forCase)
         //{
         //    int count = 0;

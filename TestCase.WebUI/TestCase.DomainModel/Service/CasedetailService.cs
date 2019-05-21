@@ -50,7 +50,19 @@ namespace TestCase.DomainModel.Service
         }
 
         //更新
-
+        public int Update(Casedetail casedetail)
+        {
+            int count = 0;
+            using (var dbContext = new CasemanaContext())
+            {
+                var x = dbContext.Casedetail.FirstOrDefault(u => u.Cid ==casedetail.Cid);
+                x = casedetail;
+                dbContext.Casedetail.Update(x);
+                count = dbContext.SaveChanges();
+            }
+            if (count > 0) { return (int)casedetail.Cid; }
+            else return count;
+        }
 
         #endregion
 

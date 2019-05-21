@@ -98,9 +98,7 @@ namespace TestCase.DomainModel.Service
             using (var dbContext = new CasemanaContext())
             {
               var x= dbContext.Plan.FirstOrDefault(u => u.Pid == plan.Pid);
-              x.Pname = plan.Pname;
-              x.Proid = plan.Proid;
-              x.PStorage = plan.PStorage;
+              x = plan;
               dbContext.Plan.Update(x);
               count= dbContext.SaveChanges();
             }

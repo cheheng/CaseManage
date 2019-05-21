@@ -67,5 +67,18 @@ namespace TestCase.DomainModel.Service
         }
 
         //更新
+        public int Update(Unit unit)
+        {
+            int count = 0;
+            using (var dbContext = new CasemanaContext())
+            {
+                var x = dbContext.Unit.FirstOrDefault(u => u.Unid == unit.Unid);
+                x = unit;
+                dbContext.Unit.Update(x);
+                count = dbContext.SaveChanges();
+            }
+            if (count > 0) { return (int)unit.Unid; }
+            else return count;
+        }
     }
 }

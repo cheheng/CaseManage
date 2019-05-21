@@ -49,5 +49,10 @@ namespace TestCase.WebUI.Controllers
         }
 
         //更新
+        public IActionResult Update(Unit unit)
+        {
+            var id = unitService.Update(unit);
+            return Redirect(Url.Action("Detail", "_Unit") + $"?unid={id}");
+        }
     }
 }
