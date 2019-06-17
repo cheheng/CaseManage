@@ -54,15 +54,15 @@ namespace TestCase.Infrastructure.Data
 
                 entity.Property(e => e.Previous)
                     .HasColumnName("previous")
-                    .HasColumnType("varchar(200)");
+                    .HasColumnType("varchar(400)");
 
                 entity.Property(e => e.Prior)
                     .HasColumnName("prior")
-                    .HasColumnType("int(11)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.Result)
                     .HasColumnName("result")
-                    .HasColumnType("varchar(200)");
+                    .HasColumnType("varchar(500)");
 
                 entity.Property(e => e.Uid)
                     .HasColumnName("uid")
@@ -165,7 +165,7 @@ namespace TestCase.Infrastructure.Data
 
                 entity.Property(e => e.Ctitle)
                     .HasColumnName("ctitle")
-                    .HasColumnType("varchar(60)");
+                    .HasColumnType("varchar(100)");
 
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
@@ -223,9 +223,9 @@ namespace TestCase.Infrastructure.Data
                     .HasColumnName("proid")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.State)
-                    .HasColumnName("state")
-                    .HasColumnType("varchar(15)");
+                entity.Property(e => e.Proname)
+                    .HasColumnName("proname")
+                    .HasColumnType("varchar(45)");
 
                 entity.Property(e => e.Uid)
                     .HasColumnName("uid")
@@ -273,7 +273,7 @@ namespace TestCase.Infrastructure.Data
 
                 entity.Property(e => e.Tel)
                     .HasColumnName("tel")
-                    .HasColumnType("int(11)");
+                    .HasColumnType("varchar(11)");
 
                 entity.Property(e => e.Uname)
                     .HasColumnName("uname")

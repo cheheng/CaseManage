@@ -74,7 +74,34 @@ namespace TestCase.DomainModel.Service
             }
             return thecases;
         }
+        public List<Thecase> QueryByState(String state)
+        {
+            List<Thecase> thecases = null;
+            using (var dbContext = new CasemanaContext())
+            {
+                thecases = dbContext.Thecase.Where(x => x.State== state).ToList();
+            }
+            return thecases;
+        }
+        public List<Thecase> QueryByName(String name)
+        {
+            List<Thecase> thecases = null;
+            using (var dbContext = new CasemanaContext())
+            {
+                thecases = dbContext.Thecase.Where(x => x.Name == name).ToList();
+            }
+            return thecases;
+        }
 
+        public List<Thecase> QueryByToName(String name)
+        {
+            List<Thecase> thecases = null;
+            using (var dbContext = new CasemanaContext())
+            {
+                thecases = dbContext.Thecase.Where(x => x.Toname== name).ToList();
+            }
+            return thecases;
+        }
         public List<Thecase> QueryByUnid(int unid)
         {
             List<Thecase> thecases = null;
@@ -139,14 +166,11 @@ namespace TestCase.DomainModel.Service
                         info.SetValue(x, pro.GetValue(thecase));
                 }
                 dbContext.Thecase.Update(x);
-                count = dbContext.SaveChanges();
+                dbContext.SaveChanges();
             }
-            if (count > 0) { return thecase.Cid; }
-            else return count;
+            return thecase.Cid;
         }
 
         #endregion
-
-
     }
 }

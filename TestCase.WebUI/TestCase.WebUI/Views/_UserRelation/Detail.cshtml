@@ -7,8 +7,9 @@
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">用户详情</a></li>
+            <li><a href='@Url.Action("Privacy","Home")'>首页</a></li>
+            <li><a href='@Url.Action("Index","_UserRelation")'>职工列表</a></li>
+            <li><a href="#">职工详情</a></li>
         </ol>
     </div>
 </div>
@@ -40,8 +41,8 @@
                                     <option value="@user.relation.Eid">@user.relation.Ename</option>
                                     <option value="1">管理员</option>
                                     <option value="2">项目经理</option>
-                                    <option value="3">开发人员</option>
-                                    <option value="4">测试人员</option>
+                                    <option value="3">测试人员</option>
+                                    <option value="4">开发人员</option>
                                 </select>
                             </div>
                             <br />
@@ -83,7 +84,7 @@
                     <div class="form-group">
                         <label class="col-sm-12 control-label">性别：@user.detail.Sex</label>
                         <div class="clearfix"></div>
-                        <label class="col-sm-12 control-label">出生年月：@user.detail.Birth</label>
+                        <label class="col-sm-12 control-label">生日：@user.detail.Birth</label>
                         <div class="clearfix"></div>
                         <label class="col-sm-12 control-label">邮箱:@user.detail.Email</label>
                         <div class="clearfix"></div>

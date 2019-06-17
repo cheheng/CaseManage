@@ -5,8 +5,8 @@
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">项目</a></li>
+            <li><a href='@Url.Action("Privacy","Home")'>首页</a></li>
+            <li><a href='@Url.Action("Index","_Project")'>项目</a></li>
         </ol>
     </div>
 </div>
@@ -66,12 +66,18 @@
                                     }
                             </th>*@
                             <th>
-                                  <a class=" btn-dark btn-link showPlanof admin"style="display:none;" id="@projects[i].Proid" href="#">
-                                        <i class="fa fa-barcode" style="color:#0094ff">查看计划</i>
-                                  </a>
-                                  <a class=" btn-dark btn-link admin" style="display:none;" id="@projects[i].Proid" onclick="confDel(@projects[i].Proid)">
-                                        <i class="fa   fa-times-circle-o  " onclick="" style="color:rgba(255, 69, 0, 0.90)">删除</i>
-                                  </a>
+                                <a class=" btn-dark btn-link showPlanof admin" style="display:none;" href="@Url.Action("Index","_Plan")?proid=@projects[i].Proid">
+                                    <i class="fa fa-barcode" style="color:#0094ff">查看计划</i>
+                                </a>&nbsp;
+                                <a class=" btn-dark btn-link showPlanof" href="@Url.Action("Index","_Unit")?proid=@projects[i].Proid">
+                                    <i class="fa fa-barcode" style="color:#0094ff">查看集合</i>
+                                </a>&nbsp;
+                                <a class=" btn-dark btn-link showPlanof " href="@Url.Action("Index","_Case")?proid=@projects[i].Proid">
+                                    <i class="fa fa-barcode" style="color:#0094ff">查看用例</i>
+                                </a>&nbsp;
+                                <a class=" btn-dark btn-link admin" style="display:none;" id="@projects[i].Proid" onclick="confDel(@projects[i].Proid)">
+                                    <i class="fa   fa-times-circle-o  " onclick="" style="color:rgba(255, 69, 0, 0.90)">删除</i>
+                                </a>
                             </th>
                         </tr>
                     }

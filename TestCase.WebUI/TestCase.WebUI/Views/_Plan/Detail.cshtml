@@ -7,8 +7,8 @@
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">计划</a></li>
+            <li><a href='@Url.Action("Privacy","Home")'>首页</a></li>
+            <li><a href='@Url.Action("Index","_Plan")'>计划</a></li>
             <li><a href="#">详情</a></li>
         </ol>
     </div>
@@ -20,7 +20,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-linux"></i>
-                    <span>用例详情</span>
+                    <span>计划详情</span>
                 </div>
                 <div class="box-icons">
                     <a class="collapse-link">
@@ -42,6 +42,7 @@
                         <input type="text" class="form-control" name="pname" value="@plan.Pname" />
                         <label class="control-label">所属项目</label>
                         <select class="populate placeholder changeState" name="proid">
+                            <option value="@plan.Proid">@plan.Proname</option>
                             @for (int i = 0; i < projects.Count; i++)
                             {
                                 <option value="@projects[i].Proid">@projects[i].Proname</option>

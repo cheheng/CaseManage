@@ -87,8 +87,7 @@ namespace TestCase.DomainModel.Service
                 dbContext.Project.Update(x);
                 count = dbContext.SaveChanges();
             }
-            if (count > 0) { return project.Proid; }
-            else return count;
+           return project.Proid; 
         }
     }
 }

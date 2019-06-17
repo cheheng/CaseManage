@@ -6,8 +6,8 @@
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">计划</a></li>
+            <li><a href='@Url.Action("Privacy","Home")'>首页</a></li>
+            <li><a href='@Url.Action("Index","_Plan")'>计划</a></li>
         </ol>
     </div>
 </div>
@@ -57,11 +57,14 @@
                                  </a>
                             </th>
                             <th>@plans[i].Proname </th>
-                            <th class="admin manager" style="display:none">
-                                <a class=" btn-dark btn-link" name="pid">
+                            <th >
+                                <a class=" btn-dark btn-link" href="@Url.Action("Index","_Unit")?pid=@plans[i].Pid">
+                                    <i class="fa fa-barcode" style="color:#0094ff">查看集合</i>
+                                </a>&nbsp;
+                                <a class=" btn-dark btn-link" href="@Url.Action("Index","_Case")?pid=@plans[i].Pid">
                                     <i class="fa fa-barcode" style="color:#0094ff">查看用例</i>
                                 </a>&nbsp;
-                                <a class=" btn-dark btn-link del" id="@plans[i].Pid" name="pid" onclick="confDel(@plans[i].Pid)">
+                                <a class=" btn-dark btn-link develop" id="@plans[i].Pid" name="pid" onclick="confDel(@plans[i].Pid)">
                                     <i class="fa   fa-times-circle-o  " onclick="" style="color:rgba(255, 69, 0, 0.90)">删除</i>
                                 </a>
                             </th>

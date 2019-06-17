@@ -94,7 +94,7 @@ namespace TestCase.DomainModel.Service
 
         //更新
         public int Update(Unit unit)
-        {
+        { 
             int count = 0;
             using (var dbContext = new CasemanaContext())
             {
@@ -108,8 +108,7 @@ namespace TestCase.DomainModel.Service
                 dbContext.Unit.Update(x);
                 count = dbContext.SaveChanges();
             }
-            if (count > 0) { return (int)unit.Unid; }
-            else return count;
+            return (int)unit.Unid;
         }
     }
 }

@@ -121,8 +121,7 @@ namespace TestCase.DomainModel.Service
                 dbContext.Plan.Update(x);
               count= dbContext.SaveChanges();
             }
-            if (count > 0) { return plan.Pid; }
-            else return count;
+            return plan.Pid; 
         }
         #endregion
     }

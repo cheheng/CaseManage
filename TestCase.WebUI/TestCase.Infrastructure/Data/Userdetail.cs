@@ -12,6 +12,6 @@ namespace TestCase.Infrastructure.Data
         public DateTime? Birth { get; set; }
         public string Passwod { get; set; }
         public string Email { get; set; }
-        public int? Tel { get; set; }
+        public string Tel { get; set; }
     }
 }

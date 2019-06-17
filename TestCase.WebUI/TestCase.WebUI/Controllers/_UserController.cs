@@ -26,6 +26,13 @@ namespace TestCase.WebUI.Controllers
 
             return View();
         }
+
+        public IActionResult LoginOut()
+        {
+            this.Response.Cookies.Delete("user");
+            return Redirect(Url.Action("Index", "Home"));
+        }
+
         //更新
         public IActionResult Update(Userdetail detail)
         {

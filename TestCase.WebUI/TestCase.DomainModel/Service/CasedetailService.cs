@@ -66,8 +66,7 @@ namespace TestCase.DomainModel.Service
                 dbContext.Casedetail.Update(x);
                 count = dbContext.SaveChanges();
             }
-            if (count > 0) { return (int)casedetail.Cid; }
-            else return count;
+            return casedetail.Cid; 
         }
 
         #endregion

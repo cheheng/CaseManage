@@ -44,13 +44,40 @@ namespace TestCase.WebUI.Controllers
                 projects = projectService.GetAll();
                 units = unitService.GetAll();
                 relations = relationService.GetAll();
-                if (caselist.Ctitle == null)
+                if (caselist.Proid>0) {
+                    cases = caseService.QueryByProid((int)caselist.Proid);
+                }
+                else if (caselist.Pid > 0)
+                {
+                    cases = caseService.QueryByPid((int)caselist.Pid);
+                }
+                else if (caselist.Unid > 0)
+                {
+                    cases = caseService.QueryByUnid((int)caselist.Unid);
+                }
+                else if (caselist.State !=null)
+                {
+                    cases = caseService.QueryByState(caselist.State);
+                }
+                else if (caselist.Name!=null)
+                {
+                    cases = caseService.QueryByName(loginuser.relation.Name);
+                }
+                else if (caselist.Toname != null)
+                {
+                    cases = caseService.QueryByToName(loginuser.relation.Name);
+                }
+                else if (caselist.State != null)
+                {
+                    cases = caseService.QueryByState(caselist.State);
+                }
+                else if (caselist.Ctitle == null)
                 {
                     cases = caseService.GetAll();
                 }
                 else
                 {
-                    cases = caseService.Query(0,caselist);
+                    cases = caseService.Query(0, caselist);
                 }
             }
             else
@@ -60,7 +87,27 @@ namespace TestCase.WebUI.Controllers
                 plans = planService.QueryByProid(proid);
                 units = unitService.QueryByProid(proid);
                 relations = relationService.QueryByProid(proid);
-                if (caselist.Ctitle == null)
+                if (caselist.Pid > 0)
+                {
+                    cases = caseService.QueryByPid((int)caselist.Pid);
+                }
+                else if (caselist.Unid > 0)
+                {
+                    cases = caseService.QueryByUnid((int)caselist.Unid);
+                }
+                else if (caselist.State != null)
+                {
+                    cases = caseService.QueryByState(caselist.State);
+                }
+                else if (caselist.Name != null)
+                {
+                    cases = caseService.QueryByName(loginuser.relation.Name);
+                }
+                else if (caselist.Toname != null)
+                {
+                    cases = caseService.QueryByToName(loginuser.relation.Name);
+                }
+                else if (caselist.Ctitle == null)
                 {
                     cases = caseService.QueryByProid(proid);
                 }
@@ -105,15 +152,22 @@ namespace TestCase.WebUI.Controllers
             ViewData["plans"] = plans;
             ViewData["units"] = units;
             ViewData["relations"] = relations;
-
             //
             var thecase = caseService.ShowDetail(forcase.Cid);
             var casedetail = detailservice.ShowDetail(forcase.Cid);
             forcase.Ctitle = thecase.Ctitle;
             forcase.Detail = casedetail.Detail;
             forcase.Proid = thecase.Proid;
+            forcase.Proname = projectService.ShowDetail((int)thecase.Proid).Proname;
             forcase.Pid = thecase.Pid;
+            if (thecase.Pid != null)
+            {
+                forcase.Pname = planService.Show((int)thecase.Pid).Pname;
+            }
             forcase.Unid = thecase.Unid;
+            if (thecase.Unid != null) {
+                forcase.UnName = unitService.ShowDetail((int)thecase.Unid).UnName;
+            }
             forcase.Uid = thecase.Uid;
             forcase.Uid2 = casedetail.Uid;
             forcase.State = thecase.State;
@@ -150,10 +204,10 @@ namespace TestCase.WebUI.Controllers
                     Uid = loginuser.detail.Uid,
                     Pid = forCase.Pid,
                     Unid = forCase.Unid,
-                    Proid = forCase.Proid,
+                    Proid = loginuser.relation.Proid,
                     Ctitle = forCase.Ctitle,
                     Name = loginuser.detail.Uname,
-                    State = forCase.State,
+                    State = "enable",
                     Toname = relationService.ShowDetail(forCase.Uid2).Name,
                 };
                 count = caseService.Create(thecase);
@@ -214,28 +268,6 @@ namespace TestCase.WebUI.Controllers
             thecase.Uid = caseService.ShowDetail(forCase.Cid).Uid;
             thecase.Toname = relationService.ShowDetail(forCase.Uid2).Name;
             casedetail.Uid = forCase.Uid2;
-            //var casedetail = new Casedetail()
-            //{
-            //    Cid = forCase.Cid,
-            //    Uid = forCase.Uid2,
-            //    ModifyDate = DateTime.Now,
-            //    Prior = forCase.Prior,
-            //    Detail = forCase.Detail,
-            //    Previous = forCase.Previous,
-            //    Result=forCase.Result
-            //};
-            //var thecase = new Thecase()
-            //{
-            //    Cid = forCase.Cid,
-            //    Uid = forCase.Uid,
-            //    Pid = forCase.Pid,
-            //    Unid = forCase.Unid,
-            //    Proid = forCase.Proid,
-            //    Ctitle = forCase.Ctitle,
-            //    //Name = relationService.ShowDetail(forCase.Uid).Name,
-            //    State = forCase.State,
-            //    //Toname = relationService.ShowDetail(forCase.Uid2).Name,
-            //};
             caseService.Update(thecase);
             detailservice.Update(casedetail);
             return Redirect(Url.Action("Detail", "_Case") + $"?cid={forCase.Cid}");
@@ -275,7 +307,7 @@ namespace TestCase.WebUI.Controllers
                 worksheet.Cells["D15"].Value = "是否合格";
                 worksheet.Cells["E15"].Value = "合格";
                 float percent;
-                int count = 13;
+                int count = 12;
                 var thecase = caseService.ShowDetail(cid);
                 var casedetail = detailservice.ShowDetail(cid);
                 //添加值
@@ -320,7 +352,7 @@ namespace TestCase.WebUI.Controllers
                     }
                     
                 }
-                percent =(float) count/14;
+                percent =(float) count/12;
                   worksheet.Cells["E14"].Value = percent;
                   worksheet.Cells["E14"].Style.Font.Bold = true;
                 if (percent <= 0.50)

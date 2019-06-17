@@ -23,7 +23,15 @@ namespace TestCase.WebUI.Controllers
             if (loginuser.relation.Eid == 1)
             {
                 plans = planService.GetAll();
-                if (unit.UnName == null)
+                if (unit.Proid > 0)
+                {
+                    units = unitService.QueryByProid((int)unit.Proid);
+                }
+                else if (unit.Pid > 0)
+                {
+                    units = unitService.QueryByPid((int)unit.Pid);
+                }
+                else  if (unit.UnName == null)
                 {
                     units = unitService.GetAll();
                 }
@@ -36,7 +44,11 @@ namespace TestCase.WebUI.Controllers
             {
                 int proid = (int)loginuser.relation.Proid;
                 plans = planService.QueryByProid(proid);
-                if (unit.UnName == null)
+                 if (unit.Pid > 0)
+                {
+                    units = unitService.QueryByPid((int)unit.Pid);
+                }
+                else if (unit.UnName == null)
                 {
                     units = unitService.QueryByProid(proid);
                 }
@@ -52,11 +64,13 @@ namespace TestCase.WebUI.Controllers
         public IActionResult Detail(Unit unit)
         {
             var planService = new PlanService();
+            var projectService = new ProjectService();
             var json = HttpContext.Request.Cookies["user"];
             User loginuser = JsonConvert.DeserializeObject<User>(json);
             List<Plan> plans = null;
             plans = planService.QueryByProid((int)loginuser.relation.Proid);
             unit = unitService.ShowDetail(unit.Unid);
+            unit.Proname =projectService.ShowDetail((int)unit.Proid).Proname;
             ViewData["plans"] = plans;
             return View(unit);
         }
@@ -93,6 +107,10 @@ namespace TestCase.WebUI.Controllers
         //更新
         public IActionResult Update(Unit unit)
         {
+            var projectService = new ProjectService();
+            unit.Proname = projectService.ShowDetail((int)unit.Proid).Proname;
+            var planService = new PlanService();
+            unit.Pname= planService.Show((int)unit.Pid).Pname;
             var id = unitService.Update(unit);
             return Redirect(Url.Action("Detail", "_Unit") + $"?unid={id}");
         }

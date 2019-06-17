@@ -10,8 +10,8 @@
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">用例</a></li>
+            <li><a  href='@Url.Action("Privacy","Home")'>首页</a></li>
+            <li><a href='@Url.Action("Index","_Case")'>用例</a></li>
             <li><a href="#">详情</a></li>
         </ol>
     </div>
@@ -43,9 +43,9 @@
                         <label class="control-label">标题</label>
                         <input type="text" class="form-control" value="@detail.Ctitle" name="ctitle" />
                         <label class="control-label">前置条件</label>
-                        <textarea class="form-control" style="height:100px;" value="@detail.Previous" name="previous"></textarea>
+                        <textarea class="form-control" style="height:100px;" name="previous">@detail.Previous</textarea>
                         <label class="control-label">执行步骤</label>
-                        <textarea class="form-control" style="height:100px;" value="@detail.Detail" name="detail"></textarea>
+                        <textarea class="form-control" style="height:100px;" name="detail">@detail.Detail</textarea>
                         <label class="control-label">预期结果</label>
                         <textarea class="form-control" style="height:100px;" name="prior">@detail.Prior</textarea>
                         <label class="control-label">执行结果</label>
@@ -54,6 +54,7 @@
                     <div class="col-xs-3 text-left form-group">
                         <label class="control-label">所属项目</label>
                         <select class="populate placeholder changeState form-control" name="proid">
+                            <option value="@detail.Proid">@detail.Proname</option>
                             @for (int i = 0; i < projects.Count; i++)
                             {
                                 <option value="@projects[i].Proid">@projects[i].Proname</option>
@@ -61,7 +62,7 @@
                         </select>
                         <label class="control-label">所属计划</label>
                         <select class="populate placeholder changeState form-control" name="pid">
-                            <option value=""></option>
+                            <option value="@detail.Pid">@detail.Pname</option>
                             @for (int i = 0; i < plans.Count; i++)
                             {
                                 <option value="@plans[i].Pid">@plans[i].Pname</option>
@@ -69,7 +70,7 @@
                         </select>
                         <label class="control-label">所属集合</label>
                         <select class="populate placeholder changeState form-control" name="unid">
-                            <option value=""></option>
+                            <option value="@detail.Unid">@detail.UnName</option>
                             @for (int i = 0; i < units.Count; i++)
                             {
                                 <option value="@units[i].Unid">@units[i].UnName</option>
@@ -84,15 +85,6 @@
                                 <option value="@relatons[i].Uid">@relatons[i].Name</option>
                             }
                         </select>
-                        <label class="control-label">优先级</label>
-                        <select class="populate placeholder changeState form-control" name="uid2">
-                            @for (int i = 0; i < relatons.Count; i++)
-                            {
-                                <option value="@relatons[i].Uid">@relatons[i].Name</option>
-                            }
-                        </select>
-                        @*<label class="control-label">优先级</label>
-        <input type="text" class="form-control" value="@detail.Prior" name="prior" />*@
                         <label class="">状态：</label>
                         <select class="populate placeholder changeState" name="state">
                             @if (detail.State == "enable")

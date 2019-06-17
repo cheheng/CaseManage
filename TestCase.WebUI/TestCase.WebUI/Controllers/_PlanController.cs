@@ -20,11 +20,16 @@ namespace TestCase.WebUI.Controllers
             List<Plan> plans = null;
             var json = HttpContext.Request.Cookies["user"];
             User loginuser = JsonConvert.DeserializeObject<User>(json);
+            int proid = (int)loginuser.relation.Proid;
             List<Project> projects = null;
            if (loginuser.relation.Eid == 1)
             {
                 projects = projectService.GetAll();
-                if (plan.Pname == null)
+                if (plan.Proid > 0)
+                {
+                    plans = planService.QueryByProid((int)plan.Proid);
+                }
+                else if (plan.Pname == null)
                 {
                     plans = planService.GetAll();
                 }
@@ -35,7 +40,6 @@ namespace TestCase.WebUI.Controllers
             }
            else
             {
-                int proid = (int)loginuser.relation.Proid;
                 projects = projectService.QueryById(proid);
                 if (plan.Pname == null)
                 {
@@ -75,7 +79,6 @@ namespace TestCase.WebUI.Controllers
         public IActionResult Update(Plan plan)
         {
             var planSerVice = new PlanService();
-            plan.Proname = projectService.ShowDetail((int)plan.Proid).Proname;
             var id = planSerVice.Update(plan);
             return Redirect(Url.Action("Detail","_Plan")+ $"?pid={id}");
         }

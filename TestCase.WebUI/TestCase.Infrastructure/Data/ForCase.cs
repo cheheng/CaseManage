@@ -19,9 +19,12 @@ namespace TestCase.Infrastructure.Data
         public string Name { get; set; }
         public string Toname { get; set; }
 
+        public string Proname { get; set; }
+        public string Pname { get; set; }
+        public string UnName { get; set; }
         public int? Uid2 { get; set; }
         public DateTime? ModifyDate { get; set; }
-        public int? Prior { get; set; }
+        public string Prior { get; set; }
         public string Detail { get; set; }
         public string Previous { get; set; }
         public string Result { get; set; }

@@ -8,7 +8,7 @@ namespace TestCase.Infrastructure.Data
         public int Cid { get; set; }
         public int? Uid { get; set; }
         public DateTime? ModifyDate { get; set; }
-        public int? Prior { get; set; }
+        public string Prior { get; set; }
         public string Detail { get; set; }
         public string Previous { get; set; }
         public string Result { get; set; }

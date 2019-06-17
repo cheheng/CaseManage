@@ -6,8 +6,8 @@
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">集合</a></li>
+            <li><a href='@Url.Action("Privacy","Home")'>首页</a></li>
+            <li><a href='@Url.Action("Index","_Unit")'>集合</a></li>
         </ol>
     </div>
 </div>
@@ -58,7 +58,7 @@
                             </th>
                             <th>@units[i].Pname </th>
                             <th class="develop">
-                                <a class=" btn-dark btn-link" id="@units[i].Unid" href="#">
+                                <a class=" btn-dark btn-link" id="@units[i].Unid" href="@Url.Action("Index","_Case")?unid=@units[i].Unid">
                                     <i class="fa fa-barcode" style="color:#0094ff">查看用例</i>
                                 </a>&nbsp;
                                 <a class=" btn-dark btn-link del" id="@units[i].Unid" name="pid" onclick="confDel(@units[i].Unid)">
@@ -103,7 +103,7 @@
                 <div class="panel-body ">
                     <div class="form">
                         <form class="form-horizontal col-xs-12" id="create" method="post" action="@Url.Action("Create","_Unit")" novalidate="novalidate">
-                            <div class="form-group col-xs-8">
+                            <div class="form-group col-xs-12">
                                 <label class="control-label" name="">标题</label>
                                 <input type="text" class="form-control" name="unname" />
                                 <label class="control-label">所属计划</label>
@@ -114,9 +114,9 @@
                                     }
                                 </select>
                             </div>
-                            <div class="form-group col-xs-10">
+                            <div class="form-group col-xs-12">
                                 <label class="control-label">集合说明</label>
-                                <textarea class="form-control" name="un_storage" style="height:300px;"></textarea>
+                                <textarea class="form-control" name="unstorage" style="height:300px;"></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-offset-4 ">

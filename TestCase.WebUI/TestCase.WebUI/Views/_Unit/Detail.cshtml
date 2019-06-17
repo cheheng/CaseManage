@@ -7,8 +7,8 @@
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">计划</a></li>
+            <li><a href='@Url.Action("Privacy","Home")'>首页</a></li>
+            <li><a href='@Url.Action("Index","_Plan")'>集合</a></li>
             <li><a href="#">详情</a></li>
         </ol>
     </div>
@@ -20,7 +20,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-linux"></i>
-                    <span>用例详情</span>
+                    <span>集合详情</span>
                 </div>
                 <div class="box-icons">
                     <a class="collapse-link">
@@ -39,11 +39,14 @@
                         <input type="hidden" class="form-control" value="@unit.Unid" name="unid" />
                         <input type="text" class="form-control" value="@unit.Unid" disabled />
                         <label class="control-label" name="">标题</label>
-                        <input type="text" class="form-control" name="pname" value="@unit.UnName" />
+                        <input type="text" class="form-control" name="unname" value="@unit.UnName" />
                         <label class="control-label">所属项目</label>
-                        <input type="text" class="form-control" name="Proid" value="@unit.Proid" readonly />
+                        <select class="populate placeholder changeState" name="proid">
+                            <option value="@unit.Proid">@unit.Proname</option>
+                        </select>
                         <label class="control-label">所属计划</label>
                         <select class="populate placeholder changeState" name="pid">
+                            <option value="@unit.Pid">@unit.Pname</option>
                             @for (int i = 0; i < plans.Count; i++)
                             {
                                 <option value="@plans[i].Pid">@plans[i].Pname</option>
@@ -59,8 +62,8 @@
                 <div class="col-sm-6 col-sm-offset-3">
                     <br />
                     <div class="btn-group-justified">
-                        <a class="btn btn-default btn-link develop" href='@Url.Action("Index","_Unit")'><span><i class="fa fa-times-circle-o"></i></span> 返回</a>
-                        <a class="btn btn-success btn-link" style="color:dimgray;" onclick="toUpdate()"><span><i class="fa fa-check-circle"></i></span> 提交</a>
+                        <a class="btn btn-default btn-link " href='@Url.Action("Index","_Unit")'><span><i class="fa fa-times-circle-o"></i></span> 返回</a>
+                        <a class="btn btn-success btn-link develop" style="color:dimgray;" onclick="toUpdate()"><span><i class="fa fa-check-circle"></i></span> 提交</a>
                     </div>
                 </div>
             </div>

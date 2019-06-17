@@ -9,8 +9,8 @@
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">用例</a></li>
+            <li><a  href='@Url.Action("Privacy","Home")'>首页</a></li>
+            <li><a href='@Url.Action("Index","_Case")'>用例</a></li>
         </ol>
     </div>
 </div>
@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-8 col-sm-4 ">
                 <form id="search" action="@Url.Action("Index","_Case")" method="post">
-                    <input type="text" name="cname" placeholder="按标题查找" onclick="enterSearch()" />
+                    <input type="text" name="ctitle" placeholder="按标题查找" onclick="enterSearch()" />
                     <i class="fa fa-search"></i>
                 </form>
             </div>
@@ -31,41 +31,30 @@
                 <a class="btn btn-info btn-link" style="color:black;" onclick="ab()">
                     <i class="fa fa-plus-square-o">新建</i> &nbsp;
                 </a>
-                @*&nbsp;
-                    <div class="btn-group">
-                        <a class="btn btn-default" href="#"><i class="fa fa-th-large fa-fw"></i> 批量</a>
-                        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="fa fa-caret-down"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" class=""><i class="fa fa-trash-o fa-fw"></i> 删除</a></li>
-                            <li><a href="#"><i class="fa fa-ban fa-fw"></i> 禁用</a></li>
-                        </ul>
-                    </div>*@
             </div>
 
         </div>
         <div class="no-move"></div>
     </div>
     <div class="clearfix"></div>
-    @*<div class="row col-md-offset-0" >
+    <div class="row col-md-offset-0" >
         <label>状态筛选：</label>
-        <button class="btn-light " style="color:black;" onclick="stateFilter('enable')">
+        <a class="btn-light " style="color:black;"href="@Url.Action("Index","_Case")?state=enable">
             启用中 &nbsp;
-        </button>
-        <button class="btn-light  " style="color:black;" onclick="">
+        </a>
+        <a class="btn-light  " style="color:black;" href="@Url.Action("Index","_Case")?state=unable">
             失败 &nbsp;
-        </button>
-        <button class="btn-light  " style="color:black;" onclick="">
+        </a>
+        <a class="btn-light  " style="color:black;" href="@Url.Action("Index","_Case")?state=closed">
             已关闭 &nbsp;
-        </button>
-        <button class="btn-light " style="color:black;" onclick="">
+        </a>
+        <a class="btn-light " style="color:black;" href="@Url.Action("Index","_Case")?name=check">
             由我创建 &nbsp;
-        </button>
-        <button class="btn-light " style="color:black;" onclick="">
+        </a>
+        <a class="btn-light " style="color:black;" href="@Url.Action("Index","_Case")?toname=check">
             指派给我 &nbsp;
-        </button>
-    </div>*@
+        </a>
+    </div>
     <div class="box-content no-padding table-responsive">
         <div>
 
@@ -74,71 +63,76 @@
                     <tr>
                         <th>用例编号</th>
                         <th>标题</th>
+                        @*<th>所属项目</th>
+                        <th>所属计划</th>
+                        <th>所属集合</th>*@
                         <th>创建者</th>
                         <th>分配给</th>
                         <th>状态</th>
                         <th>操作</th>
                         @*<th>
-                                <label>
-                                    <input type="checkbox" name="acceptTerms" onclick="All(this)"/>全选
-                                </label>
-                            </th>*@
-
+            <label>
+                <input type="checkbox" name="acceptTerms" onclick="All(this)"/>全选
+            </label>
+        </th>*@
                     </tr>
                 </thead>
-                <tbody class="caselist">
+                <tbody >
                     @for (int i = cases.Count-1; i >=0; i--)
                     {
-                        <tr>
-                            <th>@cases[i].Cid</th>
-                            <th>
-                                <a class="btn-link" href="/_Case/Detail?cid=@cases[i].Cid">
-                                    @cases[i].Ctitle
+                    <tr class="caselist" id="111">
+                        <th>@cases[i].Cid</th>
+                        <th>
+                            <a class="btn-link" href="/_Case/Detail?cid=@cases[i].Cid">
+                                @cases[i].Ctitle
+                            </a>
+                        </th>
+                        @*<th> @cases[i].Proname</th>
+                        <th> @cases[i].Pname</th>
+                        <th> @cases[i].UnName</th>*@
+                        <th>@cases[i].Name </th>
+                        <th>@cases[i].Toname</th>
+                        <th class="statefilter" id="@cases[i].State ">
+                            @if (cases[i].State == "enable")
+                            {
+                                <label class="btn-success">启用</label>
+                            }
+                            else if (cases[i].State == "unable")
+                            {
+                                <label class="btn-danger">失败</label>
+                            }
+                            else
+                            {
+                                <label class="btn-default">关闭</label>
+                            }
+                        </th>
+                        <th>
+                            @if (cases[i].State == "closed")
+                            {
+                                <a class=" btn-link develop" onclick="Reset(@cases[i].Cid)">
+                                    <i class="fa fa-repeat">重新启用</i>
                                 </a>
-                            </th>
-                            <th>@cases[i].Name </th>
-                            <th>@cases[i].Toname</th>
-                            <th class="statefilter">
-                                @if (cases[i].State == "enable")
-                                {
-                                    <label class="btn-success">启用</label>
-                                }
-                                else if (cases[i].State == "unable")
-                                {
-                                    <label class="btn-danger">失败</label>
-                                }
-                                else
-                                {
-                                    <label class="btn-default">关闭</label>
-                                }
-                            </th>
-                            <th class="develop">
-                                @if (cases[i].State == "closed")
-                                {
-                                    <a class=" btn-link" onclick="Reset(@cases[i].Cid)">
-                                        <i class="fa fa-repeat">重新启用</i>
-                                    </a>
-                                }
-                                else
-                                {
-                                    <a class=" btn-link">
-                                        <i class="fa fa-youtube-play" onclick="pop(@cases[i].Cid)">执行</i>
-                                    </a>
-                                }
-                                <a class=" btn-link " id="@cases[i].Cid" name="cid" href="@Url.Action("Export","_Case")?cid=@cases[i].Cid" target="_blank">
-                                    <i class="fa fa-arrow-down  " style="">查看报告</i>
+                            }
+                            else
+                            {
+                                <a class=" btn-link">
+                                    <i class="fa fa-youtube-play develop" onclick="pop(@cases[i].Cid)">执行</i>
                                 </a>
-                                <a class=" btn-dark btn-link del" id="@cases[i].Cid" name="cid" onclick="confDel(cases[i].Cid)">
-                                    <i class="fa  fa-times-circle-o  " style="color:rgba(255, 69, 0, 0.90)">删除</i>
-                                </a>
-                            </th>
-                            @*<th>
+                            }
+                            <a class=" btn-link " id="@cases[i].Cid" name="cid" href="@Url.Action("Export","_Case")?cid=@cases[i].Cid" target="_blank">
+                                <i class="fa fa-arrow-down  " style="">查看报告</i>
+                            </a>
+                            <a class=" btn-dark btn-link develop" id="@cases[i].Cid" name="cid" onclick="confDel(@cases[i].Cid)">
+                                <i class="fa  fa-times-circle-o  " style="color:rgba(255, 69, 0, 0.90)">删除</i>
+                            </a>
+                        </th>
+                        @*<th>
 
-                                    <label>
-                                        <input type="checkbox" name="checkbox-1"/>
-                                    </label>
-                                </th>*@
-                        </tr>
+            <label>
+                <input type="checkbox" name="checkbox-1"/>
+            </label>
+        </th>*@
+                    </tr>
                     }
                 </tbody>
             </table>
@@ -205,7 +199,7 @@
                                     }
                                 </select>
                                 <label class="control-label">指派给</label>
-                                <select class="populate placeholder changeState form-control" name="uid">
+                                <select class="populate placeholder changeState form-control" name="uid2">
                                     <option value=""></option>
                                     @for (int i = 0; i < relatons.Count; i++)
                                     {
@@ -239,7 +233,7 @@
                                 <label>编号</label>
                                 <input name="cid" id="runCid" />
                                 <label>状态</label>
-                                <select class="populate placeholder" name="state">
+                                <select class="populate placeholder " name="state">
                                     <option value="closed">关闭</option>
                                     <option value="unable">失败</option>
                                 </select>
@@ -286,15 +280,6 @@
             var form = document.getElementById("runCase");
             form.submit();
         }
-    }
-    function stateFilter(state) {
-        jQuery(".statefilter").each(
-            function () {
-                if (jQuery(this).html == "启用") {
-                    jQuery(".caselist").remove(jQuery(this).parent);
-                }
-            }
-        )
     }
     document.onclick = function (event) {
         event = event || window.event;

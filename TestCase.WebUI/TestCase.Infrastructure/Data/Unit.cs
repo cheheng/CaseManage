@@ -10,8 +10,8 @@ namespace TestCase.Infrastructure.Data
         public int? Pid { get; set; }
         public int? Uid { get; set; }
         public string UnStorage { get; set; }
-        public string State { get; set; }
         public int? Proid { get; set; }
         public string Pname { get; set; }
+        public string Proname { get; set; }
     }
 }

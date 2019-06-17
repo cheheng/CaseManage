@@ -80,7 +80,6 @@ namespace TestCase.DomainModel.Service
         //更新
         public int Update(Userrelation relation)
         {
-            int count = 0;
             using (var dbContext = new CasemanaContext())
             {
                 var x = dbContext.Userrelation.FirstOrDefault(u => u.Uid == relation.Uid);
@@ -91,10 +90,8 @@ namespace TestCase.DomainModel.Service
                         info.SetValue(x, pro.GetValue(relation));
                 }
                 dbContext.Userrelation.Update(x);
-                count = dbContext.SaveChanges();
             }
-            if (count > 0) { return (int)relation.Uid; }
-            else return count;
+            return (int)relation.Uid;
         }
     }
     }

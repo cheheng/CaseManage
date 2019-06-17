@@ -66,8 +66,7 @@ namespace TestCase.DomainModel.Service
                 dbContext.Userdetail.Update(x);
                 count = dbContext.SaveChanges();
             }
-            if (count > 0) { return (int)detail.Uid; }
-            else return count;
+            return detail.Uid;
         }
     }
 }
