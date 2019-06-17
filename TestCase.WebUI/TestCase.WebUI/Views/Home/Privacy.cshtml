@@ -1,12 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
 
 <!--Start Breadcrumb-->
 <div class="row">
     <div id="breadcrumb" class="col-xs-12">
         <ol class="breadcrumb">
-            <li><a href="index.html">首页</a></li>
+            <li><a>首页</a></li>
             @*<li><a href="#"></a></li>*@
         </ol>
     </div>
@@ -14,17 +12,10 @@
 <!--End Breadcrumb-->
 <!--Start Dashboard 1-->
 <div id="dashboard-header" class="row">
-</div>
     <div class="col-xs-10 col-sm-2">
-        <h3>欢迎使用测试用例管理系统</h3>
+        <h3>欢迎使用测试用例管理系统!</h3>
+    </div>
     <div class="col-xs-2 col-sm-1 col-sm-offset-1">
-        <div id="social" class="row">
-            <a href="#"><i class="fa fa-google-plus"></i></a>
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-            <a href="#"><i class="fa fa-youtube"></i></a>
-        </div>
     </div>
     <div class="clearfix visible-xs"></div>
     <div class="col-xs-12 col-sm-8 col-md-7 pull-right">
@@ -33,21 +24,21 @@
                 <div class="sparkline-dashboard" id="sparkline-1"></div>
                 <div class="sparkline-dashboard-info">
                     <i class="fa fa-usd"></i>756.45M
-                    <span class="txt-primary">EBITDA</span>
+                    <span class="txt-primary">项目经理</span>
                 </div>
             </div>
             <div class="col-xs-4">
                 <div class="sparkline-dashboard" id="sparkline-2"></div>
                 <div class="sparkline-dashboard-info">
                     <i class="fa fa-usd"></i>245.12M
-                    <span class="txt-info">OIBDA</span>
+                    <span class="txt-info">开发人员</span>
                 </div>
             </div>
             <div class="col-xs-4">
                 <div class="sparkline-dashboard" id="sparkline-3"></div>
                 <div class="sparkline-dashboard-info">
                     <i class="fa fa-usd"></i>107.83M
-                    <span>REVENUE</span>
+                    <span>测试人员</span>
                 </div>
             </div>
         </div>
@@ -410,22 +401,33 @@
 </div>
 <!--End Dashboard 2 -->
 <div style="height: 40px;"></div>
-
 <script type="text/javascript">
-// Array for random data for Sparkline
-var sparkline_arr_1 = SparklineTestData();
-var sparkline_arr_2 = SparklineTestData();
-var sparkline_arr_3 = SparklineTestData();
-$(document).ready(function() {
-	// Make all JS-activity for dashboard
-	DashboardTabChecker();
-	// Load Knob plugin and run callback for draw Knob charts for dashboard(tab-servers)
-	LoadKnobScripts(DrawKnobDashboard);
-	// Load Sparkline plugin and run callback for draw Sparkline charts for dashboard(top of dashboard + plot in tables)
-	LoadSparkLineScript(DrawSparklineDashboard);
-	// Load Morris plugin and run callback for draw Morris charts for dashboard
-	LoadMorrisScripts(MorrisDashboard);
-	// Make beauty hover in table
-	$("#ticker-table").beautyHover();
-});</script>
-<script src="~/js/devoops.js"></script>
+    // Array for random data for Sparkline
+    var sparkline_arr_1 = SparklineTestData();
+    var sparkline_arr_2 = SparklineTestData();
+    var sparkline_arr_3 = SparklineTestData();
+    $(document).ready(function () {
+        // Make all JS-activity for dashboard
+        DashboardTabChecker();
+        // Load Knob plugin and run callback for draw Knob charts for dashboard(tab-servers)
+        LoadKnobScripts(DrawKnobDashboard);
+        // Load Sparkline plugin and run callback for draw Sparkline charts for dashboard(top of dashboard + plot in tables)
+        LoadSparkLineScript(DrawSparklineDashboard);
+        // Load Morris plugin and run callback for draw Morris charts for dashboard
+        LoadMorrisScripts(MorrisDashboard);
+        // Make beauty hover in table
+        $("#ticker-table").beautyHover();
+    });
+    function DashboardTabChecker() {
+        $('#content').on('click', 'a.tab-link', function (e) {
+            e.preventDefault();
+            $('div#dashboard_tabs').find('div[id^=dashboard]').each(function () {
+                $(this).css('visibility', 'hidden').css('position', 'absolute');
+            });
+            var attr = $(this).attr('id');
+            $('#' + 'dashboard-' + attr).css('visibility', 'visible').css('position', 'relative');
+            $(this).closest('.nav').find('li').removeClass('active');
+            $(this).closest('li').addClass('active');
+        });
+    }
+</script>

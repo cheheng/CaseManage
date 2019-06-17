@@ -9,8 +9,8 @@ namespace TestCase.Infrastructure.Data
         public int? Proid { get; set; }
         public string Pname { get; set; }
         public string PStorage { get; set; }
-        public string State { get; set; }
         public int? Pretime { get; set; }
         public int? Realtime { get; set; }
+        public string Proname { get; set; }
     }
 }

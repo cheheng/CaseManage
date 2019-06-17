@@ -11,7 +11,7 @@ namespace TestCase.Infrastructure.Data
         public int? Uid { get; set; }
         public string UnStorage { get; set; }
         public string State { get; set; }
-        public int? Pretime { get; set; }
-        public int? Realtime { get; set; }
+        public int? Proid { get; set; }
+        public string Pname { get; set; }
     }
 }

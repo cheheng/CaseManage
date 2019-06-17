@@ -1,6 +1,10 @@
 ﻿@using TestCase.Infrastructure.Data;
 @{
     var cases = ViewData["cases"] as List<Thecase>;
+    var units = ViewData["units"] as List<Unit>;
+    var plans = ViewData["plans"] as List<Plan>;
+    var projects = ViewData["projects"] as List<Project>;
+    var relatons = ViewData["relations"] as List<Userrelation>;
 }
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
@@ -19,32 +23,52 @@
         <div class="row">
             <div class="col-8 col-sm-4 ">
                 <form id="search" action="@Url.Action("Index","_Case")" method="post">
-                    <input type="text" name="pname" placeholder="按标题查找" onclick="enterSearch()" />
+                    <input type="text" name="cname" placeholder="按标题查找" onclick="enterSearch()" />
                     <i class="fa fa-search"></i>
                 </form>
             </div>
-            <div class="col-xs-2 pull-right">
+            <div class="col-xs-1 pull-right develop">
                 <a class="btn btn-info btn-link" style="color:black;" onclick="ab()">
-                    <i class="fa fa-plus-square-o"></i> 新建&nbsp;
+                    <i class="fa fa-plus-square-o">新建</i> &nbsp;
                 </a>
-                &nbsp;
-                <div class="btn-group">
-                    <a class="btn btn-default" href="#"><i class="fa fa-th-large fa-fw"></i> 批量</a>
-                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="fa fa-caret-down"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class=""><i class="fa fa-trash-o fa-fw"></i> 删除</a></li>
-                        <li><a href="#"><i class="fa fa-ban fa-fw"></i> 禁用</a></li>
-                    </ul>
-                </div>
+                @*&nbsp;
+                    <div class="btn-group">
+                        <a class="btn btn-default" href="#"><i class="fa fa-th-large fa-fw"></i> 批量</a>
+                        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="fa fa-caret-down"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class=""><i class="fa fa-trash-o fa-fw"></i> 删除</a></li>
+                            <li><a href="#"><i class="fa fa-ban fa-fw"></i> 禁用</a></li>
+                        </ul>
+                    </div>*@
             </div>
 
         </div>
         <div class="no-move"></div>
     </div>
+    <div class="clearfix"></div>
+    @*<div class="row col-md-offset-0" >
+        <label>状态筛选：</label>
+        <button class="btn-light " style="color:black;" onclick="stateFilter('enable')">
+            启用中 &nbsp;
+        </button>
+        <button class="btn-light  " style="color:black;" onclick="">
+            失败 &nbsp;
+        </button>
+        <button class="btn-light  " style="color:black;" onclick="">
+            已关闭 &nbsp;
+        </button>
+        <button class="btn-light " style="color:black;" onclick="">
+            由我创建 &nbsp;
+        </button>
+        <button class="btn-light " style="color:black;" onclick="">
+            指派给我 &nbsp;
+        </button>
+    </div>*@
     <div class="box-content no-padding table-responsive">
         <div>
+
             <table class="table table-bordered table-striped table-hover  table-datatable" id="datatable-case">
                 <thead>
                     <tr>
@@ -52,16 +76,18 @@
                         <th>标题</th>
                         <th>创建者</th>
                         <th>分配给</th>
+                        <th>状态</th>
                         <th>操作</th>
-                        <th>
-                            <label>
-                                <input type="checkbox" name="acceptTerms" onclick="All(this)"/>全选
-                            </label>
-                        </th>
+                        @*<th>
+                                <label>
+                                    <input type="checkbox" name="acceptTerms" onclick="All(this)"/>全选
+                                </label>
+                            </th>*@
+
                     </tr>
                 </thead>
-                <tbody>
-                    @for (int i = 0; i < cases.Count; i++)
+                <tbody class="caselist">
+                    @for (int i = cases.Count-1; i >=0; i--)
                     {
                         <tr>
                             <th>@cases[i].Cid</th>
@@ -72,19 +98,46 @@
                             </th>
                             <th>@cases[i].Name </th>
                             <th>@cases[i].Toname</th>
-                            <th>
-                                <button>
-                                    <i class="fa fa-plus-square-o"></i>
-                                </button>
+                            <th class="statefilter">
+                                @if (cases[i].State == "enable")
+                                {
+                                    <label class="btn-success">启用</label>
+                                }
+                                else if (cases[i].State == "unable")
+                                {
+                                    <label class="btn-danger">失败</label>
+                                }
+                                else
+                                {
+                                    <label class="btn-default">关闭</label>
+                                }
+                            </th>
+                            <th class="develop">
+                                @if (cases[i].State == "closed")
+                                {
+                                    <a class=" btn-link" onclick="Reset(@cases[i].Cid)">
+                                        <i class="fa fa-repeat">重新启用</i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class=" btn-link">
+                                        <i class="fa fa-youtube-play" onclick="pop(@cases[i].Cid)">执行</i>
+                                    </a>
+                                }
+                                <a class=" btn-link " id="@cases[i].Cid" name="cid" href="@Url.Action("Export","_Case")?cid=@cases[i].Cid" target="_blank">
+                                    <i class="fa fa-arrow-down  " style="">查看报告</i>
+                                </a>
                                 <a class=" btn-dark btn-link del" id="@cases[i].Cid" name="cid" onclick="confDel(cases[i].Cid)">
-                                    <i class="fa   fa-times-circle-o  " style="color:rgba(255, 69, 0, 0.90)">删除</i>
+                                    <i class="fa  fa-times-circle-o  " style="color:rgba(255, 69, 0, 0.90)">删除</i>
                                 </a>
                             </th>
-                            <th>
-                                <label>
-                                    <input type="checkbox" name="checkbox-1"/>
-                                </label>
-                            </th>
+                            @*<th>
+
+                                    <label>
+                                        <input type="checkbox" name="checkbox-1"/>
+                                    </label>
+                                </th>*@
                         </tr>
                     }
                 </tbody>
@@ -109,7 +162,7 @@
 <div>
     <div class="mask" id="mask" style=" z-index:99999;width: 100%;height: 100%; position: fixed;top: 0; left: 0;display: none;background-color: rgba(0, 0, 0, 0.6);">
         <!-- 添加 的弹窗-->
-        <div class="add box" id="add" style=" width: 65%;  background-color: #fff;height:600px;  margin: 100px auto; overflow-y:auto;">
+        <div class="add box" id="add" style=" width: 65%;  background-color: #fff;  margin: 100px auto; overflow-y:auto;">
             <div class="panel" style="">
                 <div class="box-header text-center" style="color:black;">
                     <h4>添加</h4>
@@ -124,25 +177,44 @@
                                 <textarea class="form-control" style="height:100px;" name="previous"></textarea>
                                 <label class="control-label">执行步骤</label>
                                 <textarea class="form-control" style="height:100px;" name="detail"></textarea>
-                                <label class="control-label">实际结果</label>
-                                <textarea class="form-control" style="height:100px;"></textarea>
+                                <label class="control-label">预期结果</label>
+                                <textarea class="form-control" style="height:100px;" name="prior"></textarea>
                             </div>
                             <div class="col-xs-3 text-left form-group">
                                 <label class="control-label">所属项目</label>
-                                <input type="text" class="form-control" name="proid" />
+                                <select class="populate placeholder changeState form-control" name="proid">
+                                    @for (int i = 0; i < projects.Count; i++)
+                                    {
+                                        <option value="@projects[i].Proid">@projects[i].Proname</option>
+                                    }
+                                </select>
                                 <label class="control-label">所属计划</label>
-                                <input type="text" class="form-control" name="pid" />
+                                <select class="populate placeholder changeState form-control" name="pid">
+                                    <option value=""></option>
+                                    @for (int i = 0; i < plans.Count; i++)
+                                    {
+                                        <option value="@plans[i].Pid">@plans[i].Pname</option>
+                                    }
+                                </select>
                                 <label class="control-label">所属集合</label>
-                                <input type="text" class="form-control" name="unid" />
+                                <select class="populate placeholder changeState form-control" name="unid">
+                                    <option value=""></option>
+                                    @for (int i = 0; i < units.Count; i++)
+                                    {
+                                        <option value="@units[i].Unid">@units[i].UnName</option>
+                                    }
+                                </select>
                                 <label class="control-label">指派给</label>
-                                <input type="text" class="form-control" name="uid2" />
-                                <label class="control-label">优先级</label>
-                                <input type="text" class="form-control" name="prior" />
-                                <label class="control-label">状态</label>
-                                <input type="text" class="form-control" name="state" />
+                                <select class="populate placeholder changeState form-control" name="uid">
+                                    <option value=""></option>
+                                    @for (int i = 0; i < relatons.Count; i++)
+                                    {
+                                        <option value="@relatons[i].Uid">@relatons[i].Name</option>
+                                    }
+                                </select>
                             </div>
                         </form>
-                        <div >
+                        <div>
                             <div class="col-xs-offset-4 ">
                                 <button class="btn btn-default btn-link col-xs-3 " id="cancel"><span><i class="fa fa-times-circle-o"></i></span> 取消</button>
                                 <button class="btn btn-success btn-link col-xs-3" style="color:dimgray;" type="submit" onclick="toCreate()"><span><i class="fa fa-check-circle"></i></span> 提交</button>
@@ -153,9 +225,42 @@
             </div>
         </div>
     </div>
+    <div>
+        <div class="mask2" id="mask2" style=" z-index:99999;width: 100%;height: 100%; position: fixed;top: 0; left: 0;display: none;background-color: rgba(0, 0, 0, 0.6);">
+            <!-- 执行 的弹窗-->
+            <div class="run box"  style="width: 65%;  background-color: #fff;  margin: 150px auto; overflow-y:auto;">
+                <div class="panel" style="">
+                    <div class="box-header text-center" style="color:black;">
+                        <h4>执行用例</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <form class="form-horizontal col-xs-12 " id="runCase" method="post" action="@Url.Action("RunCase","_Case")" novalidate="novalidate">
+                                <label>编号</label>
+                                <input name="cid" id="runCid" />
+                                <label>状态</label>
+                                <select class="populate placeholder" name="state">
+                                    <option value="closed">关闭</option>
+                                    <option value="unable">失败</option>
+                                </select>
+                                <div class="form-group col-xs-12">
+                                    <label class="control-label">运行结果</label>
+                                    <textarea class="form-control"style="height:100px" name="result" ></textarea>
+                                </div>
+                            </form>
+                            <div>
+                                <div class="col-xs-offset-4 ">
+                                    <button class="btn btn-default btn-link col-xs-3 " id="cancel"><span><i class="fa fa-times-circle-o"></i></span> 取消</button>
+                                    <button class="btn btn-success btn-link col-xs-3" style="color:dimgray;" type="submit" onclick="toRun()"><span><i class="fa fa-check-circle"></i></span> 提交</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
 <script src="~/popWindow.js"></script>
 <script src="~/base.js"></script>
 <script type="text/javascript">
@@ -164,5 +269,41 @@
             window.location.href = '/_Case/Del?cid=' + id;
         }
     }
+    function Reset(id) {
+        if (confirm("确认启用？")) {
+            window.location.href = '/_Case/Reset?cid=' + id;
+        }
+    }
 
+    function pop(id) {
+        var mask2 = document.getElementById("mask2");
+        mask2.style.display = "block";
+        jQuery("#runCid").val(id);
+    }
+
+    function toRun() {
+        if (confirm("确认执行？")) {
+            var form = document.getElementById("runCase");
+            form.submit();
+        }
+    }
+    function stateFilter(state) {
+        jQuery(".statefilter").each(
+            function () {
+                if (jQuery(this).html == "启用") {
+                    jQuery(".caselist").remove(jQuery(this).parent);
+                }
+            }
+        )
+    }
+    document.onclick = function (event) {
+        event = event || window.event;
+        //兼容获取触动事件时被传递过来的对象
+        var aaa = event.target ? event.target : event.srcElement;
+        if (aaa.id == "cancel" || aaa.id == "mask2" || aaa.id == "mask") {
+            mask2.style.display = "none";
+            mask.style.display = "none";
+        }
+    }
 </script>
+

@@ -1,7 +1,6 @@
 ﻿@using TestCase.Infrastructure.Data;
 @{
     var projects = ViewData["projects"] as List<Project>;
-
 }
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
@@ -15,30 +14,19 @@
     <div class="page-header">
         <div class="box-name">
             <i class="fa  fa-building-o"></i>
-            <span>计划列表</span>
+            <span>项目列表</span>
         </div>
-        <div class="row">
+        <div class="row " >
             <div class="col-8 col-sm-4 ">
                 <form id="search" action="@Url.Action("Index","_Project")" method="post">
-                    <input type="text" name="pname" placeholder="按标题查找" onclick="enterSearch()" />
+                    <input type="text" name="proname" placeholder="按标题查找" onclick="enterSearch()" />
                     <i class="fa fa-search"></i>
                 </form>
             </div>
-            <div class="col-xs-2 pull-right">
+            <div class="col-xs-2 pull-right admin" style="display:none;" >
                 <a class="btn btn-info btn-link" style="color:black;" onclick="ab()">
                     <i class="fa fa-plus-square-o"></i> 新建&nbsp;
                 </a>
-                &nbsp;
-                <div class="btn-group">
-                    <a class="btn btn-default" href="#"><i class="fa fa-th-large fa-fw"></i> 批量</a>
-                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="fa fa-caret-down"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class=""><i class="fa fa-trash-o fa-fw"></i> 删除</a></li>
-                        <li><a href="#"><i class="fa fa-ban fa-fw"></i> 禁用</a></li>
-                    </ul>
-                </div>
             </div>
 
         </div>
@@ -52,18 +40,12 @@
                     <tr>
                         <th>编号</th>
                         <th>标题</th>
-                        <th>状态</th>
                         <th>操作</th>
-                        <th>
-                            <label>
-                                <input type="checkbox" name="acceptTerms" onclick="All(this)" />全选
-                            </label>
-                        </th>
                     </tr>
                 </thead>
                 <!--列表内容-->
                 <tbody>
-                    @for (int i = 0; i < projects.Count; i++)
+                    @for (int i = projects.Count-1; i>=0; i--)
                     {
                         <tr>
                             <th>@projects[i].Proid</th>
@@ -72,7 +54,7 @@
                                     @projects[i].Proname
                                 </a>
                             </th>
-                            <th>
+                            @*<th>
                                     @if (projects[i].State == "enable")
                                     {
                                         <label value="enable" class="btn-success">启用</label>
@@ -82,20 +64,14 @@
                                         <label value="unable" class="btn-default">禁用</label>
 
                                     }
-                            </th>
+                            </th>*@
                             <th>
-                                &nbsp;
-                                <a class=" btn-dark btn-link" id="@projects[i].Proid" href="#">
-                                    <i class="fa fa-barcode" style="color:#0094ff">查看计划</i>
-                                </a>&nbsp;
-                                <a class=" btn-dark btn-link del" id="@projects[i].Proid" name="proid" onclick="confDel(@projects[i].Proid)">
-                                    <i class="fa   fa-times-circle-o  " onclick="" style="color:rgba(255, 69, 0, 0.90)">删除</i>
-                                </a>
-                            </th>
-                            <th>
-                                <label>
-                                    <input type="checkbox" name="checkbox-1" />
-                                </label>
+                                  <a class=" btn-dark btn-link showPlanof admin"style="display:none;" id="@projects[i].Proid" href="#">
+                                        <i class="fa fa-barcode" style="color:#0094ff">查看计划</i>
+                                  </a>
+                                  <a class=" btn-dark btn-link admin" style="display:none;" id="@projects[i].Proid" onclick="confDel(@projects[i].Proid)">
+                                        <i class="fa   fa-times-circle-o  " onclick="" style="color:rgba(255, 69, 0, 0.90)">删除</i>
+                                  </a>
                             </th>
                         </tr>
                     }
@@ -135,27 +111,13 @@
                 <div class="panel-body">
                     <div class="form">
                         <form  id="create" method="post" action="@Url.Action("Create","_Project")" novalidate="novalidate">
-                            <div class="form-group col-xs-10">
+                            <div class="form-group">
                                 <label class="control-label" name="">标题</label>
                                 <input type="text" class="form-control" name="proname" />
                             </div>
-                            <div class="form-group col-xs-10">
+                            <div class="form-group ">
                                     <label class="control-label">项目说明</label>
                                     <textarea class="form-control" name="storage" style="height:200px;"></textarea>
-                            </div>
-                           
-                            <div class="col-xs-2 text-left form-group">
-                                <label class="control-label">预期用时</label>
-                                <input type="text" class="form-control" name="pretime" />
-                                <label class="control-label">实际用时</label>
-                                <input type="text" class="form-control" name="realtime" />
-                                <label class="control-label">状态</label>
-                                <div class="control-label">
-                                    <select class="populate placeholder" name="state" id="">
-                                        <option value="enable">启用</option>
-                                        <option value="unable">禁用</option>
-                                    </select>
-                                </div>
                             </div>
                         </form>
                         <div class="clearfix"></div>
@@ -183,5 +145,6 @@
         if (confirm("确认删除？")) {
             window.location.href = '/_Project/Del?proid='+id;
         }
-    }
+    };
+
 </script>

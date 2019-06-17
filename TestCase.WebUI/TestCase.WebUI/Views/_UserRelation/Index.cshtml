@@ -1,6 +1,7 @@
 ﻿@using TestCase.Infrastructure.Data;
 @{
     var relations = ViewData["relations"] as List<Userrelation>;
+    var projects = ViewData["projects"] as List<Project>;
 }
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
@@ -19,7 +20,7 @@
         <div class="row">
             <div class="col-8 col-sm-4 ">
                 <form id="search" action="@Url.Action("Index","_Userrelation")" method="post">
-                    <input type="text" name="pname" placeholder="按姓名查找" onclick="enterSearch()" />
+                    <input type="text" name="name" placeholder="按姓名查找" onclick="enterSearch()" />
                     <i class="fa fa-search"></i>
                 </form>
             </div>
@@ -27,17 +28,6 @@
                 <a class="btn btn-info btn-link" style="color:black;" onclick="ab()">
                     <i class="fa fa-plus-square-o"></i> 新建&nbsp;
                 </a>
-                &nbsp;
-                <div class="btn-group">
-                    <a class="btn btn-default" href="#"><i class="fa fa-th-large fa-fw"></i> 批量</a>
-                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="fa fa-caret-down"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class=""><i class="fa fa-trash-o fa-fw"></i> 删除</a></li>
-                        <li><a href="#"><i class="fa fa-ban fa-fw"></i> 禁用</a></li>
-                    </ul>
-                </div>
             </div>
 
         </div>
@@ -53,11 +43,6 @@
                         <th>所属项目</th>
                         <th>职位</th>
                         <th>操作</th>
-                        <th>
-                            <label>
-                                <input type="checkbox" name="acceptTerms" onclick="All(this)" />全选
-                            </label>
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,11 +66,6 @@
                                 <a class=" btn-dark btn-link del" id="@relations[i].Uid" name="cid" onclick="confDel(@relations[i].Uid)">
                                     <i class="fa   fa-times-circle-o  " style="color:rgba(255, 69, 0, 0.90)">解雇</i>
                                 </a>
-                            </th>
-                            <th>
-                                <label>
-                                    <input type="checkbox" name="checkbox-1" />
-                                </label>
                             </th>
                         </tr>
                     }
@@ -128,16 +108,21 @@
                                     </div>
                                     <label class="col-sm-3 control-label">性别</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="detail.sex" />
+                                        <select class="populate placeholder" name="detail.sex" id="">
+                                            <option value="男">男</option>
+                                            <option value="女">女</option>
+                                        </select>
                                     </div>
+                                    <div class="clearfix"></div>
                                     <label class="col-sm-3 control-label">生日</label>
                                     <div class="col-sm-3">
                                         <input type="date" class="form-control" name="detail.birth" />
                                     </div>
                                     <div class="clearfix"></div>
                                     <label class="col-sm-3 control-label">邮箱</label>
+                                    <label id="test_user"></label>
                                     <div class="col-sm-5">
-                                        <input type="email" class="form-control" name="detail.email" />
+                                        <input  type="email" class="form-control email" name="detail.email" onblur="isEmail(this)" >
                                     </div>
                                     <div class="clearfix"></div>
                                     <label class="col-sm-3 control-label">手机号码</label>
@@ -145,24 +130,14 @@
                                         <input type="text" class="form-control" name="detail.tel" />
                                     </div>
                                     <div class="clearfix"></div>
+                                    <label class="col-sm-3 control-label">籍贯</label>
+                                    <div class="col-sm-5">
+                                        <input type="email" class="form-control" name="detail.address" />
+                                    </div>
+                                    <div class="clearfix"></div>
                                     <label class="col-sm-3 control-label">设置初始密码</label>
                                     <div class="col-sm-5">
                                         <input type="email" class="form-control" name="detail.passwod" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">所在地</label>
-                                    <div class="col-sm-5">
-                                        <select class="populate placeholder" name="detail.address" id="">
-                                            <option value="">-- Select a country --</option>
-                                            <option value="fr">France</option>
-                                            <option value="de">Germany</option>
-                                            <option value="it">Italy</option>
-                                            <option value="jp">Japan</option>
-                                            <option value="ru">Russia</option>
-                                            <option value="gb">United Kingdom</option>
-                                            <option value="us">United State</option>
-                                        </select>
                                     </div>
                                 </div>
                             </fieldset>
@@ -171,13 +146,23 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">职位</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="relation.eid" />
+                                        <select class="populate placeholder" name="eid">
+                                            <option value="1">管理员</option>
+                                            <option value="2">项目经理</option>
+                                            <option value="3">开发人员</option>
+                                            <option value="4">测试人员</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">所属项目</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="relation.proid" />
+                                        <select class="populate placeholder" name="proid">
+                                            @for (int i = 0; i < projects.Count; i++)
+                                            {
+                                                <option value="@projects[i].Proid">@projects[i].Proname</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </fieldset>
@@ -195,7 +180,6 @@
     </div>
 </div>
 
-
 <script src="~/popWindow.js"></script>
 <script src="~/base.js"></script>
 <script type="text/javascript">
@@ -204,5 +188,5 @@
             window.location.href = '/_UserRelation/Del?uid=' + id;
         }
     }
- 
+    
 </script>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using TestCase.Infrastructure.Data;
+using System.Reflection;
 
 namespace TestCase.DomainModel.Service
 {
@@ -73,7 +74,6 @@ namespace TestCase.DomainModel.Service
             using (var dbContext = new CasemanaContext())
             {
                 plan = dbContext.Plan.FirstOrDefault(x => x.Pid == pid);
-                //var s = context.Users.Where(u => u.Name == "Kim").Select(u => u)
             }
             return plan;
         }
@@ -82,24 +82,43 @@ namespace TestCase.DomainModel.Service
         /// </summary>
         /// <param name="pname"></param>
         /// <returns></returns>
-        public List<Plan> GetPlans(String pname)
+        public List<Plan> GetPlans(int proid, String pname)
         {
             List<Plan> plans = null;
             using (var dbContext = new CasemanaContext())
             {
-                plans = dbContext.Plan.Where(x => x.Pname == pname).ToList();
+                if (proid == 0)
+                {
+                    plans = dbContext.Plan.Where(x => x.Pname.Contains(pname)).ToList();
+                }
+                else {
+                    plans = dbContext.Plan.Where(x => x.Pname.Contains( pname) && x.Proid==proid).ToList();
+                }
             }
             return plans;
         }
-
+        public List<Plan> QueryByProid(int proid)
+        {
+            List<Plan> plans = null;
+            using (var dbContext = new CasemanaContext())
+            {
+                plans = dbContext.Plan.Where(x => x.Proid == proid).ToList();
+            }
+            return plans;
+        }
         public int Update(Plan plan)
         {
             int count = 0;
             using (var dbContext = new CasemanaContext())
             {
               var x= dbContext.Plan.FirstOrDefault(u => u.Pid == plan.Pid);
-              x = plan;
-              dbContext.Plan.Update(x);
+                foreach (PropertyInfo info in typeof(Plan).GetProperties())
+                {
+                    PropertyInfo pro = typeof(Plan).GetProperty(info.Name);
+                    if (pro != null)
+                        info.SetValue(x, pro.GetValue(plan));
+                }
+                dbContext.Plan.Update(x);
               count= dbContext.SaveChanges();
             }
             if (count > 0) { return plan.Pid; }

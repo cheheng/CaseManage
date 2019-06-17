@@ -5,8 +5,7 @@ namespace TestCase.Infrastructure.Data
 {
     public partial class Casedetail
     {
-        public int Id { get; set; }
-        public int? Cid { get; set; }
+        public int Cid { get; set; }
         public int? Uid { get; set; }
         public DateTime? ModifyDate { get; set; }
         public int? Prior { get; set; }

@@ -37,9 +37,10 @@ namespace TestCase.Infrastructure.Data
         {
             modelBuilder.Entity<Casedetail>(entity =>
             {
-                entity.ToTable("casedetail");
+                entity.HasKey(e => e.Cid)
+                    .HasName("PRIMARY");
 
-                entity.Property(e => e.Id).HasColumnType("int(11)");
+                entity.ToTable("casedetail");
 
                 entity.Property(e => e.Cid)
                     .HasColumnName("cid")
@@ -115,13 +116,11 @@ namespace TestCase.Infrastructure.Data
                     .HasColumnName("proid")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.Proname).HasColumnType("varchar(45)");
+
                 entity.Property(e => e.Realtime)
                     .HasColumnName("realtime")
                     .HasColumnType("int(11)");
-
-                entity.Property(e => e.State)
-                    .HasColumnName("state")
-                    .HasColumnType("varchar(15)");
             });
 
             modelBuilder.Entity<Project>(entity =>
@@ -139,33 +138,26 @@ namespace TestCase.Infrastructure.Data
                     .HasColumnName("proid")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.Pretime)
-                    .HasColumnName("pretime")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.Proname)
                     .HasColumnName("proname")
                     .HasColumnType("varchar(80)");
 
-                entity.Property(e => e.Realtime)
-                    .HasColumnName("realtime")
-                    .HasColumnType("int(11)");
-
-                entity.Property(e => e.State)
-                    .HasColumnName("state")
-                    .HasColumnType("varchar(15)");
+                entity.Property(e => e.Stroage)
+                    .HasColumnName("stroage")
+                    .HasColumnType("varchar(350)");
             });
 
             modelBuilder.Entity<Thecase>(entity =>
             {
-                entity.HasKey(e => e.Cid)
-                    .HasName("PRIMARY");
-
                 entity.ToTable("thecase");
 
                 entity.HasIndex(e => e.Ctitle)
                     .HasName("ctitle_UNIQUE")
                     .IsUnique();
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Cid)
                     .HasColumnName("cid")
@@ -223,12 +215,12 @@ namespace TestCase.Infrastructure.Data
                     .HasColumnName("pid")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.Pretime)
-                    .HasColumnName("pretime")
-                    .HasColumnType("int(11)");
+                entity.Property(e => e.Pname)
+                    .HasColumnName("pname")
+                    .HasColumnType("varchar(45)");
 
-                entity.Property(e => e.Realtime)
-                    .HasColumnName("realtime")
+                entity.Property(e => e.Proid)
+                    .HasColumnName("proid")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.State)

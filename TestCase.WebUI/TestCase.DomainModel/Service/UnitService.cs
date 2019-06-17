@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using TestCase.Infrastructure.Data;
 
@@ -17,21 +18,46 @@ namespace TestCase.DomainModel.Service
             }
             return units;
         }
-        public List<Unit> Query(Unit unit)
+        public List<Unit> Query(int proid,string unname)
         {
             List<Unit> units = null;
             using (var dbContext = new CasemanaContext())
             {
-                units = dbContext.Unit.Where(x => x.Unid == unit.Unid).ToList();
+                if (proid==0) {
+                    units = dbContext.Unit.Where(x => x.UnName.Contains(unname) ).ToList();
+                }
+                else { 
+                units = dbContext.Unit.Where(x => x.Proid == proid && x.UnName.Contains(unname)).ToList();
+                }
+            }
+            return units;
+        }
+        public List<Unit> QueryByPid(int pid)
+        {
+            List<Unit> units = null;
+            using (var dbContext = new CasemanaContext())
+            {
+                units = dbContext.Unit.Where(x => x.Pid == pid).ToList();
+            }
+            return units;
+        }
+        
+        public List<Unit> QueryByProid(int proid)
+        {
+            List<Unit> units = null;
+            using (var dbContext = new CasemanaContext())
+            {
+                units = dbContext.Unit.Where(x => x.Proid == proid).ToList();
             }
             return units;
         }
 
-        public Unit ShowDetail(Unit unit)
+        public Unit ShowDetail(int unid)
         {
+            var unit = new Unit();
             using (var dbContext = new CasemanaContext())
             {
-                unit = dbContext.Unit.FirstOrDefault(x => x.Unid == unit.Unid);
+                unit = dbContext.Unit.FirstOrDefault(x => x.Unid == unid);
             }
             return unit;
         }
@@ -73,7 +99,12 @@ namespace TestCase.DomainModel.Service
             using (var dbContext = new CasemanaContext())
             {
                 var x = dbContext.Unit.FirstOrDefault(u => u.Unid == unit.Unid);
-                x = unit;
+                foreach (PropertyInfo info in typeof(Unit).GetProperties())
+                {
+                    PropertyInfo pro = typeof(Unit).GetProperty(info.Name);
+                    if (pro != null)
+                        info.SetValue(x, pro.GetValue(unit));
+                }
                 dbContext.Unit.Update(x);
                 count = dbContext.SaveChanges();
             }

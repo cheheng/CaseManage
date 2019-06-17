@@ -1,9 +1,14 @@
-﻿<div class="row">
+﻿@using TestCase.Infrastructure.Data;
+@model User
+@{
+    var user = Model;
+}
+
+<div class="row">
     <div id="breadcrumb" class="col-md-12">
         <ol class="breadcrumb">
             <li><a href="#">首页</a></li>
-            <li><a href="#">用户详情</a></li>
-
+            <li><a href="#">个人详情</a></li>
         </ol>
     </div>
 </div>
@@ -29,105 +34,101 @@
                 <div class="no-move"></div>
             </div>
             <div class="box-content">
-                <form id="defaultForm" method="post" action="validators.html" class="form-horizontal">
+                <form id="update" method="post" action="@Url.Action("Update","_User")" class="form-horizontal">
                     <fieldset>
                         <legend>基本信息</legend>
+                        <input hidden name="uid" value="@user.relation.Uid"/>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Username</label>
+                            <label class="col-sm-3 control-label">姓名:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="username" />
+                                <input type="text" class=" form-control" name="uname" value="@user.relation.Name" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Country</label>
-                            <div class="col-sm-5">
-                                <select class="populate placeholder" name="country" id="s2_country">
-                                    <option value="">-- Select a country --</option>
-                                    <option value="fr">France</option>
-                                    <option value="de">Germany</option>
-                                    <option value="it">Italy</option>
-                                    <option value="jp">Japan</option>
-                                    <option value="ru">Russia</option>
-                                    <option value="gb">United Kingdom</option>
-                                    <option value="us">United State</option>
+                            <label class="col-sm-3 control-label">性别：</label>
+                            <div class="col-sm-3">
+                                <select class="populate placeholder" name="sex" id="s2_country">
+                                    <option value="@user.detail.Sex">@user.detail.Sex</option>
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-9 col-sm-offset-3">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="acceptTerms" /> 
-                                        <i class="fa fa-square-o small"></i>
-                                    </label>
-                                </div>
+                            <label class="col-sm-3 control-label">出生年月</label>
+                            <div class="col-sm-5">
+                                <input type="datetime" class="birth form-control " name="birth" value="@user.detail.Birth" />
                             </div>
                         </div>
                     </fieldset>
                     <fieldset>
                         <legend>联系方式</legend>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Email address</label>
+                            <label class="col-sm-3 control-label">Email:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="email" />
+                                <input type="text" class="email form-control" name="email" value="@user.detail.Email" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Website</label>
+                            <label class="col-sm-3 control-label">电话号码</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="website" placeholder="http://" />
+                                <input type="text" class="tel form-control" name="tel" value="@user.detail.Tel" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Phone number</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" name="phoneNumber" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Hex color</label>
+                            <label class="col-sm-3 control-label">详细地址：</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" name="color" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">US zip code</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" name="zipCode" />
+                                <input type="text" class="address form-control" name="address" value="@user.detail.Address" />
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset>
+                    <fieldset style="display:none;" class="UpdatePsw">
                         <legend>修改密码</legend>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Password</label>
+                            <label class="col-sm-3 control-label">旧密码</label>
                             <div class="col-sm-5">
                                 <input type="password" class="form-control" name="password" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Retype password</label>
+                            <label class="col-sm-3 control-label">新密码</label>
                             <div class="col-sm-5">
                                 <input type="password" class="form-control" name="confirmPassword" />
                             </div>
                         </div>
                     </fieldset>
                     <fieldset>
-                        <legend>其他信息</legend>
+                        <legend>在职信息</legend>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Ages</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" name="ages" />
-                            </div>
+                            <label class="col-sm-3 control-label">工号:@user.relation.Uid</label>
+                            <div class="clearfix"></div>
+                            <label class="col-sm-3 control-label">职位:@user.relation.Ename</label>
+                            <div class="clearfix"></div>
+                            <label class="col-sm-3 control-label">所属项目:@user.relation.Proname</label>
                         </div>
                     </fieldset>
-                    <div class="form-group">
-                        <div class="col-sm-9 col-sm-offset-3">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
                 </form>
+                <div>
+                    <div class="col-xs-offset-4 ">
+                        <button class="btn btn-success btn-link col-xs-4" style="color:dimgray;" type="submit" onclick="toUpdate()"><span><i class="fa fa-check-circle"></i></span> 提交</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script src="~/plugins/jquery/jquery-2.1.0.min.js"></script>
+<script src="~/plugins/jquery/jquery-3.3.1.min.js"></script>
+<script src="~/js/jquery.cookie.js"></script>
+<script>
+    var str = $.cookie("user");
+    var login = eval("(" + str + ")");
+    //alert(login)
+    //jQuery(".username").val(login.detail.Uname);
+    //jQuery(".tel").val(login.detail.Tel);
+    //jQuery(".sex").val(login.detail.Sex);
+    //jQuery(".address").val(login.detail.Address);
+    //jQuery(".birth").val(login.detail.Birth);
+    //jQuery(".email").val(login.detail.Email);
+</script>
+<script src="~/base.js"></script>

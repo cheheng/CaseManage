@@ -2,6 +2,7 @@
 @model User
 @{ 
     var user = Model;
+    var projects = ViewData["projects"] as List<Project>;
 }
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
@@ -25,24 +26,43 @@
             <div class="box-content">
                 <form id="update" method="post" action="@Url.Action("Update","_UserRelation")" class="form-horizontal">
                     <fieldset>
-                        <legend name="user.detail.Uid">编号：@user.detail.Uid</legend>
                         <div class="form-group">
+                            <label class="col-sm-3 control-label">工号</label>&nbsp;&nbsp;
+                            <input class="" name="uid" value="@user.relation.Uid" readonly>
+                            <br />
+                            <label class="col-sm-3 control-label">姓名</label>&nbsp;&nbsp;
+                            <input class="" name="name" value="@user.relation.Name" >
+                            <br />
+                            <div class="clearfix"></div>
                             <label class="col-sm-3 control-label">职位</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="eid" value="@user.relation.Ename" />
+                                <select class="populate placeholder" name="eid">
+                                    <option value="@user.relation.Eid">@user.relation.Ename</option>
+                                    <option value="1">管理员</option>
+                                    <option value="2">项目经理</option>
+                                    <option value="3">开发人员</option>
+                                    <option value="4">测试人员</option>
+                                </select>
                             </div>
+                            <br />
                             <div class="clearfix"></div>
                             <label class="col-sm-3 control-label">所属项目</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="proid" value="@user.relation.Proname" />
+                                <select class="populate placeholder" name="proid">
+                                    <option value="@user.relation.Proid">@user.relation.Proname</option>
+                                    @for (int i = 0; i < projects.Count; i++)
+                                    {
+                                        <option value="@projects[i].Proid">@projects[i].Proname</option>
+                                    }
+                                </select>
                             </div>
                         </div>
-                    </fieldset>
+</fieldset>
                 </form>
                 <div class="clearfix"></div>
                 <div class="col-sm-6 col-sm-offset-2">
                     <div class="btn-group-justified">
-                        <a class="btn btn-default btn-link" id="cancel"><span><i class="fa fa-times-circle-o"></i></span> 取消</a>
+                        <a class="btn btn-default btn-link" id="cancel" href='@Url.Action("Index","_UserRelation")'><span><i class="fa fa-times-circle-o"></i></span> 返回</a>
                         <a class="btn btn-success btn-link" style="color:dimgray;" onclick="toUpdate()"><span><i class="fa fa-check-circle"></i></span> 提交</a>
                     </div>
                 </div>
@@ -60,13 +80,16 @@
             </div>
             <div class="box-content">
                 <fieldset>
-                   
                     <div class="form-group">
-                        <label class="col-sm-12 control-label">姓名:@user.detail.Uname</label>
+                        <label class="col-sm-12 control-label">性别：@user.detail.Sex</label>
+                        <div class="clearfix"></div>
+                        <label class="col-sm-12 control-label">出生年月：@user.detail.Birth</label>
                         <div class="clearfix"></div>
                         <label class="col-sm-12 control-label">邮箱:@user.detail.Email</label>
                         <div class="clearfix"></div>
                         <label class="col-sm-12 control-label">手机号码：@user.detail.Tel</label>
+                        <div class="clearfix"></div>
+                        <label class="col-sm-12 control-label">籍贯：@user.detail.Address</label>
                     </div>
                 </fieldset>
             </div>

@@ -19,13 +19,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\_User\ForgetPsw.cshtml" />
+    <Content Remove="Views\_User\login.cshtml" />
+    <Content Remove="Views\_User\Register.cshtml" />
+    <Content Remove="wwwroot\20190617065400560-40509743-6fe0-4b6d-9fa7-61e58a1d21f3.xlsx" />
+    <Content Remove="wwwroot\20190617083044372-1ffdb0a6-73ae-4eed-b142-90c16f499a6f.xlsx" />
+    <Content Remove="wwwroot\20190617083423534-c2a1186b-bdad-4f86-b000-5c0c5d7bf1f7.xlsx" />
+    <Content Remove="wwwroot\2dfcc361-cb39-4391-9ee0-75585c5506b0.xlsx" />
+    <Content Remove="wwwroot\7e894778-f6fe-44da-8aa1-ffceb2e86944.xlsx" />
+    <Content Remove="wwwroot\838e451a-5a23-46a5-9fb9-65bc75fb08bd.xlsx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
 

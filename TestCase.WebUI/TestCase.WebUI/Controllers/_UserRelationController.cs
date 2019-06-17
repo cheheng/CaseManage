@@ -9,7 +9,7 @@ using TestCase.Infrastructure.Data;
 
 namespace TestCase.WebUI.Controllers
 {
-    public class _UserRelationController : Controller
+    public class _UserRelationController : BaseController
     {
         // GET: /<controller>/
         UserrelationService relatonService = new UserrelationService();
@@ -27,6 +27,8 @@ namespace TestCase.WebUI.Controllers
             {
                 relations = relatonService.Query(relation);
             }
+            var projects = projectService.GetAll();
+            ViewData["projects"] = projects;
             ViewData["relations"] = relations;
             return View();
         }
@@ -38,6 +40,8 @@ namespace TestCase.WebUI.Controllers
                 relation = relatonService.ShowDetail(relation.Uid),
                 detail = userService.ShowDetail(relation.Uid),
             };
+           var projects = projectService.GetAll();
+            ViewData["projects"] = projects;
             return View(user);
         }
 
@@ -72,6 +76,14 @@ namespace TestCase.WebUI.Controllers
         //更新
         public IActionResult Update(Userrelation relation)
         {
+            relation.Ename = employService.ShowDetail(relation.Eid).Ename;
+            relation.Proname = projectService.ShowDetail((int)relation.Proid).Proname;
+            if (relatonService.ShowDetail(relation.Uid).Name!=relation.Name) {
+            var userService = new UserService();
+            var user=userService.ShowDetail(relation.Uid);
+            user.Uname = relation.Name;
+            userService.Update(user);
+            }
             var id = relatonService.Update(relation);
             return Redirect(Url.Action("Detail", "_Userrelation") + $"?uid={id}");
         }

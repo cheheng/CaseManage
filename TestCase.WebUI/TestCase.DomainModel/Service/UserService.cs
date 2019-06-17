@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using TestCase.Infrastructure.Data;
 
@@ -54,7 +55,14 @@ namespace TestCase.DomainModel.Service
             using (var dbContext = new CasemanaContext())
             {
                 var x = dbContext.Userdetail.FirstOrDefault(u => u.Uid == detail.Uid);
-                x = detail;
+                var password = x.Passwod;
+                foreach (PropertyInfo info in typeof(Userdetail).GetProperties())
+                {
+                    PropertyInfo pro = typeof(Userdetail).GetProperty(info.Name);
+                    if (pro != null)
+                        info.SetValue(x, pro.GetValue(detail));
+                }
+                x.Passwod = password;
                 dbContext.Userdetail.Update(x);
                 count = dbContext.SaveChanges();
             }

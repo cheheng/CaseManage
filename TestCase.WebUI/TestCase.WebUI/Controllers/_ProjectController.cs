@@ -9,12 +9,17 @@ using TestCase.Infrastructure.Data;
 
 namespace TestCase.WebUI.Controllers
 {
-    public class _ProjectController : Controller
+    public class _ProjectController : BaseController
     {
         // GET: /<controller>/
         ProjectService projectService = new ProjectService();
+        PlanService planService = new PlanService();
+        UnitService unitService = new UnitService();
+        CaseService caseService = new CaseService();
+        CasedetailService detailservice = new CasedetailService();
         public IActionResult Index(Project project)
         {
+
             List<Project> projects = null;
             if (project.Proname == null)
             {
@@ -46,6 +51,19 @@ namespace TestCase.WebUI.Controllers
         public IActionResult Del(Project project)
         {
             var count = projectService.Del(project.Proid);
+            var plans = planService.QueryByProid(project.Proid);
+            foreach (Plan x in plans) {
+                planService.Del(x.Pid);
+            }
+            var units = unitService.QueryByProid(project.Proid);
+            foreach (Unit u in units) {
+                unitService.Del(u.Unid);
+            }
+            var cases = caseService.QueryByProid(project.Proid);
+            foreach (Thecase c in cases) {
+                caseService.Del(c.Cid);
+                detailservice.Del(c.Cid);
+            }
             return Redirect(Url.Action("Index", "_Project"));
         }
 

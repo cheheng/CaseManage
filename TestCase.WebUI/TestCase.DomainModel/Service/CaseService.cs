@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using TestCase.Infrastructure.Data;
+using System.Reflection;
 
 namespace TestCase.DomainModel.Service
 {
@@ -23,27 +24,63 @@ namespace TestCase.DomainModel.Service
             return thecases;
         }
 
-        public List<Thecase> Query(Thecase thecase)
+        public List<Thecase> Query(int proid,Thecase thecase)
         {
             List<Thecase> thecases = null;
             using (var dbContext = new CasemanaContext())
             {
-                if (thecase.Proid != null)
+
+                //if (thecase.Proid != null)
+                //{
+                //    thecases = dbContext.Thecase.Where(x => x.Proid == thecase.Proid).ToList();
+                //}
+                //else if (thecase.Pid != null)
+                //{
+                //    thecases = dbContext.Thecase.Where(x => x.Pid == thecase.Pid).ToList();
+                //}
+                //else if (thecase.Unid != null)
+                //{
+                //    thecases = dbContext.Thecase.Where(x => x.Unid == thecase.Unid).ToList();
+                //}
+                //else
+
+                if (proid == 0)
                 {
-                    thecases = dbContext.Thecase.Where(x => x.Proid == thecase.Proid).ToList();
+                    thecases = dbContext.Thecase.Where(x => x.Ctitle.Contains( thecase.Ctitle)).ToList();
                 }
-                else if (thecase.Pid != null)
+                else
                 {
-                    thecases = dbContext.Thecase.Where(x => x.Pid == thecase.Pid).ToList();
+                    thecases = dbContext.Thecase.Where(x => x.Ctitle.Contains(thecase.Ctitle) && x.Proid==proid).ToList();
                 }
-                else if (thecase.Unid != null)
-                {
-                    thecases = dbContext.Thecase.Where(x => x.Unid == thecase.Unid).ToList();
-                }
-                else if (thecase.Ctitle != null)
-                {
-                    thecases = dbContext.Thecase.Where(x => x.Ctitle == thecase.Ctitle).ToList();
-                }
+            }
+            return thecases;
+        }
+
+        public List<Thecase> QueryByProid(int proid)
+        {
+            List<Thecase> thecases = null;
+            using (var dbContext = new CasemanaContext())
+            {
+                thecases = dbContext.Thecase.Where(x =>  x.Proid == proid).ToList();
+            }
+            return thecases;
+        }
+        public List<Thecase> QueryByPid(int pid)
+        {
+            List<Thecase> thecases = null;
+            using (var dbContext = new CasemanaContext())
+            {
+                thecases = dbContext.Thecase.Where(x => x.Pid == pid).ToList();
+            }
+            return thecases;
+        }
+
+        public List<Thecase> QueryByUnid(int unid)
+        {
+            List<Thecase> thecases = null;
+            using (var dbContext = new CasemanaContext())
+            {
+                thecases = dbContext.Thecase.Where(x => x.Unid == unid).ToList();
             }
             return thecases;
         }
@@ -95,7 +132,12 @@ namespace TestCase.DomainModel.Service
             using (var dbContext = new CasemanaContext())
             {
                 var x = dbContext.Thecase.FirstOrDefault(u => u.Cid == thecase.Cid);
-                x = thecase;
+                foreach (PropertyInfo info in typeof(Thecase).GetProperties())
+                {
+                    PropertyInfo pro = typeof(Thecase).GetProperty(info.Name);
+                    if (pro != null)
+                        info.SetValue(x, pro.GetValue(thecase));
+                }
                 dbContext.Thecase.Update(x);
                 count = dbContext.SaveChanges();
             }

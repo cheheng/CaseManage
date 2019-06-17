@@ -6,6 +6,7 @@ namespace TestCase.Infrastructure.Data
     public partial class Thecase
     {
         public int Cid { get; set; }
+        public int Id { get; set; }
         public int? Uid { get; set; }
         public int? Pid { get; set; }
         public int? Unid { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using TestCase.Infrastructure.Data;
 
@@ -22,11 +23,20 @@ namespace TestCase.DomainModel.Service
             List<Userrelation> relations = null;
             using (var dbContext = new CasemanaContext())
             {
-                relations = dbContext.Userrelation.Where(x => x.Urid == relation.Urid).ToList();
+                relations = dbContext.Userrelation.Where(x => x.Name.Contains( relation.Name)).ToList();
             }
             return relations;
         }
-
+   
+        public List<Userrelation> QueryByProid(int proid)
+        {
+            List<Userrelation> relations = null;
+            using (var dbContext = new CasemanaContext())
+            {
+                relations = dbContext.Userrelation.Where(x => x.Proid == proid).ToList();
+            }
+            return relations;
+        }
         public Userrelation ShowDetail(int? uid)
         {
             Userrelation relation = new Userrelation();
@@ -74,7 +84,12 @@ namespace TestCase.DomainModel.Service
             using (var dbContext = new CasemanaContext())
             {
                 var x = dbContext.Userrelation.FirstOrDefault(u => u.Uid == relation.Uid);
-                x = relation;
+                foreach (PropertyInfo info in typeof(Userrelation).GetProperties())
+                {
+                    PropertyInfo pro = typeof(Userrelation).GetProperty(info.Name);
+                    if (pro != null)
+                        info.SetValue(x, pro.GetValue(relation));
+                }
                 dbContext.Userrelation.Update(x);
                 count = dbContext.SaveChanges();
             }

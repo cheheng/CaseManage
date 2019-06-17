@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using TestCase.Infrastructure.Data;
 
@@ -27,7 +28,7 @@ namespace TestCase.DomainModel.Service
                 dbContext.Casedetail.Add(casedetail);
                 count = dbContext.SaveChanges();
             }
-            return count;
+            return casedetail.Cid;
         }
 
         public int Del(int cid)
@@ -56,7 +57,12 @@ namespace TestCase.DomainModel.Service
             using (var dbContext = new CasemanaContext())
             {
                 var x = dbContext.Casedetail.FirstOrDefault(u => u.Cid ==casedetail.Cid);
-                x = casedetail;
+                foreach (PropertyInfo info in typeof(Casedetail).GetProperties())
+                {
+                    PropertyInfo pro = typeof(Casedetail).GetProperty(info.Name);
+                    if (pro != null)
+                        info.SetValue(x, pro.GetValue(casedetail));
+                }
                 dbContext.Casedetail.Update(x);
                 count = dbContext.SaveChanges();
             }

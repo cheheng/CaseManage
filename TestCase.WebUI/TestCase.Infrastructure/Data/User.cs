@@ -6,7 +6,7 @@ namespace TestCase.Infrastructure.Data
 {
     public class User
     {
-        public Userdetail detail = new Userdetail();
-       public Userrelation relation = new Userrelation();
+        public Userdetail detail;
+        public Userrelation relation;
     }
 }

@@ -4,53 +4,63 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TestCase.WebUI.Models;
+using TestCase.DomainModel.Service;
+using TestCase.Infrastructure.Data;
+using Newtonsoft.Json;
 
 namespace TestCase.WebUI.Controllers
 {
+    
     public class HomeController : Controller
     {
+        UserService userService = new UserService();
+       
+        static String errorMsg;
         //public IActionResult Index()
         //{
         //    return View();
         //}
-
         //public IActionResult Privacy()
         //{
         //    return View();
         //}
         public IActionResult Index()
         {
-
-            //return Redirect(Url.Action("Privacy", "Home"));
+            ViewData["errorMsg"] = errorMsg;
+            errorMsg = null;
             return View();
         }
 
-        public IActionResult Login( )
+        public IActionResult Login(Userdetail tologin)
         {
-            //var userService = new UserService();
-            //var model = userService.GetUserByEmail(tologin.Email);
-            //var errorMsg = string.Empty;
-            //if (model == null || model.Password != tologin.Password)
-            //{
-            //    //ViewData["errorMsg"] = "showErrorMsg(\'用户名或密码错误！\');";
-            //    errorMsg = "用户名或密码错误";
-            //    return View(model);
-            //}
-            //this.Response.Cookies.Append("user_id", model.Uid.ToString());
-            return Redirect(Url.Action("Privacy", "Home"));
+            if (tologin == null)
+            {
+              errorMsg = "用户名或密码不能为空";
+              return Redirect(Url.Action("Index", "Home"));
+            }
+            var model = userService.ShowDetail(tologin.Uid);
+            if (model == null || model.Passwod != tologin.Passwod)
+            {
+                //ViewData["errorMsg"] = "showErrorMsg(\'用户名或密码错误！\');";
+                errorMsg = "用户名或密码错误";
+                return Redirect(Url.Action("Index", "Home"));
+            }
+            model.Passwod = null;
+            UserrelationService relationService = new UserrelationService();
+            var relation = relationService.ShowDetail(tologin.Uid);
+            var user = new User() {
+                detail = model,
+                relation=relation
+            };
+            string json = JsonConvert.SerializeObject(user);
+            this.Response.Cookies.Append("user", json);
+            return Redirect(Url.Action("Privacy", "Home") );
         }
 
 
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

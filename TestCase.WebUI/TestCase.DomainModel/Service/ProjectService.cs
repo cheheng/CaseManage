@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using TestCase.Infrastructure.Data;
 
@@ -25,7 +26,15 @@ namespace TestCase.DomainModel.Service
             }
             return projects;
         }
-
+        public List<Project> QueryById(int proid)
+        {
+            List<Project> projects = null;
+            using (var dbContext = new CasemanaContext())
+            {
+                projects = dbContext.Project.Where(x => x.Proid == proid).ToList();
+            }
+            return projects;
+        }
         public Project ShowDetail(int proid) {
             Project project = new Project();
             using (var dbContext=new CasemanaContext()) {
@@ -69,7 +78,12 @@ namespace TestCase.DomainModel.Service
             using (var dbContext = new CasemanaContext())
             {
                 var x = dbContext.Project.FirstOrDefault(u => u.Proid == project.Proid);
-                x = project;
+                foreach (PropertyInfo info in typeof(Project).GetProperties())
+                {
+                    PropertyInfo pro = typeof(Project).GetProperty(info.Name);
+                    if (pro != null)
+                        info.SetValue(x, pro.GetValue(project));
+                }
                 dbContext.Project.Update(x);
                 count = dbContext.SaveChanges();
             }

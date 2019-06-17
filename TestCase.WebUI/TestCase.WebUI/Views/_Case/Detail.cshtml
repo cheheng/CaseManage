@@ -2,6 +2,10 @@
 @model ForCase
 @{
     var detail = Model;
+    var units = ViewData["units"] as List<Unit>;
+    var plans = ViewData["plans"] as List<Plan>;
+    var projects = ViewData["projects"] as List<Project>;
+    var relatons = ViewData["relations"] as List<Userrelation>;
 }
 <div class="row">
     <div id="breadcrumb" class="col-md-12">
@@ -31,7 +35,7 @@
                 <div class="no-move"></div>
             </div>
             <div class="box-content">
-                <form class="col-xs-12 " action="@Url.Action("Update","_Case")"  method="post" id="update">
+                <form class="col-xs-12 " action="@Url.Action("Update","_Case")" method="post" id="update">
                     <div class="form-group col-xs-9">
                         <label class="control-label">编号</label>
                         <input type="hidden" class="form-control" value="@detail.Cid" name="cid" />
@@ -41,38 +45,87 @@
                         <label class="control-label">前置条件</label>
                         <textarea class="form-control" style="height:100px;" value="@detail.Previous" name="previous"></textarea>
                         <label class="control-label">执行步骤</label>
-                        <textarea class="form-control" style="height:100px;"  value="@detail.Detail" name="detail"></textarea>
-                        <label class="control-label">实际结果</label>
-                        <textarea class="form-control" style="height:100px;"  value=""></textarea>
+                        <textarea class="form-control" style="height:100px;" value="@detail.Detail" name="detail"></textarea>
+                        <label class="control-label">预期结果</label>
+                        <textarea class="form-control" style="height:100px;" name="prior">@detail.Prior</textarea>
+                        <label class="control-label">执行结果</label>
+                        <textarea class="form-control updateResult" style="height:100px;" value="@detail.Result" name="result" readonly></textarea>
                     </div>
                     <div class="col-xs-3 text-left form-group">
                         <label class="control-label">所属项目</label>
-                        <input type="text" class="form-control"value="@detail.Proid" name="proid" />
+                        <select class="populate placeholder changeState form-control" name="proid">
+                            @for (int i = 0; i < projects.Count; i++)
+                            {
+                                <option value="@projects[i].Proid">@projects[i].Proname</option>
+                            }
+                        </select>
                         <label class="control-label">所属计划</label>
-                        <input type="text" class="form-control" value="@detail.Pid" name="pid" />
+                        <select class="populate placeholder changeState form-control" name="pid">
+                            <option value=""></option>
+                            @for (int i = 0; i < plans.Count; i++)
+                            {
+                                <option value="@plans[i].Pid">@plans[i].Pname</option>
+                            }
+                        </select>
                         <label class="control-label">所属集合</label>
-                        <input type="text" class="form-control"value="@detail.Toname" name="unid" />
-                        <label class="control-label">由谁创建</label>
-                        <input type="hidden" class="form-control" value="@detail.Uid" name="uid" />
-                        <input type="text" class="form-control" value="@detail.Name"  disabled />
+                        <select class="populate placeholder changeState form-control" name="unid">
+                            <option value=""></option>
+                            @for (int i = 0; i < units.Count; i++)
+                            {
+                                <option value="@units[i].Unid">@units[i].UnName</option>
+                            }
+                        </select>
+                        <label class="control-label">创建者</label>
+                        <input readonly class="form-control" name="name" value="@detail.Name"/>
                         <label class="control-label">指派给</label>
-                        <input type="text" class="form-control"value="@detail.Uid2" name="uid2" />
+                        <select class="populate placeholder changeState form-control" name="uid2">
+                            @for (int i = 0; i < relatons.Count; i++)
+                            {
+                                <option value="@relatons[i].Uid">@relatons[i].Name</option>
+                            }
+                        </select>
                         <label class="control-label">优先级</label>
-                        <input type="text" class="form-control"value="@detail.Prior" name="prior" />
-                        <label class="control-label">状态</label>
-                        <select class="populate placeholder" name="state" id="">
+                        <select class="populate placeholder changeState form-control" name="uid2">
+                            @for (int i = 0; i < relatons.Count; i++)
+                            {
+                                <option value="@relatons[i].Uid">@relatons[i].Name</option>
+                            }
+                        </select>
+                        @*<label class="control-label">优先级</label>
+        <input type="text" class="form-control" value="@detail.Prior" name="prior" />*@
+                        <label class="">状态：</label>
+                        <select class="populate placeholder changeState" name="state">
                             @if (detail.State == "enable")
                             {
                                 <option value="enable">启用</option>
-                                <option value="unable">禁用</option>
+                            }
+                            else if (detail.State == "unable")
+                            {
+                                <option value="unable">失败</option>
                             }
                             else
                             {
-                                <option value="unable">禁用</option>
-                                <option value="enable">启用</option>
-
+                                <option value="closed">关闭</option>
                             }
                         </select>
+                        <label class="notice" style="display:none;">注意修改状态！</label>
+                        &nbsp; &nbsp;&nbsp;&nbsp;
+                        @if (detail.State == "closed")
+                        {
+                            <a class=" btn-link reset " onclick="reset()">
+                                <i class="fa fa-repeat">重新启用</i>
+                            </a>
+                            <a class=" btn-link editor" onclick="editor()" style="display:none;">
+                                <i class="fa fa-youtube-play">执行</i>
+                            </a>
+                        }
+                        else
+                        {
+                            <br />
+                            <button class=" btn-link editor   " onclick="editor()">
+                                <i class="fa fa-youtube-play">执行</i>
+                            </button>
+                        }
                     </div>
                 </form>
                 <div class="clearfix"></div>
@@ -80,11 +133,29 @@
         </div>
         <div class="form-group">
             <div class="col-xs-offset-4 ">
-                <button class="btn btn-default btn-link col-xs-3 " id="cancel"><span><i class="fa fa-times-circle-o"></i></span> 取消</button>
-                <button class="btn btn-success btn-link col-xs-3" style="color:dimgray;" type="submit" onclick="toUpdate()"><span><i class="fa fa-check-circle"></i></span> 提交</button>
+                <a class="btn btn-default btn-link col-xs-3 " href='@Url.Action("Index","_Case")' id="cancel"><span><i class="fa fa-times-circle-o"></i></span> 返回</a>
+                <button class="btn btn-success btn-link col-xs-3 develop" style="color:dimgray;" type="submit" onclick="toUpdate()"><span><i class="fa fa-check-circle"></i></span> 提交</button>
             </div>
         </div>
     </div>
 </div>
-
 <script src="~/base.js"></script>
+<script>
+    function reset() {
+        if (confirm("确认启用？")) {
+            var str = ' <option value="enable">启用</option>'
+            jQuery(".changeState").html(str);
+            jQuery(".editor").attr("style", "display:block;");
+            jQuery(".reset").attr("style", "display:none;");
+        }
+    }
+    function editor() {
+        if (confirm("确认执行？")) {
+            var str = '<option value="unable">失败</option><option value="closed">关闭</option>'
+            jQuery(".updateResult").removeAttr("readonly");
+            jQuery(".changeState").html(str);
+            jQuery(".notice").attr("style", "display:;color:crimson;");
+            jQuery(".editor").attr("style", "display:none;");
+        }
+    }
+</script>
